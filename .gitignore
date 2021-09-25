@@ -1,0 +1,16 @@
+# lockfiles
+package-lock.json
+
+# debug files from npm/yarn
+npm-debug.log
+yarn-error.log
+
+## Windows
+Thumbs.db
+Desktop.ini
+
+# Mac crap
+.DS_Store
+
+## Noe
+node_modules/

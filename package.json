@@ -1,0 +1,39 @@
+{
+  "name": "dd-wrt-trac-inspired-themes",
+  "title": "DD-WRT Trac Inspired Themes",
+  "description": "Customizable dark themes for the DD-WRT SVN Trac",
+  "version": "0.0.0",
+  "author": {
+    "name": "Style-it Themes: the-j0k3r",
+    "url": "https://github.com/style-it-themes"
+  },
+  "contributors": [
+    {
+      "name": "The Community Contributors",
+      "url": "https://github.com/style-it-themes/dd-wrt-trac-inspired-themes/graphs/contributors"
+    }
+  ],
+  "repository": "style-it-themes/dd-wrt-trac-inspired-themes",
+  "homepage": "https://github.com/style-it-themes/dd-wrt-trac-inspired-themes",
+  "bugs": {
+    "url": "https://github.com/style-it-themes/dd-wrt-trac-inspired-themes/issues/choose"
+  },
+  "main": "dd-wrt-trac-inspired-themes.user.styl",
+  "license": "MIT - © 2021 Style-it Themes: the-j0k3r",
+  "engines": {
+    "node": ">=14"
+  },
+  "devDependencies": {
+    "eclint": "^2.8.1",
+    "updates": "^12.2.1",
+    "versions": "^9.0.1"
+  },
+  "scripts": {
+    "authors": "bash tools/authors.sh",
+    "patch": "versions -p -C patch dd-wrt-trac-inspired-themes.user.styl",
+    "minor": "versions -p -C minor dd-wrt-trac-inspired-themes.user.styl",
+    "major": "versions -p -C major dd-wrt-trac-inspired-themes.user.styl",
+    "fix": "eclint fix dd-wrt-trac-inspired-themes.user.styl && eclint fix *.md",
+    "update": "updates -cuU && npm install"
+  }
+}

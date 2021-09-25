@@ -1,0 +1,2982 @@
+/* ==UserStyle==
+@name           DD-WRT Trac Inspired Themes
+@namespace      github.com/style-it-themes/dd-wrt-trac-inspired-themes
+@description    Customizable dark themes for the DD-WRT SVN Trac
+@author         Style-it Themes: the-j0k3r
+@homepageURL    https://github.com/style-it-themes/dd-wrt-trac-inspired-themes
+@supportURL     https://github.com/style-it-themes/dd-wrt-trac-inspired-themes/issues/new/choose
+@updateURL      https://github.com/style-it-themes/dd-wrt-trac-inspired-themes/raw/main/dd-wrt-trac-inspired-themes.user.styl
+@version        0.0.0
+@license        MIT
+@preprocessor stylus
+
+@var checkbox sdetails     'Show style details'     0
+
+@var select   cg_theme     'Preset themes toggle'   {
+
+    'Custom colors   *' :  'custom-style'  ,
+    'Dracula          ' :  'dracula'       ,
+    'Duo Cocoa        ' :  'duo-cocoa'           ,
+    'Material         ' :  'material'      ,
+    'Material Darker  ' :  'material-dkr'  ,
+    'Solarized Dark   ' :  'solarized-dark',
+    'Twilight         ' :  'twilight'      ,
+    'The Matrix       ' :  'the-matrix'    ,
+    'Ubuntu           ' :  'ubuntu'        ,
+}
+
+@var color    cg_bg        'Custom background       ' #111a22
+@var color    cg_fg        'Custom foreground       ' #f2f4ff
+@var color    cg_ac        'Custom accent           ' #4f74e3
+
+@var range    cg_sat       'Saturation of RGB colors' [0, -50, 40, 0.01]
+@var range    cg_lig       'Lightness of gray colors' [0, -30, 30, 0.01]
+
+@var checkbox custom_font  'Enable  font overrides  ' 0
+
+@var text     f_ui         'UI font                 ' ''font_name''
+@var text     f_mono       'Monospace font          ' ''font_name''
+@var text     b_hgwd       'Checkbox width/height   ' '.88rem'
+@var text     transition   'Define transition value ' 'all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)'
+
+==/UserStyle== */
+// Helpers.
+rq        = unquote
+stinfo    = 'DD-WRT Trac Inspired Themes v0.0.0'
+copyright = '© 2021 Style-it-themes: the-j0k3r'
+license   = 'MIT'
+homeURL   = 'https://github.com/style-it-themes/dd-wrt-trac-inspired-themes'
+t         = transparent
+i         = !important
+vendors   = official
+
+// Convert colors to HSLA format.
+// NOTE: This is done just for consistency of generated colors.
+to_hsla(input) {
+  $h = {}
+  $h.hue = rq(split('deg', '%s' % ceil(hue(input), 2))[0])
+  $h.saturation = ceil(saturation(input), 2)
+  $h.lightness = ceil(lightness(input), 2)
+  s('hsla(%s,%s,%s,1)', $h.hue, $h.saturation, $h.lightness)
+}
+
+// SVG-friendly colors mixin.
+// NOTE: Compiler does not like HSLA format, so we convert back to HEX.
+to_svg(input) {
+  s('\%23%s', rq(substr(s('%s', convert(input)), 1, 6)))
+}
+
+// Color mixin.
+// All colors: `c: fg bd bg`
+// Only border-color: `c: 0 bd`
+c(x, y = 0, z = 0, xi = 1, yi = 1, zi = 1) {
+  if x != 0 && x != '_' {            color: xi is 0 ? x : x i }
+  if y != 0 && y != '_' {     border-color: yi is 0 ? y : y i }
+  if z != 0 && z != '_' { background-color: zi is 0 ? z : z i }
+}
+
+// SVG colors.
+g(x, y = 0, xi = 1, yi = 1) {
+  if x != 0 && x != '_' {   fill: xi is 0 ? x : x i }
+  if y != 0 && y != '_' { stroke: yi is 0 ? y : y i }
+}
+
+// Border radius mixin.
+r() { border-radius: arguments }
+
+// Box-shadow mixin.
+b() { box-shadow: arguments }
+
+// Color generator.
+// NOTE: Fix the scope to avoid conflicts.
+/{
+  // Generator -> Color-schemes.
+  ColorSchemes = {
+    'custom-style'   : { BG:   cg_bg, FG:   cg_fg, AC:   cg_ac }
+    'duo-cocoa'            : { BG: #28231f, FG: #ffdac2, AC: #dfb249 }
+    'dracula'        : { BG: #282A36, FG: #f8f8f2, AC: #bd93f9 }
+    'material'       : { BG: #263238, FG: #eeffff, AC: #82aaff }
+    'material-dkr'   : { BG: #212121, FG: #eeffff, AC: #82aaff }
+    'solarized-dark' : { BG: #002b36, FG: #fdf6e3, AC: #268bd2 }
+    'twilight'       : { BG: #141414, FG: #f7f7f7, AC: #8f9d6a }
+    'the-matrix'     : { BG: #000000, FG: #ffffff, AC: #00ff00 }
+    'ubuntu'         : { BG: #2c071a, FG: #f2f1ef, AC: #ef7847 }
+  }
+
+  // Select active color-scheme.
+  for color-scheme in ColorSchemes {
+    if (color-scheme == cg_theme) {
+      define('BG', ColorSchemes[color-scheme].BG, global)
+      define('FG', ColorSchemes[color-scheme].FG, global)
+      define('AC', ColorSchemes[color-scheme].AC, global)
+    }
+  }
+
+  // Color values and hues.
+  // NOTE: List with anonymous hashes.
+  colors = (
+    { key: bg, color:   BG } \
+    { key: fg, color:   FG } \
+    { key: v0, color:   AC } \
+    { key: v1, hue:   0deg } \
+    { key: v2, hue:  30deg } \
+    { key: v3, hue:  60deg } \
+    { key: v4, hue: 120deg } \
+    { key: v5, hue: 180deg } \
+    { key: v6, hue: 210deg } \
+    { key: v7, hue: 270deg } \
+    { key: v8, hue: 300deg } \
+    { key: v9, hue:   0deg } \
+  )
+
+  // Alias colors.
+  $bg = colors[0]
+  $fg = colors[1]
+
+  // Generate background colors.
+  for num in 0..5 {
+    $color = $bg.color
+    if num == 1 {} // Skip base BG color.
+    else if num == 0 { $color = darken($color, 10%) }
+    else { $color = lighten($color, (num + 2) * num / 2%) }
+    $color = to_hsla($color)
+
+    $key = s('%s%s', $bg.key, num)
+    $val = 'var(--%s-%s)' % (($bg.key) (num))
+    define('$' + $key, $color, global)
+    define('' + $key, $val, global)
+  }
+
+  // Generate foreground colors.
+  for num in 0..5 {
+    $color = $fg.color
+    if num == 1 {} // Skip base FG color.
+    else if num == 0 { $color = lighten($color, 10%) }
+    else { $color = darken($color, (num + num / 1.25) * 5%) }
+
+    $color = to_hsla($color)
+
+    $key = s('%s%s', $fg.key, num)
+    $val = 'var(--%s-%s)' % (($fg.key) (num))
+    define('$' + $key, $color, global)
+    define('' + $key, $val, global)
+  }
+
+  // Generate all other colors.
+  for c, i in colors[2..length(colors)] {
+    $sel  = colors[i + 2]
+
+    for num in 0..9 {
+      // Case for accent colors.
+      if ($sel.key == v0) {
+        $color = darken($sel.color, (80% - ((num + num / 3) * 7.5)))
+        $color = darken($sel.color, (100% - (num + 3) * 7.5))
+        $color = lightness($color, lightness($color) + num)
+      }
+
+      // Case for gray colors.
+      else if ($sel.key == v9) {
+        $color = hsl($sel.hue, 0%, 50% + cg_lig)
+        $color = darken($color, (100% - (num + 2) * 17))
+      }
+
+      // Case for RGB colors.
+      else {
+        $hue   = $sel.hue
+        $color = hsl($hue, 60% + cg_sat, 60% + cg_lig)
+        $color = darken($color, (100% - (num + 2) * 7.5))
+        $color = lightness($color, lightness($color) + num)
+      }
+
+      // Convert to HSLA format.
+      $color = to_hsla($color)
+
+      $key = s('%s%s', $sel.key, num)
+      $val = 'var(--%s-%s)' % (($sel.key) (num))
+      define('$' + $key, $color, global)
+      define(''  + $key, $val, global)
+    }
+  }
+}
+@-moz-document domain("svn.dd-wrt.com") {
+  // global section triggers and variables
+  :root {
+    // show style name/version/copyright
+    // when inspecting the code or using compiled CSS this info is auto added now.
+    --style-name: rq(stinfo)
+    --copyright: rq(copyright)
+    --license: rq(license)
+    --home-url : rq(homeURL)
+
+    // Generate CSS color variables.
+    colors = (bg fg v0 v1 v2 v3 v4 v5 v6 v7 v8 v9)
+    for color in colors[0..1] {
+      for tone in 0..5 {
+        { '--%s-%s' % ((color) (tone)) }: $ + color + tone
+      }
+    }
+    for color in colors[2..length(colors)] {
+      for tone in 0..9 {
+        { '--%s-%s' % ((color) (tone)) }: $ + color + tone
+      }
+    }
+    // remap generated accent colors + keep v09 as 1:1 AC
+    shade = (dark(BG)) ? darken : lighten
+
+    --v0-0: mix(shade(BG,  0%), AC, 90%)
+    --v0-1: mix(shade(BG, 40%), AC, 80%)
+    --v0-2: mix(shade(BG, 40%), AC, 70%)
+    --v0-3: mix(shade(BG, 40%), AC, 60%)
+    --v0-4: mix(shade(BG, 65%), AC, 50%)
+    --v0-5: mix(shade(BG, 50%), AC, 40%)
+    --v0-6: mix(shade(BG, 50%), AC, 30%)
+    --v0-7: mix(shade(BG, 50%), AC, 20%)
+    --v0-8: mix(shade(BG, 50%), AC, 10%)
+    --v0-9: mix(shade(BG, 50%), AC, 0%)
+
+    // rgba BG/AC vars
+    --rgba-bg-01: rgba(BG, .1)
+    --rgba-bg-03: rgba(BG, .3)
+    --rgba-bg-04: rgba(BG, .4)
+    --rgba-bg-05: rgba(BG, .5)
+    --rgba-bg-075: rgba(BG, .075)
+    --rgba-ac-06: rgba(AC, .6)
+
+    $font_family_1 = Arial, Verdana, 'Bitstream Vera Sans', Helvetica, sans-serif
+    $font_family_2 = inherit
+    $font_family_3 = sans-serif
+    $font_family_4 = monospace
+    $font_family_5 = Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
+  }
+
+  html {
+    max-width: 1012px
+    margin: auto
+  }
+  body {
+    background: bg1
+    color: v98
+    margin: 10px
+    padding: 0
+    font: normal 14px Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif
+  }
+  th {
+    font: normal 14px Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif
+  }
+  tr {
+    font: normal 14px Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif
+  }
+  h1 {
+    font-family: $font_family_1
+    margin: .15em 1em 0.5em 0
+    :link {
+      color: v07
+      border: 1px solid t
+    }
+    :visited {
+      color: inherit
+    }
+    &:hover {
+      .anchor {
+        visibility: visible
+      }
+    }
+    &:target {
+      background: v02
+      box-shadow: none
+      border-radius: 0
+    }
+    .first:link {
+      color: v97
+    }
+  }
+  h2 {
+    font-family: $font_family_1
+    font-weight: bold
+    letter-spacing: -0.018em
+    page-break-after: avoid
+    &:target {
+      background: v02
+      box-shadow: none
+      border-radius: 0
+    }
+    .trac-count {
+      margin-left: .2em
+      vertical-align: baseline
+      color: v97
+      font-size: 90%
+    }
+  }
+  h3 {
+    font-family: $font_family_1
+    font-weight: bold
+    letter-spacing: -0.018em
+    page-break-after: avoid
+    font-size: 14px
+    :link {
+      color: inherit
+    }
+    :visited {
+      color: inherit
+    }
+    &:target {
+      background: v02
+      box-shadow: none
+      border-radius: 0
+    }
+    .trac-count {
+      margin-left: .2em
+      color: v97
+      font-size: 90%
+    }
+  }
+  h4 {
+    font-family: $font_family_1
+    :link {
+      color: inherit
+    }
+    :visited {
+      color: inherit
+    }
+    &:hover {
+      .anchor {
+        visibility: visible
+      }
+    }
+    &:target {
+      background: v02
+      box-shadow: none
+      border-radius: .2em
+    }
+  }
+  hr {
+    border: none
+    border-top: 1px solid bg4
+    margin: 2em 0
+  }
+  address {
+    font-style: normal
+  }
+  img {
+    border: none
+  }
+  .underline {
+    text-decoration: underline
+  }
+  ol.loweralpha {
+    list-style-type: lower-alpha
+  }
+  ol.upperalpha {
+    list-style-type: upper-alpha
+  }
+  ol.lowerroman {
+    list-style-type: lower-roman
+  }
+  ol.upperroman {
+    list-style-type: upper-roman
+  }
+  ol.arabic {
+    list-style-type: decimal
+  }
+  :link {
+    text-decoration: none
+    color: v07
+    border-bottom: 0
+    &:hover {
+      background-color: t
+      color: v09
+      box-shadow: none
+      border-bottom: 0
+    }
+  }
+  :visited {
+    text-decoration: none
+    color: v15
+    border-bottom: 1px dotted bg4
+    &:hover {
+      background-color: t
+      color: v95
+    }
+  }
+  h5 {
+    :link {
+      color: inherit
+    }
+    :visited {
+      color: inherit
+    }
+    :target {
+      background: v02
+      box-shadow: none
+      border-radius: 0
+    }
+  }
+  h6 {
+    &:link {
+      color: inherit
+    }
+    &:visited {
+      color: inherit
+    }
+    &:target {
+      background: v02
+      box-shadow: none
+      border-radius: 0
+    }
+  }
+  .anchor {
+    &:link {
+      border: none
+      color: v09
+      font-size: .8em
+      vertical-align: text-top
+    }
+    &:visited {
+      border: none
+      color: v97
+      font-size: .8em
+      vertical-align: text-top
+    }
+  }
+  * {
+    >.anchor {
+      &:link {
+        visibility: hidden
+      }
+      &:visited {
+        visibility: hidden
+      }
+    }
+    html {
+      .suggestions {
+        ul {
+          height: 10em
+        }
+      }
+    }
+  }
+  span {
+    &:hover {
+      .anchor {
+        visibility: visible
+      }
+    }
+    &:target {
+      background: v02
+      box-shadow: none
+      border-radius: .2em
+    }
+  }
+  .tracini {
+    table.wiki {
+      tbody {
+        tr {
+          :target {
+            background: v02
+          }
+        }
+      }
+    }
+    .tracini-option {
+      border: none
+      position: relative
+      &:link {
+        &:hover {
+          background-color: t
+        }
+      }
+      &:visited {
+        &:hover {
+          background-color: t
+        }
+      }
+    }
+    tr[id] {
+      &:hover {
+        .tracini-option {
+          &:before {
+            content: "\00b6"
+            position: absolute
+            display: block
+            left: -1em
+            width: 1em
+            color: v97
+            z-index: 1
+          }
+        }
+      }
+    }
+  }
+  input {
+    margin: 2px
+    font-family: $font_family_1
+    font-size: 100%
+    vertical-align: middle
+  }
+  textarea {
+    margin: .2em
+    border: 1px solid bg4
+    r: .2em .2em 0 0
+    &:focus {
+      border: 1px solid v05
+      outline: 0
+    }
+  }
+  select {
+    margin: 2px
+    font-family: $font_family_1
+    font-size: 100%
+    vertical-align: middle
+  }
+  .trac-button {
+    margin: 2px
+    vertical-align: middle
+    background: bg4
+    color: v98
+    border: 1px solid bg4
+    border-radius: .2em
+    padding: .1em 1em .2em
+    text-shadow: none
+    box-shadow: none
+    cursor: pointer
+    &:hover {
+      background: bg5
+      text-shadow: none
+      box-shadow: none
+    }
+    &:active {
+      position: relative
+      top: .1em
+      left: .1em
+    }
+  }
+  button {
+    font-family: $font_family_1
+    font-size: 100%
+  }
+  input[type='button'] {
+    color: bg1
+    border-radius: .2em
+    padding: .1em .5em .2em
+    text-shadow: none
+    box-shadow: none
+    cursor: pointer
+    &:hover {
+      text-shadow: none
+      box-shadow: none
+    }
+    &:active {
+      position: relative
+      top: .1em
+      left: .1em
+    }
+  }
+  input[type='submit'] {
+    border-radius: .2em
+    text-shadow: none
+    box-shadow: none
+    &:hover {
+      text-shadow: none
+      box-shadow: none
+    }
+    &:active {
+      position: relative
+      top: .1em
+      left: .1em
+    }
+  }
+  input[type=reset] {
+    border-radius: .2em
+    text-shadow: none
+    box-shadow: none
+    &:hover {
+      text-shadow: none
+      box-shadow: none
+    }
+    &:active {
+      position: relative
+      top: .1em
+      left: .1em
+    }
+  }
+  .inlinebuttons {
+    a {
+      &:active {
+        position: relative
+        top: .1em
+        left: .1em
+      }
+      border-radius: .2em
+      padding: 0 .4em .1em
+      font-size: 70%
+      box-shadow: none
+      margin: 0 .1em .1em
+      background: none
+      color: v98
+      &:hover {
+        color: v98
+        text-shadow: none
+        box-shadow: none
+      }
+    }
+    input {
+      border: 1px solid bg4
+      border-radius: .2em
+      height: 1.5rem
+      padding: 0 .4em .1em
+      font-size: 70%
+      margin-top: .4rem
+      background: none
+      box-shadow: none
+      color: v98
+    }
+    .trac-button {
+      border: 1px solid bg4
+      border-radius: 1em
+      height: 1.6em
+      padding: 0 .4em .1em
+      font-size: 70%
+      box-shadow: none
+      margin: 0 .1em .1em
+      background: none
+      color: @color_9
+      cursor: pointer
+      &:hover {
+        background: v04
+        color: v99
+        text-shadow: none
+        box-shadow: none
+      }
+    }
+    input[type='button'] {
+      &:hover {
+        background: v04
+        color: v99
+        text-shadow: none
+        box-shadow: none
+      }
+    }
+    input[type='submit'] {
+      &[title*="reply" i], &[title*="edit" i] {
+        font-size: 14px
+        padding: 0 .6em 0
+      }
+      &:hover {
+        background-color: v08
+        border: 1px solid v09
+        color: v99
+        text-shadow: none
+        box-shadow: none
+      }
+    }
+  }
+  input.textwidget {
+    border: 1px solid bg4
+    border-radius: .2em
+    padding: .25em .5em
+    &:focus {
+      border: 1px solid v09
+      outline: 0
+    }
+  }
+  option {
+    border-bottom: 1px dotted bg5
+  }
+  fieldset {
+    border: 1px solid bg4
+    border-radius: .2em
+    margin: 1em 0
+    background: bg2
+    box-shadow: none
+    padding: 1em
+    color: v98
+    > legend.foldable {
+      :link {
+        color: v98
+        font-size: 14px
+        text-shadow: none
+      }
+      &:visited {
+        color: v98
+        font-size: 110%
+        text-shadow: none
+      }
+    }
+  }
+  p.hint {
+    color: v98
+    font-size: 85%
+    margin: .5em 0
+    padding-left: 1em
+  }
+  span.hint {
+    color: v98
+    font-size: 85%
+    font-style: italic
+    margin: .5em 0
+    padding-left: 1em
+    vertical-align: middle
+  }
+  span.trac-datetimehint {
+    color: v98
+    font-size: 85%
+    font-style: italic
+    margin: .5em 0
+    padding-left: 1em
+  }
+  p.help {
+    color: v98
+    font-size: 90%
+    margin: 1em .5em .5em
+  }
+  legend {
+    color: v97
+    padding: 0 .6em
+  }
+  label {
+    &.disabled { color: v97 }
+    &.trac-textarea-hint { color: v95 }
+  }
+  .disabled {
+    span.hint {
+      color: v97
+    }
+    p.help {
+      color: v97
+    }
+    legend {
+      color: v97
+    }
+    input {
+      color: v97
+    }
+    select {
+      color: v97
+    }
+  }
+  .readonly {
+    span.hint {
+      color: v97
+    }
+    p.help {
+      color: v97
+    }
+  }
+  .buttons {
+    margin: .5em .5em .5em 0
+    form {
+      display: inline
+      div {
+        display: inline
+      }
+    }
+    input {
+      margin: 1em .5em .1em 0
+    }
+  }
+  .uisymbols {
+    .inlinebuttons {
+      input[type='button'],
+      input[type='submit'],
+      .trac-button a {
+        font-size: 100%
+      }
+    }
+    #fieldhist {
+      .inlinebuttons {
+        a {
+          font-size: 85%
+        }
+      }
+    }
+    div.system-message {
+      .trac-close-msg {
+        > span {
+          display: none
+        }
+        &::after {
+          content: '\0078'
+        }
+      }
+    }
+  }
+  input[type='button'].trac-delete {
+    color: v98
+    &:hover {
+      color: v98
+    }
+  }
+  input[type='submit'].trac-delete {
+    color: v98
+    &:hover {
+      color: v98
+    }
+  }
+  .trac-button.trac-delete {
+    color: v98
+    &:hover {
+      color: v98
+    }
+  }
+  textarea.trac-fullwidth, #trac-comment-editor textarea {
+    background: bg0
+    color: v98
+    box-shadow: none
+  }
+  input.trac-fullwidth {
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+    margin-left: 0
+    margin-right: 0
+    width: 100%
+  }
+  button.trac-fullwidth {
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+    margin-left: 0
+    margin-right: 0
+    width: 100%
+  }
+  form.mod {
+    margin: 1em 0
+    .field {
+      margin: .5em 0
+      label {
+        padding-left: .2em
+      }
+    }
+    .field.description {
+      margin-top: 1em
+    }
+    #changeinfo {
+      .field {
+        margin: 0.25em 0 0.75em 0
+      }
+      .options {
+        padding: 0 0 0.5em 1em
+      }
+    }
+  }
+  #header {
+    #logo img {
+      rq = unquote
+      &[src*='trac_banner.png'] {
+        prefix = 'data:image/png;base64,'
+        path   = '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'
+
+        background: s("url('%s%s') %s", rq(prefix), rq(path))
+        //background: url('https://www.thanop.com/wp-content/uploads/2014/03/repeater-bridge-wifi-ddwrt-logo.png')
+
+        background-size: 310px
+        padding-left: 310px
+        padding-top: 71px
+        height: 0
+        width: 0
+        margin-bottom: -1.9rem
+        margin-top: -10px
+        filter: invert(.9) hue-rotate(180deg)
+        mix-blend-mode: lighten
+      }
+    }
+  }
+  #banner {
+    height: 80px
+  }
+  .nav:not(#mainnav):not(#ctxnav) {
+    margin-top: 0
+    margin-bottom: 4.7rem
+    ul {
+      font-size: 10px
+      margin: 0
+      padding: 0
+    }
+    li {
+      font-size: 14px
+      border-color: bg5
+    }
+    &#metanav {
+      margin-top: -8rem
+      margin-left: 15rem
+
+      form.trac-logout {
+        button {
+          background: t
+          font-family: font_family_2
+          font-size: 100%
+          color: v19
+          border-bottom: .1rem dotted v98
+          cursor: pointer
+          &::-moz-focus-inner {
+            border: 0
+            padding: 0
+          }
+          &:hover {
+            background-color: t
+            color: v96
+            box-shadow: none
+          }
+          &:active {
+            position: static
+          }
+        }
+      }
+      .first {
+          color: v96
+      }
+    }
+  }
+
+  #mainnav {
+    box-shadow: none
+    border-color: t
+    max-width: 980px
+    position: absolute
+    margin-top: 3rem
+    li {
+      background: bg4
+      border: 1px solid bg0
+      font-size: 100%
+      padding: .9em 0
+      &:hover {
+        border-width: 1px
+      }
+    }
+    &.first {
+      border-top-left-radius: .2em i
+      border-bottom-left-radius: .2em i
+      :link {
+        border-top-left-radius: .2em
+        border-bottom-left-radius: .2em
+      }
+    }
+    &.last {
+      border-top-right-radius: .2em
+      border-bottom-right-radius: .2em
+      margin-right: 0
+      :link {
+        border-top-right-radius: .2em
+        border-bottom-right-radius: .2em
+        margin-right: 0
+      }
+    }
+    :link, :visited  {
+      border-bottom: none
+      box-shadow: none
+      color: v98
+      border-width: 1px
+      padding: .9em 20px
+      &:hover {
+        background: t
+        border-bottom: 4px solid v06
+        color: v99
+        box-shadow: none
+        transition: transition
+        padding: .9em 20px
+      }
+    }
+    .active {
+      border-left: 1px solid bg0
+      border-right: 1px solid bg0
+      border-top: 0
+      border-bottom: 0
+      :link, :visited {
+        background: none
+        border-bottom: 4px solid v06
+        color: v98
+        text-shadow: none
+        padding: .9em 20px
+      }
+    }
+  }
+  #banner form#search {
+    padding-bottom: 4rem
+    input {
+      display: none
+    }
+    label {
+      display: none
+    }
+  }
+  #pagepath {
+    .pathentry {
+      margin-top: 4rem
+    }
+    .first:link {
+      color: v97
+    }
+  }
+  #ctxtnav {
+    margin-right: 11rem
+    li {
+      color: v98
+      ul {
+        background: t
+        color: v97
+        border: 1px solid
+        padding: 0
+        display: inline
+        margin: 0
+      }
+      li {
+        padding: 0
+        :link {
+          padding: 0 1em
+          &:hover {
+            background: bg4
+            color: v95
+          }
+        }
+        :visited {
+          padding: 0 1em
+          &:hover {
+            background: bg4
+            color: v95
+          }
+        }
+      }
+    }
+    .last.first {
+      float: left
+      top: 0
+      left: 0
+      margin: .3rem -.9rem
+    }
+    /*
+    .first {
+      float: left
+      margin: .3rem -.9rem
+    }
+    .last {
+      float: left
+      margin: .3rem 1rem
+    }
+    */
+  }
+  .trac-nav {
+    font-size: 80%
+  }
+  .trac-topnav {
+    font-size: 14px
+  }
+  .trac-workflow-graph canvas {
+    filter: invert(.9) hue-rotate(180deg)
+    mix-blend-mode: lighten
+  }
+  #altlinks {
+    margin-top: 1em
+    h3 {
+      font-size: 14px
+    }
+    ul {
+      list-style: none
+      margin: 0
+      padding: 0
+    }
+    li {
+      border-right: 1px solid bg5
+
+      :link {
+        color: v94
+        border: none
+        font-size: 65%
+
+      }
+      &:visited {
+        background-repeat: no-repeat
+        color: v98
+        border: none
+      }
+      a.ics {
+        padding-left: 22px
+      }
+      a.rss {
+        padding-left: 20px
+      }
+    }
+    li.last {
+      border-right: none
+    }
+  }
+  #footer {
+    color: v98
+    font-size: 10px
+    :link {
+      color: v95
+    }
+    :visited {
+      color: v86
+    }
+    hr {
+      display: block
+    }
+    #tracpowered {
+      &:hover {
+        background: t
+      }
+      img {
+        filter: invert(.9) hue-rotate(180deg) saturate(5)
+        mix-blend-mode: lighten
+      }
+    }
+    p {
+      margin: 0
+    }
+    p.left {
+      float: left
+      margin-left: 1em
+      padding: 0 1em
+      border-left: 1px solid bg4
+      border-right: 1px solid bg4
+    }
+  }
+  #diffrev, #jumprev, #jumploc {
+    float: left
+    margin: .5rem .2rem
+  }
+  #content {
+    .paging {
+      font-size: 110%
+      .current {
+        border: 1px solid v06
+        background: v04
+        color: v99
+        r: .15rem
+      }
+      :link {
+        padding: .1em .3em
+        border: 1px solid bg5
+        background: t
+        color: v98
+        r: .15rem
+        &:hover {
+          background: v05
+          color: v98
+          border-color: v08
+        }
+      }
+      :visited {
+        padding: .1em .3em
+        border: 1px solid bg4
+        background: t
+        color: v98
+        &:hover {
+          background: t
+          color: v98
+          border-color: bg4
+        }
+      }
+      .previous {
+        a {
+          font-size: 150%
+          font-weight: bold
+          border: none
+          &:hover {
+            background: t
+            color: v98
+          }
+        }
+      }
+      .next {
+        a {
+          font-size: 150%
+          font-weight: bold
+          border: none
+          &:hover {
+            background: t
+            color: v98
+          }
+        }
+      }
+    }
+    &.search {
+      // re-align this
+      max-width: 800px
+      margin: 1rem -1rem
+      text-align: center
+      .filters {
+        color: v97
+        margin: 0 0 0 -8rem
+      }
+      hr {
+        border-color: bg5
+      }
+      #results {
+        margin-right: 0
+        text-align: left
+        font-size: 15px
+        dt a {
+          color: v07
+          &:hover { color: v09 }
+        }
+        .trac-author, .date {
+          color: v46
+        }
+      }
+      .trac-help {
+        margin-top: 1rem
+        font-size: 12px
+      }
+      // lets do away with the obvious
+      // really cant be placed before without a lot of hacking
+      h1 label[for="q"] {
+        display: none
+      }
+    }
+    &.ticket {
+      width: 830px
+      margin: 1rem 0
+      // fix images oveflowing out of bounds.
+      .comment p a[href*='/attachment/'] img {
+        max-width: 99%
+      }
+      .trac-nav a {
+        font-size: 14px
+        margin-right: -6px
+        &#trac-up-attachments {
+          padding-right: 5px
+          border-right: 2px solid v02
+        }
+        &#trac-up-view {
+          margin-left: -1px
+        }
+      }
+    }
+    &.timeline {
+      width: 900px
+      margin: auto 0
+      h1 { font-size: 100%; letter-spacing: 0.03em }
+      #prefs {
+        &[action="#"] {
+          padding: 1rem 1rem 1rem
+          margin-right: -15em
+          margin-top: -4.5333rem
+        }
+      }
+    }
+    &.browser {
+      width: 900px
+      margin: 1rem 0
+      h1 { font-size: 100% }
+    }
+    &.narrow #trac-wiki-expander {
+      &::before {
+        content: '\01F81E'
+        font-size: 1.8rem
+      }
+    }
+    #trac-wiki-expander {
+      &::before {
+        content: '\01F81C'
+        font-size: 1.8rem
+        color: v98
+      }
+    }
+    h1, h2, h3, h4, h5, h6 {
+      color: v98
+      &.section {
+        background: t
+        border-bottom: 1px solid bg5
+        color: v97
+        padding: .3em .3em .2em .5rem
+        &:target {
+          background: v02
+          box-shadow: none
+          border-radius: .2em
+          border-color: t
+          margin-left: -1.6rem
+          padding: .3em 0 .3em .5rem
+        }
+      }
+      code {
+        color: v69
+      }
+      .numresults {
+        color: v98
+        font-size: 90%
+      }
+    }
+    &.prefs {
+      #tabs li {
+        background: bg2
+        border-color: bg4
+        padding: .5em 2em .5em
+        r: .2em
+        &.active, &:hover {
+          background: v05
+          border: 1px solid v09
+          border-bottom: 1px solid t
+          color: v99
+          r: .2em
+        }
+        :link {
+          color: v99
+          &:hover {
+            color: v99
+          }
+        }
+      }
+      #tabs :link {
+        &:hover {
+          border-color: bg4
+          color: v97
+        }
+      }
+      #tabcontent {
+        background: bg2
+        border: 1px solid bg4
+        padding: 15px 10px 15px 10px
+        margin-bottom: .5rem
+        r: .2em
+      }
+    }
+    &.wiki {
+      max-width: 810px
+      margin: .8rem 0 0 -2.1rem
+      float: left
+    }
+    &.login {
+      margin: 3rem 0
+    }
+    p, label { color: v98 }
+    &.ticket .trac-topnav {
+      text-align: left
+      color: v98
+      font-weight: 900
+    }
+  }
+  #altlinks h3 {
+    color: v96
+  }
+  div.trac-content {
+    border: 0
+    border-radius: 0
+    box-shadow: none
+    p, li {
+      color: v97
+      line-height: 1.8em
+    }
+    span[style="color: grey"] {
+      color: v97 i
+      font-style: italic i
+    }
+  }
+  .trac-author-anonymous {
+    font-style: italic
+  }
+  .trac-author-none {
+    font-style: italic
+  }
+  .trac-author-user {
+    font-weight: bold
+    color: v67
+  }
+  .uinohelp {
+    #help {
+      display: none
+    }
+  }
+  #help {
+    clear: both
+    color: v97
+    font-size: 90%
+    margin: 1em
+    text-align: right
+    &:link {
+      cursor: help
+    }
+    &:visited {
+      cursor: help
+    }
+    hr {
+      display: none
+    }
+  }
+  .trac-nodatetimehint {
+    .trac-datetimehint {
+      display: none
+    }
+  }
+  .foldable {
+    :link {
+      border: 0
+      box-shadow: none
+      color: bg1
+      text-shadow: none
+      background: none
+      &::before {
+        content: '\23F7'
+        margin-left: -1rem
+      }
+      &:hover {
+        background-color: t
+      }
+    }
+    :visited {
+      border: none
+      border-radius: .2em
+      box-shadow: none
+      color: bg1
+      text-shadow: none
+      &:hover {
+        background-color: t
+      }
+    }
+  }
+  .collapsed {
+    > .foldable {
+      :link {
+        background: none
+        &::before {
+          content: '\23F5'
+          margin-left: -1rem
+        }
+      }
+      :visited {
+        background: none
+        &::before {
+          content: '\23F5'
+          color: v85
+          margin-left: -1rem
+        }
+      }
+    }
+    legend.foldable {
+      background: t
+    }
+  }
+  .expander {
+    background: none i
+    &::before {
+      content: '\23F5'
+      font-size: 130%
+      color: v98
+      margin-left: -1rem
+      &:hover {
+        color: v09 i
+      }
+    }
+  }
+  .expander.expanded {
+    background: none i
+    &::before {
+      content: '\23F7'
+      font-size: 130%
+      margin-left: -.8rem
+    }
+  }
+  #prefs {
+    background: bg2
+    border: 1px solid bg4
+    border-radius: .2em
+    box-shadow: none
+    font-size: 85%
+    margin: 0 0 2em
+    input {
+      font-size: 12px
+      vertical-align: middle
+    }
+    select {
+      vertical-align: middle
+    }
+    fieldset {
+      background: t
+      border: none
+      box-shadow: none
+      margin: .5em
+      padding: 0
+      legend {
+        background: t
+        color: v98
+        font-size: 12px
+        font-weight: normal
+        margin: 0 0 0 -1.5em
+        padding: 0
+      }
+      &#ignore legend {
+        margin: 0 0 0 -.8em
+        padding: .1rem 0 .4rem 0
+      }
+    }
+    .buttons {
+      text-align: right
+    }
+    &[action="#"] {
+      padding: 1rem 1rem 1rem
+    }
+  }
+  #ticketbox {
+    background: bg2
+    border: 1px solid bg4
+    border-radius: .2em
+
+    div.description h2 {
+      border-bottom: 1px solid bg4
+      color: v35
+    }
+    > h1, > h2 {
+      color: v07
+    }
+    table.properties {
+      clear: both
+      border-top: 2px solid bg5
+      > tbody > tr > th {
+        color: v07
+        &.missing {
+          color: v37
+        }
+      }
+      > tbody > tr {
+        border-bottom: 1px dotted v99
+      }
+    }
+    .date {
+      color: v37
+    }
+    &.ticketdraft {
+      background: bg3
+    }
+    /.ticketdraft {
+      background: bg2
+      border-color: bg4
+      r: .2em
+    }
+  }
+  #ticketchange {
+    .changes {
+      margin: 2em 0 2.5em 3em
+      color: v18
+      border-color: bg4
+      border-radius: .2em
+      float: right
+      box-shadow: none
+    }
+    h3 {
+      &.change {
+        background: bg1
+        color: v08
+        font-size: 110%
+        padding: 5px 0 10px 15px
+      }
+      &:target {
+        background: v02
+        color: v98
+        padding: 8px
+        font-size: 110%
+      }
+    }
+    .comment {
+      line-height: 1.4em
+      font-size: 95%
+    }
+  }
+  #changelog {
+    .changes {
+      background: bg0
+      border-color: bg4
+      border-radius: .2em
+      box-shadow: none
+      color: v18
+      float: right
+      font-size: 110%
+      margin: 2em 0 2.5em 3em
+    }
+    .change {
+      background-color: bg2
+      border-width: 1px
+      border-style: solid
+      border-color: bg4
+      margin-top: 15px
+      border-radius: .2em
+      padding: 2px
+      h3 {
+        padding: 5px 0 10px 15px
+        &.change {
+          background: bg1
+          color: v08
+          font-size: 110%
+          padding: 5px 0 10px 15px
+        }
+        &:target {
+          background: v02
+          color: v98
+          padding: 8px
+          font-size: 110%
+        }
+      }
+    }
+    .comment {
+      line-height: 1.4em
+      font-size: 95%
+      ol li { color: v97}
+    }
+  }
+  .foldable :link, .foldable :visited {
+    border-color: bg4
+    border-radius: .2em
+    box-shadow: none
+    color: v98
+    text-shadow: none
+    padding: .2em .5em .3em 20px
+  }
+  .report {
+    #prefs {
+      margin-top: -2.5rem
+    }
+    div.reports {
+      h2 {
+        padding: 0.2em .3em .1em 0
+        border-bottom: 2px solid bg4
+        box-shadow: none
+      }
+      h3 {
+        em {
+          color: v08
+        }
+        :link, :visited { color: v97 }
+      }
+    }
+    #trac-sort-order {
+      padding-top: .6em
+      a.desc {
+        background-image: none
+        font-size: 14px
+        &::after {
+          content: ' \2BC6'
+        }
+      }
+      a.asc {
+        background-image: none
+        font-size: 14px
+        &::after {
+          content: ' \2BC5'
+        }
+      }
+    }
+  }
+  h2.report-result {
+    background: t
+    box-shadow: none
+    border-bottom: 2px solid bg4
+    margin: 0 0 .8em 0
+    r: 0
+  }
+  .tickets {
+    tbody tr {
+      border-color: bg4
+      &:hover { color: v97 }
+    }
+    tr.trac-columns th {
+      border: 1px solid bg4
+      border-bottom-color: bg4
+      background: bg3
+      font-size: 14px
+    }
+    tbody tr.fullrow td,
+    tbody td.fullrow {
+      color: v97
+      line-height: 1.4em
+    }
+  }
+  table.tickets caption.trac-group {
+    border: 0
+  }
+  h1, h2 {
+    .numrows {
+      color: v97
+    }
+  }
+  #info {
+    background: bg2
+    border-color: bg4
+    border-collapse: unset
+    color: v98
+    r: .2em
+    th {
+      font-size: 100%
+      padding: .8em .8em
+      r: .2em
+    }
+    td {
+      font-size: 85%
+      line-height: 1.4em
+      padding: 2px .5em
+      vertical-align: top
+    }
+    td.message {
+      width: 100%
+    }
+    .message {
+      ul {
+        padding: 0
+        margin: 0 2em
+      }
+      p {
+        margin: 0
+        padding: 0
+      }
+    }
+    .props {
+      color: v06
+    }
+  }
+  .trac-help {
+    color: v96
+    font-size: 65%
+    text-align: center
+    margin: 1rem 0
+  }
+  a.trac-diff {
+    &::after {
+      content: '\25B3'
+    }
+  }
+  #overview {
+    color: v98
+  }
+  .diff {
+    li.entry {
+      background: bg2
+      border: 1px solid bg4
+      border-radius: .2em
+      box-shadow: none
+    }
+    pre {
+      background: darken(convert($v90), 60%)
+      border-color: bg4
+      padding-left: .5em
+      color: v98
+      font-size: 14px
+      // unified diffs this goes out of box
+      // e.g. https://svn.dd-wrt.com/attachment/ticket/5853/initialize.fw.patch
+      white-space: pre-wrap
+    }
+    h2 {
+      color: v98
+      .switch {
+        color: v69
+        span {
+          border-left: 1px solid v29
+          &.active {
+            color: v08
+          }
+        }
+      }
+    }
+    table.trac-diff {
+      border: 1px solid bg4
+      color: v98
+      thead th {
+        background: bg3
+        border-top: 1px solid bg4
+        color: v98
+      }
+      th {
+        border-right-color: bg4
+        border-top-color: bg4
+        &:hover {
+          c: v99 0 bg3
+        }
+      }
+      thead td {
+        background: bg2
+        border: 1px solid bg5
+      }
+      td {
+        background: darken(convert($v90), 60%)
+      }
+      tbody.mod tr:hover td,
+      tbody.add tr:hover td,
+      tbody.rem tr:hover td {
+        background: rgba(convert($v91), .5)
+      }
+      tbody.skipped td {
+        background: v90
+        border: 1px solid v90
+      }
+
+    }
+    table.inline tbody {
+      &.rem td.l, &.mod td.l {
+        background: v10
+        border-color: v12
+      }
+      &.mod td del {
+        background: v13
+        color: v99
+      }
+      &.mod td.r, &.add td.r {
+        background: v40
+        border-color: v42
+      }
+      &.mod td ins {
+        background: v42
+        color: v99
+      }
+      th {
+        background: bg2
+        color: v97
+      }
+      tr:hover td {
+        background: bg2
+      }
+    }
+    table.sidebyside tbody {
+      &.mod td.l, &.mod td.r {
+        background: v31
+      }
+      &.mod del, &.mod ins {
+        background: v35
+        color: v99
+      }
+    }
+    dd { color: v98 }
+  }
+  .chglist .edit, #overview .mod, .diff .legend .mod {
+    background: v35
+    r: .2em
+  }
+  .chglist .delete, #overview .rem, .diff .legend .rem {
+    background: v15
+    r: .2em
+  }
+  .chglist .add, #overview .add, .diff .legend .add {
+    background: v45
+    r: .2em
+  }
+  .legend dt {
+    background: v90
+    border: 1px solid v95
+    r: .2em
+  }
+  pre.diff .rem {
+    background: v11
+  }
+  pre.diff .add {
+    background: v41
+  }
+  table.code {
+    border-color: bg4
+    box-shadow: none
+    thead th {
+      background: bg2
+      border-top: 1px solid bg4
+      color: v98
+    }
+    th {
+      border-right: 1px solid bg4
+      border-bottom: 1px solid bg4
+      font-size: 100%
+    }
+    td {
+      color: v97
+    }
+    tbody th {
+      background: v90
+      color: v96
+      &:hover {
+        background: v91
+      }
+      :link {
+        color: v07
+        &:hover {
+          color: v09
+        }
+      }
+      :visited {
+        &:hover {
+          color: v75
+        }
+      }
+    }
+    tbody tr {
+      &:hover td {
+        background: v90
+      }
+    }
+  }
+  .wikipage {
+    padding-left: 18px
+    h1, h2, h3 {
+      margin-left: -18px
+    }
+    table {
+      h1, h2, h3 {
+        margin-left: 0px
+      }
+    }
+  }
+  div.compact {
+    > p {
+      &:first-child {
+        margin-top: 0
+      }
+      &:last-child {
+        margin-bottom: 0
+      }
+    }
+  }
+  .timeline {
+    h2 {
+      background: bg2
+      border: 1px solid bg4
+      padding: .7em
+      box-shadow: none
+      border-radius: .2em
+    }
+    dt {
+      .time {
+        color: v97
+        &:hover {
+          color: v09
+        }
+      }
+      em { color: v47 }
+      :link, :visited {
+        color: v98
+        padding: 0 20px 20px 27px
+      }
+      :link:hover, :visited:hover {
+        background-color: t
+        color: v09 i
+      }
+      .trac-author {
+        color: v95
+      }
+      > :link, > :visited {
+
+      }
+      &.changeset {
+        background-image: none i
+        a {
+          background-image: none i
+          margin-left: -25px
+          &::before {
+            content: '\00B1'
+            font-size: 18px
+            color: v98
+            padding-right: 3px
+            padding-top: 7px
+            font-weight: 900
+          }
+        }
+      }
+      &.closedticket {
+        background-image: none i
+        a {
+          background-image: none i
+          margin-left: -23px
+          &::before {
+            content: '\2714'
+            font-size: 16px
+            color: v47
+            padding-right: 3px
+            font-weight: 900
+          }
+        }
+      }
+      &.newticket, &.reopenedticket {
+        a {
+          background-image: none i
+          margin-left: -23px
+          &::before {
+            content: '\2728'
+            font-size: 16px
+            color: v47
+            margin-right: -4px
+            rotation: 80deg
+          }
+        }
+      }
+    }
+    dd {
+      color: v97
+      font-size: 90%
+      margin: 0 0 auto 2.5em
+    }
+    dl.unread {
+      border-left: .4rem solid v43
+      r: 2px
+    }
+  }
+
+  #delete-confirm {
+    li {
+      list-style-type: square
+    }
+  }
+  .wiki-toc {
+    background: bg3
+    border-radius: 3px
+    border-color: bg4
+    box-shadow: none
+    font-size: .8rem
+    ol {
+      ol {
+        padding-right: 1.2em
+      }
+    }
+    .active {
+      background: v02
+      border-radius: .2em
+      padding: 5px 0 5px 5px
+      margin-left: -5px
+      margin-right: -5px
+      a { color: v98 }
+    }
+    &[style] {
+      background: bg2 i
+      border-radius: 3px i
+      border-color: bg4 i
+      margin-top: -8.5rem
+      margin-right: -13.8rem
+      margin-bottom: 9.5rem
+    }
+    h4.section {
+      color: v98
+    }
+    li {
+      padding-top: 3px
+    }
+    ul li {
+      padding-top: 0
+    }
+  }
+  a.missing {
+    color: v97
+    :link {
+      color: v97
+    }
+    :visited {
+      color: v97
+    }
+    &:hover {
+      color: v98
+    }
+  }
+  span.missing {
+    color: v97
+  }
+  a.forbidden {
+    color: v97
+  }
+  span.forbidden {
+    color: v97
+  }
+  a.closed {
+    :link {
+      text-decoration: line-through
+    }
+    :visited {
+      text-decoration: line-through
+    }
+  }
+  span.closed {
+    text-decoration: line-through
+  }
+  .important {
+    background: v11
+    border: 2px dashed v15
+    color: v98
+  }
+  dl.wiki {
+    dt {
+      font-weight: bold
+    }
+  }
+  dl.compact {
+    dt {
+      float: left
+      padding-right: .5em
+    }
+    dd {
+      margin: 0
+      padding: 0
+      color: v98
+    }
+  }
+  pre.wiki {
+    background: darken(convert($v90), 70%)
+    border: 1px solid bg4
+    box-shadow: none
+    border-radius: 0.2em
+    margin: 2em .75em
+    padding: .55rem
+  }
+  pre.literal-block {
+    background: darken(convert($v90), 70%)
+    border: 1px solid bg4
+    box-shadow: none
+    border-radius: .2em
+    margin: 1em 1.75em
+    padding: .25em
+    overflow: auto
+  }
+  div.wiki-code {
+    margin: 1em 1.75em
+  }
+  code {
+    color: v98
+    border: 1px solid bg5
+    border-radius: .2em
+    background: bg2
+    padding: 2px 5px 2px 5px
+  }
+  tt {
+    color: v98
+    border: 1px solid bg4
+    border-radius: .25em
+    padding: 0 0.3em
+    background: bg2
+  }
+  blockquote.citation {
+    margin: -0.6em 0 0 0
+    border-style: solid
+    border-width: 0 0 0 3px
+    padding-left: .5em
+    border-color: bg5
+  }
+  .citation {
+    blockquote.citation {
+      border-color: bg4
+    }
+    .citation {
+      blockquote.citation {
+        border-color: bg4
+      }
+      .citation {
+        blockquote.citation {
+          border-color: bg4
+        }
+      }
+    }
+  }
+  li {
+    blockquote.citation {
+      margin-top: 0
+    }
+  }
+  table.wiki {
+    border: 1px solid bg4
+    box-shadow: none
+    r: .2em
+    border-collapse: separate
+    td {
+      border: 1px solid bg4
+      padding: .6em .25em
+      &[style="background: #eef"] {
+        background: bg0 i
+      }
+    }
+    th {
+      border: 1px solid bg4
+      padding: .6em .25em
+      background-color: bg2
+      r: .2em
+    }
+    tbody {
+      tr.even {
+        background-color: bg0
+        r: .2em
+      }
+      tr.odd {
+        background-color: bg1
+        r: .2em
+      }
+    }
+  }
+  hr { border-color: bg5 }
+  .wikitoolbar {
+    margin-top: .2em
+    border: 1px solid t
+    r: .2em
+    :link {
+      border: 1px solid t
+      border-left-color: t
+      filter: invert(.8) contrast(2) brightness(2)
+      mix-blend-mode: exclusion
+      height: 14px
+      &:hover {
+        background-color: t
+        border: 1px solid t
+        filter: invert(.9) sepia(1) saturate(2) contrast(4)
+      }
+    }
+    :visited {
+      border: 1px solid v75
+      border-left-color: @border_left_color_1
+      filter: none
+      &:hover {
+        background-color: t
+        border: 0
+        filter: hue-rotate(180deg)
+      }
+    }
+    // fix upstream missalinmnet of sprite globe/url
+    a.trac-wikitoolbar-link {
+      background-position: 0 -49px
+    }
+    a#em {
+      background-position: 0 0
+    }
+    a#strong {
+      background-position: 0 -16px
+    }
+    a#heading {
+      background-position: 0 -32px
+    }
+    a#link {
+      background-position: 0 -48px
+    }
+    a#code {
+      background-position: 0 -64px
+    }
+    a#hr {
+      background-position: 0 -80px
+    }
+    a#np {
+      background-position: 0 -96px
+    }
+    a#br {
+      background-position: 0 -112px
+    }
+    a#img {
+      background-position: 0 -128px
+    }
+  }
+  div.trac-resizable {
+    display: inline-table
+    width: 100%
+    >div {
+      display: table-cell
+    }
+    textarea {
+      display: block
+      margin-bottom: 0
+    }
+  }
+  div.trac-grip {
+    background: bg0
+    border: 1px solid v02
+    r: 0
+    &::after {
+      content: ''
+      bottom: 1px
+      margin: 1px 8px
+      display: block
+      border-top: 2px dotted v05
+    }
+  }
+  #attachments {
+    > div.attachments {
+      padding: 0 0 1em 1em
+      > p {
+        float: right
+        margin: .4em 0
+      }
+    }
+    dl.attachments {
+      margin-left: 2em
+      padding: 0
+    }
+    dt {
+      color: v98
+      display: list-item
+      list-style: square
+    }
+    dd {
+      font-style: italic
+      margin-left: 0
+      padding-left: 0
+    }
+    p {
+      margin-left: 2em
+      font-size: 90%
+      color: v98
+    }
+  }
+  .attachment {
+    #preview {
+      margin-top: 1em
+    }
+  }
+  .chglist {
+    td {
+      color: v96
+      r: 0
+      &.diff {
+        padding: .3em .5em
+      }
+      &.author { color: v97 }
+      &.rev :link {
+        color: v45
+      }
+    }
+    tr {
+      r: 0
+    }
+  }
+  table.listing {
+    border-collapse: unset
+    border-bottom: 1px solid bg4
+    box-shadow: none
+    th:first-of-type { r: .2em 0 0 0 }
+    th:last-of-type { r: 0 .2em 0 0 }
+    thead {
+      tr {
+        background: bg2
+      }
+      th {
+        border-color: bg4
+        border-bottom-color: bg5
+        font-size: 120%
+        padding: .5em .7em
+        color: v97
+        &:link {
+          &:hover {
+            background-color: t
+          }
+        }
+        &:visited {
+          &:hover {
+            background-color: t
+          }
+        }
+        a {
+          border: none
+          padding-right: 12px
+        }
+      }
+    }
+    th.asc {
+      a {
+        background-image: none
+        font-size: 14px
+        &::after {
+          content: ' \2BC5'
+        }
+      }
+    }
+    th.desc {
+      a {
+        background-image: none
+        font-size: 14px
+        &::after {
+          content: ' \2BC6'
+        }
+      }
+    }
+    tbody {
+      td {
+        border: 1px dotted bg5
+        padding: .3em .5em
+        vertical-align: top
+        a {
+          &:hover {
+            background-color: t
+          }
+        }
+      }
+      th {
+        border: 1px dotted bg5
+        padding: .3em .5em
+        vertical-align: top
+        a:hover {
+          background-color: t
+        }
+      }
+      tr {
+        border-top: 1px solid bg5
+        &:hover {
+          td {
+            background: bg2 i
+          }
+        }
+      }
+      tr.even {
+        background-color: bg0
+      }
+      tr.odd {
+        background-color: bg1
+      }
+      tr.focus {
+        background: v02 i
+      }
+    }
+    pre {
+      white-space: pre-wrap
+    }
+    &.tickets {
+      td { color: v97 }
+      tr {}
+    }
+  }
+  .trac-loading {
+    filter: invert(.9)
+  }
+  .threading {
+    padding-top: 3px
+    .trac-in-reply-to {
+      padding-right: 10px
+    }
+  }
+
+  table.dirlist {
+    border-collapse: unset
+    td span.loading {
+      filter: invert(.9)
+    }
+    td.change, td.author, td.rev, td.age, td.size {
+      color: v95
+    }
+    td.name {
+      a.dir {
+        background: t
+        margin-left: -30px
+        &::before {
+          content: '\1F4C2'
+          font-size: 18px
+        }
+      }
+      a.file {
+        background: t
+        margin-left: -22px
+        &::before {
+          content: '\1F4C4'
+          font-size: 16px
+          padding-right: 1px
+        }
+      }
+      a.parent {
+        background: t
+        margin-left: -22px
+        &::before {
+          content: '\01F881'
+          font-size: 18px
+          color: v97
+        }
+      }
+    }
+    td.rev {
+        a.chgset {
+        background: none
+        &::before {
+          content: '\00B1'
+          font-size: 18px
+          font-weight: 900
+          color: v98
+          margin-right: -4px
+        }
+      }
+    }
+  }
+  #fieldhist {
+    td {
+      padding: 0 .5em
+    }
+    td.date {
+      white-space: nowrap
+    }
+    td.diff {
+      white-space: nowrap
+    }
+    td.version {
+      white-space: nowrap
+      text-align: center
+    }
+    td.author {
+      white-space: nowrap
+    }
+    td.comment {
+      width: 100%
+    }
+    .inlinebuttons {
+      display: none
+      float: right
+    }
+  }
+  .suggestions {
+    background: bg0
+    border: 1px solid bg4
+    color: bg1
+    ul {
+      font-family: $font_family_3
+      max-height: 20em
+      min-height: 3em
+      list-style: none
+      margin: 0
+      overflow: auto
+      padding: 0
+      width: 440px
+    }
+    li {
+      background: bg0
+      cursor: pointer
+      padding: 2px 5px
+    }
+    li.selected {
+      background: t
+      color: v08
+    }
+  }
+  #content.error {
+    .message {
+      background: v11
+      border: 2px solid v15
+      color: v98
+      padding: .5em
+      margin: 1em 0
+    }
+    div.message {
+      pre {
+        margin-left: 1em
+        overflow: hidden
+        white-space: pre-wrap
+      }
+    }
+    form.newticket {
+      display: inline
+      textarea {
+        display: none
+      }
+    }
+    #traceback {
+      margin-left: 1em
+      :link {
+        border: none
+        var {
+          font-family: $font_family_4
+        }
+      }
+      :visited {
+        border: none
+        var {
+          font-family: $font_family_4
+          font-style: normal
+          font-weight: bold
+        }
+      }
+      div {
+        margin-left: 1em
+      }
+      h3 {
+        font-size: 95%
+        margin: .5em 0 0
+      }
+      span.file {
+        color: v98
+        font-size: 85%
+      }
+      ul {
+        list-style: none
+        margin: .5em 0
+        padding: 0
+      }
+      table.code {
+        td {
+          white-space: pre
+          font-size: 90%
+        }
+        tr.current {
+          td {
+            background: bg1
+          }
+        }
+      }
+      table {
+        margin: .5em 0 1em
+      }
+      th {
+        font-size: 85%
+        padding: 1px
+        var {
+          font-family: $font_family_4
+          font-style: normal
+        }
+      }
+      td {
+        font-size: 85%
+        padding: 1px
+        code {
+          white-space: pre
+        }
+      }
+      pre {
+        font-size: 95%
+      }
+    }
+    #tbtoggle {
+      font-size: 80%
+    }
+  }
+  #description li {
+      color: v98
+  }
+  div.system-message {
+    color: v98
+    padding: .8em
+    margin: 1em auto
+    box-shadow: none
+    pre {
+      margin-left: 1em
+      overflow: hidden
+      white-space: pre-wrap
+    }
+    .trac-close-msg {
+      font-size: 14px
+      border: 1px solid v99
+      border-radius: .2em
+      padding: 0 .8em 0
+      box-shadow: none
+      margin: -.1rem -.1em .1em 1em
+      background: none
+      color: v97
+      height: 1.4em
+      &:hover {
+        background: v98
+        color: v90
+        text-shadow: none
+        box-shadow: none
+      }
+    }
+  }
+  span.system-message {
+    float: left
+    background: v11
+    padding: .2em
+    margin: 1px
+    border-radius: .25em
+  }
+  #warning.system-message {
+    background: v11
+    border: 1px solid v15
+    r: .2em
+    li {
+      list-style-type: square
+    }
+  }
+  .warning.system-message {
+    background: v31
+    border: 1px solid v34
+  }
+  #notice.system-message {
+    background: v41
+    border: 1px solid v44
+    li {
+      list-style-type: square
+    }
+  }
+  .notice.system-message {
+    background: v41
+    border: 1px solid v44
+  }
+  #content.about {
+    a.logo {
+      &#trac-logo {
+        filter: invert(.9) hue-rotate(180deg) saturate(5)
+        mix-blend-mode: lighten
+      }
+      &#python-logo {
+        filter: invert(.9) hue-rotate(180deg)
+        mix-blend-mode: lighten
+      }
+    }
+    p.copyright {
+      color: v97
+    }
+  }
+  #environmentinfo {
+    h2 {
+      margin-top: 2em
+    }
+    table {
+      margin: 1em
+      width: auto
+      th {
+        border: 1px solid bg4
+        font-size: 90%
+        background: bg2
+        font-weight: bold
+        white-space: nowrap
+      }
+      td {
+        border: 1px solid bg0
+        font-size: 90%
+      }
+      td.file {
+        color: v98
+      }
+      tr.disabled {
+        th {
+          color: v97
+        }
+        td {
+          color: v97
+        }
+      }
+    }
+    #config {
+      th {
+        padding: 3px
+      }
+      tr.modified {
+        background: v31
+      }
+      td.doc {
+        padding: 3px 1em
+      }
+    }
+  }
+  .trac-placeholder {
+    background: v95
+  }
+  .trac-autofocus {
+    outline: none
+    box-shadow: 0 0 4px 0 rgba(convert($v09), .9)
+  }
+  @media screen {
+    a.ext-link {
+      .icon {
+        background: url(../extlink.gif) left center no-repeat
+        padding-left: 15px
+      }
+    }
+    a.mail-link {
+      .icon {
+        background: url(../envelope.png) left center no-repeat
+        padding-left: 16px
+      }
+    }
+    a.trac-rawlink {
+      background: url('../download.png') right center no-repeat
+      padding-right: 16px
+      border-bottom: none
+    }
+    a.trac-ziplink {
+      background: url('../download.png') right center no-repeat
+      padding-right: 16px
+      border-bottom: none
+    }
+    .searchword0 {
+      background: v32
+      color: v98
+    }
+    .searchword1 {
+      background: v42
+      color: v98
+    }
+    .searchword2 {
+      background: v62
+      color: v98
+    }
+    .searchword3 {
+      background: v72
+      color: v98
+    }
+    .searchword4 {
+      background: v82
+      color: v98
+    }
+  }
+  @media print {
+    :link, :visited {
+      border-bottom: none
+    }
+    div.trac-content {
+      box-shadow: none
+    }
+    .foldable {
+      &:link {
+        text-shadow: none
+        box-shadow: none
+      }
+      &:visited {
+        text-shadow: none
+        box-shadow: none
+      }
+    }
+  }
+  div.code {
+    background: t
+    border-color: bg4
+    box-shadow: none
+    color: v90
+    r: .2em
+    pre {
+      border-color: bg4
+      r: .2em
+    }
+  }
+  #anydiff input {
+    margin: 0 -.5em 0 0
+  }
+  .image-file {
+    background: bg2
+    r: 0 0 .2em .2em
+    img { background: rgba(convert($bg2), .1) }
+  }
+  // Better checkbox/radio inputs.
+  input {
+    r       = unquote
+    prefix  = 'data:image/svg+xml;utf8,'
+    prefix += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">'
+
+    &[type='radio'],
+    &[type='checkbox'] {
+      &, &:focus, &:hover:active {
+        -webkit-appearance: none
+        -moz-appearance: none
+        appearance: none
+        cursor: pointer
+        height: b_hgwd
+        width: b_hgwd
+        border: 1px solid bg5
+        background-size: cover
+        transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)
+        c: v08 0 bg1
+      }
+      &:disabled, &:hover:active:disabled, &:disabled:hover {
+        c: v94 bg5 bg4
+        cursor: default
+      }
+    }
+
+    &[type='radio'] {
+      border-radius: 50%
+      padding: 7px
+      &:checked {
+        path = '<circle cx="256" cy="256" r="128" fill="' + to_svg($v99) + '"/>'
+        background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
+        c: 0 v08 v09
+      }
+      &:focus, &:hover { c: 0 v09 bg2 }
+    }
+
+    &[type='checkbox'] {
+      border-radius: 2px
+      &:checked {
+        path ='<path fill="' + to_svg($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
+        background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
+        c: 0 v08 v09
+        rad: 2px
+      }
+      &:focus, &:hover { c: 0 v09 bg2 }
+      &:indeterminate {
+        path = '<rect x="128" y="128" width="256" height="256" fill="' + to_svg($v99) + '"/>'
+        background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
+        c: 0 v08 v09
+        &:hover { c: 0 v09 bg2 }
+      }
+    }
+
+    &[type='file'] {
+      &::file-selector-button {
+        background-color: bg5
+        border: 2px solid bg5
+        color: v97
+
+        border-radius: .2em
+        padding: .2rem .4rem
+        cursor: pointer
+        &:hover {
+          background-color: v07
+          border: 2px solid v08
+          color: v99
+        }
+      }
+      &::-webkit-file-upload-button {
+        background-color: bg5
+        border: 2px solid bg5
+        color: v98
+
+        border-radius: .2em
+        padding: .2rem .4rem
+        cursor: pointer
+        &:hover {
+          background-color: v07
+          border: 2px solid v08
+          color: v99
+        }
+      }
+    }
+    &[type='submit'] {
+      background-color: bg5
+      border: 1px solid bg5
+      color: v98
+      box-shadow: none
+      padding: .25rem .8rem .35rem .8rem
+      border-radius: .2em
+      &[value="Login"] {
+        margin-top: 1rem
+      }
+      &[disabled], &[disabled]:hover {
+        background: bg2
+        border-color: bg3
+        color: v94
+        cursor: unset
+      }
+      &:hover {
+        background-color: v08
+        border: 1px solid v09
+        color: v99
+        box-shadow: none
+        text-shadow: none
+      }
+      &#attachfilebutton {
+        margin-left: -.8rem
+      }
+    }
+    &[type='text'], &[type="password"] {
+      background-color: bg0
+      border: 1px solid bg4
+      color: v98
+      box-shadow: none
+      padding: .25rem .8rem .25rem .8rem
+      border-radius: .2em
+      &:focus, &:focus-within, &:focus-visible {
+        c: 0 v09 bg1
+        outline: 0
+      }
+    }
+    // audit log export inut fields
+    &[id="start-time"], &[id="end-time" i] {
+      -webkit-appearance: none
+      -moz-appearance: none
+      appearance: none
+      background: bg0
+      border: 1px solid bg5
+      color: v99
+      &:active, &:focus-visible {
+        border-color: v08
+        outline: none
+      }
+    }
+  }
+
+  // Better select element styles.
+  /select {
+    & {
+      background: bg0
+      // Override default colors.
+      border: 1px solid bg4
+      color: v98
+      &:not([disabled]) {
+        c: 0 0 bg0
+        &:hover { c: 0 0 bg2 }
+        &:active { c: 0 0 bg0 }
+      }
+      option {
+        &[selected] {
+          background: v05
+        }
+        &:hover { background-color: v02 }
+        &:checked {
+          background-color: v05 i
+          box-shadow: 0 0 10px 100px v06 inset
+        }
+      }
+    }
+    &[disabled] {
+      background: bg2
+    }
+  }
+}
