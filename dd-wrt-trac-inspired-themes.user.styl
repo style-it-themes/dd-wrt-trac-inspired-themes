@@ -10,13 +10,13 @@
 @license        MIT
 @preprocessor stylus
 
-@var checkbox sdetails     'Show style details'     0
+@var checkbox sdetails     'Show style details'     1
 
 @var select   cg_theme     'Preset themes toggle'   {
 
     'Custom colors   *' :  'custom-style'  ,
     'Dracula          ' :  'dracula'       ,
-    'Duo Cocoa        ' :  'duo-cocoa'           ,
+    'Duo Cocoa        ' :  'duo-cocoa'     ,
     'Material         ' :  'material'      ,
     'Material Darker  ' :  'material-dkr'  ,
     'Solarized Dark   ' :  'solarized-dark',
@@ -32,10 +32,6 @@
 @var range    cg_sat       'Saturation of RGB colors' [0, -50, 40, 0.01]
 @var range    cg_lig       'Lightness of gray colors' [0, -30, 30, 0.01]
 
-@var checkbox custom_font  'Enable  font overrides  ' 0
-
-@var text     f_ui         'UI font                 ' ''font_name''
-@var text     f_mono       'Monospace font          ' ''font_name''
 @var text     b_hgwd       'Checkbox width/height   ' '.88rem'
 @var text     transition   'Define transition value ' 'all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)'
 
@@ -93,7 +89,7 @@ b() { box-shadow: arguments }
   // Generator -> Color-schemes.
   ColorSchemes = {
     'custom-style'   : { BG:   cg_bg, FG:   cg_fg, AC:   cg_ac }
-    'duo-cocoa'            : { BG: #28231f, FG: #ffdac2, AC: #dfb249 }
+    'duo-cocoa'      : { BG: #28231f, FG: #ffdac2, AC: #dfb249 }
     'dracula'        : { BG: #282A36, FG: #f8f8f2, AC: #bd93f9 }
     'material'       : { BG: #263238, FG: #eeffff, AC: #82aaff }
     'material-dkr'   : { BG: #212121, FG: #eeffff, AC: #82aaff }
@@ -198,7 +194,7 @@ b() { box-shadow: arguments }
     }
   }
 }
-@-moz-document domain("svn.dd-wrt.com") {
+@-moz-document regexp('https?://svn.dd-wrt.com.*(/.*)?') {
   // global section triggers and variables
   :root {
     // show style name/version/copyright
@@ -235,12 +231,11 @@ b() { box-shadow: arguments }
     --v0-9: mix(shade(BG, 50%), AC, 0%)
 
     // rgba BG/AC vars
-    --rgba-bg-01: rgba(BG, .1)
-    --rgba-bg-03: rgba(BG, .3)
-    --rgba-bg-04: rgba(BG, .4)
-    --rgba-bg-05: rgba(BG, .5)
-    --rgba-bg-075: rgba(BG, .075)
-    --rgba-ac-06: rgba(AC, .6)
+    --txt-shadow: darken(convert($bg0), 40%)
+    --code-pr-bg: darken(convert($bg0), 20%)
+    --rgba-bg2-1: rgba(convert($bg2), .1)
+    --rgba-bg2-5: rgba(convert($bg2), .5)
+    --box-shadow: rgba(convert($v09), .9)
 
     $font_family_1 = Arial, Verdana, 'Bitstream Vera Sans', Helvetica, sans-serif
     $font_family_2 = inherit
@@ -248,7 +243,13 @@ b() { box-shadow: arguments }
     $font_family_4 = monospace
     $font_family_5 = Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
   }
-
+  ::selection {
+    background: v06
+    color: v99
+  }
+  * {
+    text-rendering: optimizeLegibility
+  }
   html {
     max-width: 1012px
     margin: auto
@@ -258,19 +259,19 @@ b() { box-shadow: arguments }
     color: v98
     margin: 10px
     padding: 0
-    font: normal 14px Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif
+    font: normal 14px Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
   }
   th {
-    font: normal 14px Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif
+    font: normal 14px Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
   }
   tr {
-    font: normal 14px Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif
+    font: normal 14px Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
   }
   h1 {
     font-family: $font_family_1
     margin: .15em 1em 0.5em 0
     :link {
-      color: v07
+      color: v08
       border: 1px solid t
     }
     :visited {
@@ -360,31 +361,14 @@ b() { box-shadow: arguments }
   img {
     border: none
   }
-  .underline {
-    text-decoration: underline
-  }
-  ol.loweralpha {
-    list-style-type: lower-alpha
-  }
-  ol.upperalpha {
-    list-style-type: upper-alpha
-  }
-  ol.lowerroman {
-    list-style-type: lower-roman
-  }
-  ol.upperroman {
-    list-style-type: upper-roman
-  }
-  ol.arabic {
-    list-style-type: decimal
-  }
   :link {
     text-decoration: none
-    color: v07
+    color: v09
     border-bottom: 0
+    transition: transition
     &:hover {
       background-color: t
-      color: v09
+      color: v07
       box-shadow: none
       border-bottom: 0
     }
@@ -512,6 +496,7 @@ b() { box-shadow: arguments }
     font-family: $font_family_1
     font-size: 100%
     vertical-align: middle
+    transition: transition
   }
   textarea {
     margin: .2em
@@ -601,6 +586,7 @@ b() { box-shadow: arguments }
   }
   .inlinebuttons {
     a {
+      transition: transition
       &:active {
         position: relative
         top: .1em
@@ -738,18 +724,10 @@ b() { box-shadow: arguments }
     &.trac-textarea-hint { color: v95 }
   }
   .disabled {
-    span.hint {
-      color: v97
-    }
-    p.help {
-      color: v97
-    }
-    legend {
-      color: v97
-    }
-    input {
-      color: v97
-    }
+    span.hint,
+    p.help,
+    legend,
+    input,
     select {
       color: v97
     }
@@ -764,6 +742,7 @@ b() { box-shadow: arguments }
   }
   .buttons {
     margin: .5em .5em .5em 0
+    transition: transition
     form {
       display: inline
       div {
@@ -780,6 +759,7 @@ b() { box-shadow: arguments }
       input[type='submit'],
       .trac-button a {
         font-size: 100%
+        transition: transition
       }
     }
     #fieldhist {
@@ -965,10 +945,12 @@ b() { box-shadow: arguments }
       color: v98
       border-width: 1px
       padding: .9em 20px
+      text-shadow: 0 1px 0 var(--txt-shadow)
+      transition: transition
       &:hover {
         background: t
         border-bottom: 4px solid v06
-        color: v99
+        color: v09
         box-shadow: none
         transition: transition
         padding: .9em 20px
@@ -982,18 +964,21 @@ b() { box-shadow: arguments }
       :link, :visited {
         background: none
         border-bottom: 4px solid v06
-        color: v98
-        text-shadow: none
+        color: v09
+        text-shadow: -3px solid v99
         padding: .9em 20px
+        transition: transition
+        text-shadow: 0 1px 0 v9
+        &:hover {
+          color: v98
+          text-shadow: 0 2px 0 var(--txt-shadow)
+        }
       }
     }
   }
   #banner form#search {
     padding-bottom: 4rem
-    input {
-      display: none
-    }
-    label {
+    input, label {
       display: none
     }
   }
@@ -1041,16 +1026,6 @@ b() { box-shadow: arguments }
       left: 0
       margin: .3rem -.9rem
     }
-    /*
-    .first {
-      float: left
-      margin: .3rem -.9rem
-    }
-    .last {
-      float: left
-      margin: .3rem 1rem
-    }
-    */
   }
   .trac-nav {
     font-size: 80%
@@ -1076,10 +1051,12 @@ b() { box-shadow: arguments }
       border-right: 1px solid bg5
 
       :link {
-        color: v94
+        color: v96
         border: none
-        font-size: 65%
-
+        font-size: 75%
+        &:hover {
+          color: v09
+        }
       }
       &:visited {
         background-repeat: no-repeat
@@ -1101,7 +1078,8 @@ b() { box-shadow: arguments }
     color: v98
     font-size: 10px
     :link {
-      color: v95
+      color: v97
+      &:hover{ color: v09 }
     }
     :visited {
       color: v86
@@ -1127,6 +1105,14 @@ b() { box-shadow: arguments }
       padding: 0 1em
       border-left: 1px solid bg4
       border-right: 1px solid bg4
+    }
+    if (sdetails) {
+      p.right {
+        &::before {
+          content: 'Styled by:' + stinfo + '\00A0\|\00A0'
+          color: v97
+        }
+      }
     }
   }
   #diffrev, #jumprev, #jumploc {
@@ -1663,7 +1649,10 @@ b() { box-shadow: arguments }
   .tickets {
     tbody tr {
       border-color: bg4
-      &:hover { color: v97 }
+      &:hover {
+        background: bg2
+        color: v97
+      }
     }
     tr.trac-columns th {
       border: 1px solid bg4
@@ -1741,7 +1730,7 @@ b() { box-shadow: arguments }
       box-shadow: none
     }
     pre {
-      background: darken(convert($v90), 60%)
+      background: var(--code-pr-bg)
       border-color: bg4
       padding-left: .5em
       color: v98
@@ -1782,16 +1771,16 @@ b() { box-shadow: arguments }
         border: 1px solid bg5
       }
       td {
-        background: darken(convert($v90), 60%)
+        background: var(--code-pr-bg)
       }
       tbody.mod tr:hover td,
       tbody.add tr:hover td,
       tbody.rem tr:hover td {
-        background: rgba(convert($v91), .5)
+        background: var(--rgba-bg2-5)
       }
       tbody.skipped td {
-        background: v90
-        border: 1px solid v90
+        background: bg2
+        border: 1px solid bg4
       }
 
     }
@@ -1831,23 +1820,40 @@ b() { box-shadow: arguments }
     }
     dd { color: v98 }
   }
-  .chglist .edit, #overview .mod, .diff .legend .mod {
-    background: v35
-    r: .2em
-  }
-  .chglist .delete, #overview .rem, .diff .legend .rem {
+  .chglist .edit, #overview .mod {
+      background: v35
+      r: .2em
+    }
+  .chglist .delete, #overview .rem {
     background: v15
     r: .2em
   }
-  .chglist .add, #overview .add, .diff .legend .add {
+  .chglist .add, #overview .add {
     background: v45
     r: .2em
   }
-  .legend dt {
-    background: v90
-    border: 1px solid v95
-    r: .2em
+  .diff .legend {
+    dt[class] {
+      height: 14px
+      width: @height
+      border: 1px solid bg5
+      r: .2em
+    }
+    dd { margin-top: .1rem }
+    dt.unmod {
+      background: var(--code-pr-bg)
+    }
+    dt.mod {
+      background: v35
+    }
+    dt.rem {
+      background: v15
+    }
+    dt.add {
+      background: v45
+    }
   }
+
   pre.diff .rem {
     background: v11
   }
@@ -2095,7 +2101,7 @@ b() { box-shadow: arguments }
     }
   }
   pre.wiki {
-    background: darken(convert($v90), 70%)
+    background: var(--code-pr-bg)
     border: 1px solid bg4
     box-shadow: none
     border-radius: 0.2em
@@ -2103,7 +2109,7 @@ b() { box-shadow: arguments }
     padding: .55rem
   }
   pre.literal-block {
-    background: darken(convert($v90), 70%)
+    background: var(--code-pr-bg)
     border: 1px solid bg4
     box-shadow: none
     border-radius: .2em
@@ -2194,7 +2200,10 @@ b() { box-shadow: arguments }
       border-left-color: t
       filter: invert(.8) contrast(2) brightness(2)
       mix-blend-mode: exclusion
+      transition: transition
+      // fix alignment of sprite
       height: 14px
+      margin-top: -.3rem
       &:hover {
         background-color: t
         border: 1px solid t
@@ -2215,38 +2224,11 @@ b() { box-shadow: arguments }
     a.trac-wikitoolbar-link {
       background-position: 0 -49px
     }
-    a#em {
-      background-position: 0 0
-    }
-    a#strong {
-      background-position: 0 -16px
-    }
-    a#heading {
-      background-position: 0 -32px
-    }
-    a#link {
-      background-position: 0 -48px
-    }
-    a#code {
-      background-position: 0 -64px
-    }
-    a#hr {
-      background-position: 0 -80px
-    }
-    a#np {
-      background-position: 0 -96px
-    }
-    a#br {
-      background-position: 0 -112px
-    }
-    a#img {
-      background-position: 0 -128px
-    }
   }
   div.trac-resizable {
     display: inline-table
     width: 100%
-    >div {
+    > div {
       display: table-cell
     }
     textarea {
@@ -2324,6 +2306,7 @@ b() { box-shadow: arguments }
     thead {
       tr {
         background: bg2
+        height: 2rem
       }
       th {
         border-color: bg4
@@ -2352,7 +2335,7 @@ b() { box-shadow: arguments }
         background-image: none
         font-size: 14px
         &::after {
-          content: ' \2BC5'
+          content: '\00A0\2BC5'
         }
       }
     }
@@ -2361,7 +2344,7 @@ b() { box-shadow: arguments }
         background-image: none
         font-size: 14px
         &::after {
-          content: ' \2BC6'
+          content: '\00A0\2BC6'
         }
       }
     }
@@ -2370,6 +2353,7 @@ b() { box-shadow: arguments }
         border: 1px dotted bg5
         padding: .3em .5em
         vertical-align: top
+        transition: transition
         a {
           &:hover {
             background-color: t
@@ -2392,10 +2376,10 @@ b() { box-shadow: arguments }
           }
         }
       }
-      tr.even {
+      tr.even, tr.color-even {
         background-color: bg0
       }
-      tr.odd {
+      tr.odd, tr.color-odd {
         background-color: bg1
       }
       tr.focus {
@@ -2407,7 +2391,6 @@ b() { box-shadow: arguments }
     }
     &.tickets {
       td { color: v97 }
-      tr {}
     }
   }
   .trac-loading {
@@ -2731,7 +2714,7 @@ b() { box-shadow: arguments }
   }
   .trac-autofocus {
     outline: none
-    box-shadow: 0 0 4px 0 rgba(convert($v09), .9)
+    box-shadow: 0 0 4px 0 var(--box-shadow)
   }
   @media screen {
     a.ext-link {
@@ -2812,14 +2795,13 @@ b() { box-shadow: arguments }
   .image-file {
     background: bg2
     r: 0 0 .2em .2em
-    img { background: rgba(convert($bg2), .1) }
+    img { background: var(--rgba-bg2-1) }
   }
   // Better checkbox/radio inputs.
   input {
     r       = unquote
     prefix  = 'data:image/svg+xml;utf8,'
     prefix += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">'
-
     &[type='radio'],
     &[type='checkbox'] {
       &, &:focus, &:hover:active {
@@ -2831,7 +2813,7 @@ b() { box-shadow: arguments }
         width: b_hgwd
         border: 1px solid bg5
         background-size: cover
-        transition: all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)
+        transition: transition
         c: v08 0 bg1
       }
       &:disabled, &:hover:active:disabled, &:disabled:hover {
@@ -2930,8 +2912,9 @@ b() { box-shadow: arguments }
       border: 1px solid bg4
       color: v98
       box-shadow: none
-      padding: .25rem .8rem .25rem .8rem
+      padding: .25rem .8rem .25rem .2rem
       border-radius: .2em
+      transition: transition
       &:focus, &:focus-within, &:focus-visible {
         c: 0 v09 bg1
         outline: 0
@@ -2952,13 +2935,14 @@ b() { box-shadow: arguments }
     }
   }
 
-  // Better select element styles.
+    // Better select element styles.
   /select {
     & {
       background: bg0
       // Override default colors.
       border: 1px solid bg4
       color: v98
+      transition: transition
       &:not([disabled]) {
         c: 0 0 bg0
         &:hover { c: 0 0 bg2 }
