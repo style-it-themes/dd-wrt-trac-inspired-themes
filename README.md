@@ -77,7 +77,7 @@ if you wish to view complete list click below.
 
  ### Icon Replacements
   
-  The code change, issue new/close icons have been replaced with a better Unicode CSS counterparts
+The code change, issue new/close icons have been replaced with a better Unicode CSS counterparts
  
 </details> 
 
@@ -89,34 +89,34 @@ if you wish to view complete list click below.
 
 ### Install This Style
 
-[![CLICK TO INSTALL WITH - STYLUS](https://img.shields.io/badge/Install_directly_with-Stylus-21d1d0.svg?longCache=true&style=for-the-badge)](https://github.com/style-it-themes/dd-wrt-inspired-themes/raw/main/dd-wrt-inspired-themes.user.styl)  
+[![CLICK TO INSTALL WITH - STYLUS](https://img.shields.io/badge/Install_directly_with-Stylus-21d1d0.svg?longCache=true&style=for-the-badge)](https://github.com/style-it-themes/dd-wrt-trac-inspired-themes/raw/main/dd-wrt-trac-inspired-themes.user.styl)  
 *Click to install directly from this repository*.
 
 ### Limitations of this Project
 
- Some areas like admin areas are likely showing old styles and broken,
- if you want these fixed, there are two options:
+Some areas like admin areas are likely showing old styles and broken,
+if you want these fixed, there are two options:
  
- 1) [Report issues](#i-found-a-bug) via GitHub with inspected stylesheets and show me what they are. 
+1) [Report issues](#i-found-a-bug) via GitHub with inspected stylesheets and show me what they are. 
  
- 2) Give me moderator/higher access so I can do this work myself. This wont happen (I don't really want it) anyway so GOTO 1)
+2) Give me moderator/higher access so I can do this work myself. This wont happen (I don't really want it) anyway so GOTO 1)
  
- **Main navigation and sub-navigation alignments:**
+**Main navigation and sub-navigation alignments:**
  
- The main navigations originally was to be centred, but because the width varies from logged in/out this wasn't possible at this time.
- The sub navigation just above and because the base CSS is done just cant get be placed any better at this time.
+The main navigations originally was to be centred, but because the width varies from logged in/out this wasn't possible at this time.
+The sub navigation just above and because the base CSS is done just cant get be placed any better at this time.
 
 ### Additional Userstyles
 
-  Style-It Themes (and I) recommends the additonal styles below which can be used together without issues.
-  These add unapparelled consistent experience and extend customizations options for other areas of your browsing live.
+Style-It Themes (and I) recommends the additional styles below which can be used together without issues.
+These add unapparelled consistent experience and extend customizations options for other areas of your browsing life.
   
-  Save your retinas from the burn!
+Save your retinas from the burn!
 
 * [DD-WRT Inspired Themes](https://github.com/style-it-themes/dd-wrt-inspired-themes)
 * [DD-WRT Forum Inspired Themes](https://github.com/style-it-themes/dd-wrt-forum-inspired-themes)
-* [Overlay Scrollbars](https://github.com/StylishThemes/Overlay-Scrollbars)
 * [Stylus Wardrobe](https://github.com/style-it-themes/stylus-wardrobe)
+* [Overlay Scrollbars](https://github.com/StylishThemes/Overlay-Scrollbars)
 
 ## I Found a Bug
 
