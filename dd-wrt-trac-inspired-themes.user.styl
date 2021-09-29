@@ -78,7 +78,7 @@ g(x, y = 0, xi = 1, yi = 1) {
 }
 
 // Border radius mixin.
-r() { border-radius: arguments }
+rad() { border-radius: arguments }
 
 // Box-shadow mixin.
 b() { box-shadow: arguments }
@@ -232,7 +232,7 @@ b() { box-shadow: arguments }
 
     // rgba BG/AC vars
     --txt-shadow: darken(convert($bg0), 40%)
-    --code-pr-bg: darken(convert($bg0), 20%)
+    --code-pr-bg: darken(convert($bg0), 30%)
     --rgba-bg2-1: rgba(convert($bg2), .1)
     --rgba-bg2-5: rgba(convert($bg2), .5)
     --box-shadow: rgba(convert($v09), .9)
@@ -251,8 +251,8 @@ b() { box-shadow: arguments }
     text-rendering: optimizeLegibility
   }
   html {
-    max-width: 1012px
-    margin: auto
+    max-width: 1000px
+    margin: 0 auto
   }
   body {
     background: bg1
@@ -272,7 +272,7 @@ b() { box-shadow: arguments }
     margin: .15em 1em 0.5em 0
     :link {
       color: v08
-      border: 1px solid t
+      border: 0px solid t
     }
     :visited {
       color: inherit
@@ -285,7 +285,7 @@ b() { box-shadow: arguments }
     &:target {
       background: v02
       box-shadow: none
-      border-radius: 0
+      rad: 0
     }
     .first:link {
       color: v97
@@ -299,7 +299,7 @@ b() { box-shadow: arguments }
     &:target {
       background: v02
       box-shadow: none
-      border-radius: 0
+      rad: 0
     }
     .trac-count {
       margin-left: .2em
@@ -323,7 +323,7 @@ b() { box-shadow: arguments }
     &:target {
       background: v02
       box-shadow: none
-      border-radius: 0
+      rad: 0
     }
     .trac-count {
       margin-left: .2em
@@ -347,7 +347,7 @@ b() { box-shadow: arguments }
     &:target {
       background: v02
       box-shadow: none
-      border-radius: .2em
+      rad: .28em
     }
   }
   hr {
@@ -392,7 +392,7 @@ b() { box-shadow: arguments }
     :target {
       background: v02
       box-shadow: none
-      border-radius: 0
+      rad: 0
     }
   }
   h6 {
@@ -405,7 +405,7 @@ b() { box-shadow: arguments }
     &:target {
       background: v02
       box-shadow: none
-      border-radius: 0
+      rad: 0
     }
   }
   .anchor {
@@ -448,7 +448,7 @@ b() { box-shadow: arguments }
     &:target {
       background: v02
       box-shadow: none
-      border-radius: .2em
+      rad: .28em
     }
   }
   .tracini {
@@ -501,10 +501,14 @@ b() { box-shadow: arguments }
   textarea {
     margin: .2em
     border: 1px solid bg4
-    r: .2em .2em 0 0
+    rad: .2em .2em 0 0
     &:focus {
-      border: 1px solid v05
+      border: 1px solid v08
+      b: 0 0 10px 0 v04
       outline: 0
+    }
+    &:hover {
+      border: 1px solid v08
     }
   }
   select {
@@ -519,7 +523,7 @@ b() { box-shadow: arguments }
     background: bg4
     color: v98
     border: 1px solid bg4
-    border-radius: .2em
+    rad: .28em
     padding: .1em 1em .2em
     text-shadow: none
     box-shadow: none
@@ -541,7 +545,7 @@ b() { box-shadow: arguments }
   }
   input[type='button'] {
     color: bg1
-    border-radius: .2em
+    rad: .28em
     padding: .1em .5em .2em
     text-shadow: none
     box-shadow: none
@@ -557,7 +561,7 @@ b() { box-shadow: arguments }
     }
   }
   input[type='submit'] {
-    border-radius: .2em
+    rad: .28em
     text-shadow: none
     box-shadow: none
     &:hover {
@@ -571,7 +575,7 @@ b() { box-shadow: arguments }
     }
   }
   input[type=reset] {
-    border-radius: .2em
+    rad: .28em
     text-shadow: none
     box-shadow: none
     &:hover {
@@ -592,7 +596,7 @@ b() { box-shadow: arguments }
         top: .1em
         left: .1em
       }
-      border-radius: .2em
+      rad: .28em
       padding: 0 .4em .1em
       font-size: 70%
       box-shadow: none
@@ -607,7 +611,7 @@ b() { box-shadow: arguments }
     }
     input {
       border: 1px solid bg4
-      border-radius: .2em
+      rad: .28em
       height: 1.5rem
       padding: 0 .4em .1em
       font-size: 70%
@@ -618,27 +622,28 @@ b() { box-shadow: arguments }
     }
     .trac-button {
       border: 1px solid bg4
-      border-radius: 1em
+      rad: 1em
       height: 1.6em
       padding: 0 .4em .1em
       font-size: 70%
       box-shadow: none
       margin: 0 .1em .1em
       background: none
-      color: @color_9
+      color: v98
       cursor: pointer
       &:hover {
         background: v04
         color: v99
-        text-shadow: none
+        text-shadow: 0 1px 0 bg0
         box-shadow: none
       }
     }
     input[type='button'] {
+      text-shadow: 0 1px 0 bg0
       &:hover {
         background: v04
         color: v99
-        text-shadow: none
+        text-shadow: 0 1px 0 bg0
         box-shadow: none
       }
     }
@@ -651,14 +656,14 @@ b() { box-shadow: arguments }
         background-color: v08
         border: 1px solid v09
         color: v99
-        text-shadow: none
-        box-shadow: none
+        text-shadow: 0 1px 0 bg0
+        box-shadow: 0 0 10px 0 v04
       }
     }
   }
   input.textwidget {
     border: 1px solid bg4
-    border-radius: .2em
+    rad: .28em
     padding: .25em .5em
     &:focus {
       border: 1px solid v09
@@ -670,7 +675,7 @@ b() { box-shadow: arguments }
   }
   fieldset {
     border: 1px solid bg4
-    border-radius: .2em
+    rad: .28em
     margin: 1em 0
     background: bg2
     box-shadow: none
@@ -687,6 +692,10 @@ b() { box-shadow: arguments }
         font-size: 110%
         text-shadow: none
       }
+    }
+    &#columns.collapsed {
+      height: 30px
+      border: 1px solid bg5 i
     }
   }
   p.hint {
@@ -798,10 +807,14 @@ b() { box-shadow: arguments }
       color: v98
     }
   }
-  textarea.trac-fullwidth, #trac-comment-editor textarea {
+  textarea.trac-fullwidth,
+  #trac-comment-editor textarea {
     background: bg0
     color: v98
     box-shadow: none
+    &:focus, &:focus-within {
+      b: 0 0 10px 0 v04
+    }
   }
   input.trac-fullwidth {
     -moz-box-sizing: border-box
@@ -838,8 +851,8 @@ b() { box-shadow: arguments }
     }
   }
   #header {
+    text-align: center
     #logo img {
-      rq = unquote
       &[src*='trac_banner.png'] {
         prefix = 'data:image/png;base64,'
         path   = 'iVBORw0KGgoAAAANSUhEUgAAAkQAAACMCAMAAACqGkaYAAAAZlBMVEX///////8AqZb///8AqZb///8A'
@@ -889,38 +902,36 @@ b() { box-shadow: arguments }
         path  += 'D103fgO5O9fwECyEyFouIoJhzDkBDSfvT8hPY9Pyv4Lon/bgWAAAAABgkL/1LHZV/AAAAAAAAAAgneo2'
         path  += 'y9RVeRsAAAAASUVORK5CYII='
         background: s("url('%s%s') %s", rq(prefix), rq(path))
-        //background: url('https://www.thanop.com/wp-content/uploads/2014/03/repeater-bridge-wifi-ddwrt-logo.png')
 
-        background-size: 310px
-        padding-left: 310px
-        padding-top: 71px
+        background-size: 300px
+        padding-left: 300px
+        padding-top: 69px
         height: 0
         width: 0
-        margin-bottom: -1.9rem
-        margin-top: -10px
-        mix-blend-mode: exclusion
+        margin-top: .2rem
       }
     }
   }
   #banner {
-    height: 80px
+    height: 3rem
   }
-  .nav:not(#mainnav):not(#ctxnav) {
+  .nav {
     margin-top: 0
-    margin-bottom: 4.7rem
+    margin-bottom: 1rem
     ul {
       font-size: 10px
       margin: 0
       padding: 0
     }
     li {
-      font-size: 14px
+      font-size: .7rem
       border-color: bg5
     }
     &#metanav {
-      margin-top: -8rem
-      margin-left: 15rem
-
+      ul {
+        text-align: center
+        margin-top: -3.133rem
+      }
       form.trac-logout {
         button {
           background: t
@@ -944,17 +955,18 @@ b() { box-shadow: arguments }
         }
       }
       .first {
-          color: v96
+        color: v96
       }
     }
   }
-
   #mainnav {
-    box-shadow: none
     border-color: t
-    max-width: 980px
-    position: absolute
-    margin-top: 2rem
+    margin-top: 4rem
+    box-shadow:none
+    ul {
+      text-align: center
+      font-size: 12px
+    }
     li {
       background: bg4
       border: 1px solid bg0
@@ -1023,16 +1035,14 @@ b() { box-shadow: arguments }
     }
   }
   #pagepath {
-    .pathentry {
-      margin-top: 4.5rem
-    }
-    .first:link {
-      color: v97
-    }
+    display: none
   }
   #ctxtnav {
-    margin-right: 11rem
+    ul {
+      text-align: center
+    }
     li {
+      margin-top: 1rem
       color: v98
       ul {
         background: t
@@ -1059,12 +1069,6 @@ b() { box-shadow: arguments }
           }
         }
       }
-    }
-    .last.first {
-      float: left
-      top: 0
-      left: 0
-      margin: .3rem -.9rem
     }
   }
   .trac-nav {
@@ -1163,32 +1167,39 @@ b() { box-shadow: arguments }
     .paging {
       font-size: 110%
       .current {
-        border: 1px solid v06
-        background: v04
+        border: 1px solid v04
+        background: v06
         color: v99
-        r: .15rem
+        padding: .1rem .3rem
+        text-shadow: 0 1px 0 bg0
+        b: 0 0 10px 0 v04
+        rad: .2rem
       }
       :link {
-        padding: .1em .3em
         border: 1px solid bg5
         background: t
         color: v98
-        r: .15rem
+        padding: .1rem .3rem
+        rad: .15rem
+        text-shadow: 0 1px 0 bg0
         &:hover {
-          background: v05
-          color: v98
+          background: v08
+          color: v99
           border-color: v08
+          text-shadow: 0 1px 0 bg0
         }
       }
       :visited {
-        padding: .1em .3em
         border: 1px solid bg4
         background: t
         color: v98
+        padding: .1em .3em
+        text-shadow: 0 1px 0 bg0
         &:hover {
           background: t
           color: v98
           border-color: bg4
+          text-shadow: 0 1px 0 bg0
         }
       }
       .previous {
@@ -1216,23 +1227,32 @@ b() { box-shadow: arguments }
     }
     &.search {
       // re-align this
-      max-width: 800px
-      margin: 1rem -1rem
+      background: bg2
+      border: 1px solid bg4
       text-align: center
+      margin: 0 auto
+      margin-top: -1rem
+      padding: .6rem .3rem 0 1rem
+      max-width 21rem
+      rad: .28em
       .filters {
         color: v97
-        margin: 0 0 0 -8rem
+        margin: 0 0 0 -7.7rem
       }
       hr {
         border-color: bg5
       }
       #results {
-        margin-right: 0
         text-align: left
-        font-size: 15px
+        max-width 900px
+        margin: 0 auto
         dt a {
           color: v07
           &:hover { color: v09 }
+        }
+        dd {
+          font-size: 100%
+          line-height: 1.4em
         }
         .trac-author, .date {
           color: v46
@@ -1248,9 +1268,25 @@ b() { box-shadow: arguments }
         display: none
       }
     }
+    &.changeset {
+      margin: 0 auto
+      max-width: 980px
+       h1 {
+        max-width: 870px
+        margin: 0 auto
+        font-size: 120%
+        margin-bottom: 1rem
+      }
+      #overview {
+        max-width: 900px
+        margin: 0 auto
+        #file-legend {
+          margin-left: 0
+        }
+      }
+    }
     &.ticket {
-      width: 830px
-      margin: 1rem 0
+      margin-top: 1rem
       // fix images oveflowing out of bounds.
       .comment p a[href*='/attachment/'] img {
         max-width: 99%
@@ -1268,49 +1304,115 @@ b() { box-shadow: arguments }
       }
     }
     &.timeline {
-      width: 900px
-      margin: auto 0
-      h1 { font-size: 100%; letter-spacing: 0.03em }
+      margin: 0 auto
+      max-width: 880px
+      h1 {
+        font-size: 120%
+      }
       #prefs {
         &[action="#"] {
           padding: 1rem 1rem 1rem
-          margin-right: -15em
-          margin-top: -5.5333rem
+          margin-right: 0
+          margin-top: 4.5333rem
         }
+      }
+      dt.highlight {
+        background-color: bg4
+        border: 1px solid bg5
+        rad: .2em
+      }
+    }
+    &.roadmap {
+      h1 { display: none }
+      form#prefs {
+        display: none
       }
     }
     &.browser {
       width: 900px
       margin: 1rem 0
-      h1 { font-size: 100% }
+      h1 {
+        font-size: 120%
+        .pathentry:not(.first) {
+          background: var(--code-pr-bg)
+          r: .2em
+        }
+      }
+      .pathentry {
+        &.sep {
+          color: v97
+        }
+      }
+    }
+    &.log {
+      h1 {
+        font-size: 120%
+        .pathentry:not(.first) {
+          background: var(--code-pr-bg)
+          r: .2em
+        }
+      }
+    }
+    &.report {
+      margin: 0 auto
+      max-width: 880px
+    }
+    &.query {
+      fieldset#filters {
+        tr.actions {
+          td.or {
+            text-align: left
+          }
+        }
+      }
+    }
+    &.prefs {
+      margin: 0 auto
+      max-width: 910px
+      h1 {
+        max-width: 900px
+        margin: 0 auto
+        font-size: 120%
+        margin-bottom: 1rem
+      }
+      p {
+        max-width: 900px
+        margin: 0 auto
+      }
+    }
+    &.about {
+      max-width: 900px
+      margin: 0 auto
     }
     &.narrow #trac-wiki-expander {
+      margin-top: .2rem
       &::before {
         content: '\01F81E'
-        font-size: 1.8rem
+        font-size: 1.4rem
       }
     }
     #trac-wiki-expander {
+      margin-top: .2rem
       &::before {
         content: '\01F81C'
-        font-size: 1.8rem
+        font-size: 1.4rem
         color: v98
       }
     }
     h1, h2, h3, h4, h5, h6 {
-      color: v98
+      color: fg1
       &.section {
         background: t
         border-bottom: 1px solid bg5
         color: v97
         padding: .3em .3em .2em .5rem
         &:target {
-          background: v02
+          background: bg4
           box-shadow: none
-          border-radius: .2em
+          rad: .2em
           border-color: t
           margin-left: -1.6rem
-          padding: .3em 0 .3em .5rem
+          padding: .1em 0 .1em .5rem
         }
       }
       code {
@@ -1323,16 +1425,36 @@ b() { box-shadow: arguments }
     }
     &.prefs {
       #tabs li {
-        background: bg2
-        border-color: bg4
-        padding: .5em 2em .5em
-        r: .2em
-        &.active, &:hover {
-          background: v05
-          border: 1px solid v09
+        background: v04
+        border-color: v06
+        border-bottom: 1px solid t
+        padding: .5em 2em .4em
+        rad: .28em .26em 0 0
+        margin-top: .09em
+        transition: transition
+        text-shadow: 0 1px 0 bg0
+        &.active {
+          background: bg2
+          border: 1px solid bg5
           border-bottom: 1px solid t
           color: v99
-          r: .2em
+          rad: .28em .26em 0 0
+          &:hover {
+            background: bg2
+            border: 1px solid bg5
+            border-bottom: 1px solid t
+            color: v99
+            margin-top: .09em
+            rad: .28em .26em 0 0
+          }
+        }
+        &:hover {
+          background: v04
+          border: 1px solid v06
+          border-bottom: 1px solid t
+          color: v99
+          margin-top: 0
+          rad: .28em .26em 0 0
         }
         :link {
           color: v99
@@ -1352,16 +1474,22 @@ b() { box-shadow: arguments }
         border: 1px solid bg4
         padding: 15px 10px 15px 10px
         margin-bottom: .5rem
-        r: .2em
+        rad: .28em
       }
     }
     &.wiki {
-      max-width: 810px
-      margin: .8rem 0 0 -2.1rem
-      float: left
+      max-width: 910px
+      margin: 0 auto
     }
     &.login {
-      margin: 3rem 0
+      background: bg2
+      border: 1px solid bg4
+      margin: 0 auto
+      margin-top: -1rem
+      padding: .6rem .3rem 0 1rem
+      max-width: 10rem
+      rad: .28em
+      h1 { font-size: 17px }
     }
     p, label { color: v98 }
     &.ticket .trac-topnav {
@@ -1369,13 +1497,19 @@ b() { box-shadow: arguments }
       color: v98
       font-weight: 900
     }
+    &.wiki {
+      h1:not(.section) {
+        margin-left: 2rem
+        font-size: 14px
+      }
+    }
   }
   #altlinks h3 {
     color: v96
   }
   div.trac-content {
     border: 0
-    border-radius: 0
+    rad: 0
     box-shadow: none
     p, li {
       color: v97
@@ -1439,7 +1573,7 @@ b() { box-shadow: arguments }
     }
     :visited {
       border: none
-      border-radius: .2em
+      rad: .28em
       box-shadow: none
       color: bg1
       text-shadow: none
@@ -1493,7 +1627,7 @@ b() { box-shadow: arguments }
   #prefs {
     background: bg2
     border: 1px solid bg4
-    border-radius: .2em
+    rad: .28em
     box-shadow: none
     font-size: 85%
     margin: 0 0 2em
@@ -1533,7 +1667,7 @@ b() { box-shadow: arguments }
   #ticketbox {
     background: bg2
     border: 1px solid bg4
-    border-radius: .2em
+    rad: .28em
 
     div.description h2 {
       border-bottom: 1px solid bg4
@@ -1564,7 +1698,7 @@ b() { box-shadow: arguments }
     /.ticketdraft {
       background: bg2
       border-color: bg4
-      r: .2em
+      rad: .2em
     }
   }
   #ticketchange {
@@ -1572,7 +1706,7 @@ b() { box-shadow: arguments }
       margin: 2em 0 2.5em 3em
       color: v18
       border-color: bg4
-      border-radius: .2em
+      rad: .28em
       float: right
       box-shadow: none
     }
@@ -1599,7 +1733,7 @@ b() { box-shadow: arguments }
     .changes {
       background: bg0
       border-color: bg4
-      border-radius: .2em
+      rad: .28em
       box-shadow: none
       color: v18
       float: right
@@ -1612,7 +1746,7 @@ b() { box-shadow: arguments }
       border-style: solid
       border-color: bg4
       margin-top: 15px
-      border-radius: .2em
+      rad: .28em
       padding: 2px
       h3 {
         padding: 5px 0 10px 15px
@@ -1638,7 +1772,7 @@ b() { box-shadow: arguments }
   }
   .foldable :link, .foldable :visited {
     border-color: bg4
-    border-radius: .2em
+    rad: .28em
     box-shadow: none
     color: v98
     text-shadow: none
@@ -1684,7 +1818,7 @@ b() { box-shadow: arguments }
     box-shadow: none
     border-bottom: 2px solid bg4
     margin: 0 0 .8em 0
-    r: 0
+    rad: 0
   }
   .tickets {
     tbody tr {
@@ -1719,11 +1853,11 @@ b() { box-shadow: arguments }
     border-color: bg4
     border-collapse: unset
     color: v98
-    r: .2em
+    rad: .2em
     th {
       font-size: 100%
       padding: .8em .8em
-      r: .2em
+      rad: .2em
     }
     td {
       font-size: 85%
@@ -1733,6 +1867,9 @@ b() { box-shadow: arguments }
     }
     td.message {
       width: 100%
+      p {
+        padding: .1em .8em
+      }
     }
     .message {
       ul {
@@ -1745,7 +1882,7 @@ b() { box-shadow: arguments }
       }
     }
     .props {
-      color: v06
+      color: v29
     }
   }
   .trac-help {
@@ -1761,12 +1898,20 @@ b() { box-shadow: arguments }
   }
   #overview {
     color: v98
+    margin-left: 1rem
+  }
+  #diff-legend {
+    margin-left: 1rem
+  }
+  #file-legend {
+    margin-left: -.8rem
   }
   .diff {
+    margin-left: 1rem
     li.entry {
       background: bg2
       border: 1px solid bg4
-      border-radius: .2em
+      rad: .28em
       box-shadow: none
     }
     pre {
@@ -1782,9 +1927,9 @@ b() { box-shadow: arguments }
     h2 {
       color: v98
       .switch {
-        color: v69
+        color: fg0
         span {
-          border-left: 1px solid v29
+          border-left: 1px solid bg5
           &.active {
             color: v08
           }
@@ -1862,35 +2007,43 @@ b() { box-shadow: arguments }
   }
   .chglist .edit, #overview .mod {
       background: v35
-      r: .2em
+      rad: .2em
     }
   .chglist .delete, #overview .rem {
     background: v15
-    r: .2em
+    rad: .2em
   }
   .chglist .add, #overview .add {
     background: v45
-    r: .2em
+    rad: .2em
   }
   .diff .legend {
-    dt[class] {
+    dt[class*] {
       height: 14px
       width: @height
       border: 1px solid bg5
-      r: .2em
+      rad: .2em
     }
     dd { margin-top: .1rem }
     dt.unmod {
       background: var(--code-pr-bg)
+      rad: .2em
     }
     dt.mod {
       background: v35
+      rad: .2em
     }
     dt.rem {
       background: v15
+      rad: .2em
     }
     dt.add {
       background: v45
+      rad: .2em
+    }
+    dt.cp {
+      background: v75
+      rad: .2em
     }
   }
 
@@ -1900,43 +2053,65 @@ b() { box-shadow: arguments }
   pre.diff .add {
     background: v41
   }
-  table.code {
-    border-color: bg4
-    box-shadow: none
-    thead th {
-      background: bg2
-      border-top: 1px solid bg4
-      color: v98
-    }
-    th {
-      border-right: 1px solid bg4
-      border-bottom: 1px solid bg4
-      font-size: 100%
-    }
-    td {
-      color: v97
-    }
-    tbody th {
-      background: v90
-      color: v96
-      &:hover {
-        background: v91
+  table {
+    &.code {
+      border-color: bg4
+      box-shadow: none
+      thead th {
+        background: bg2
+        border-top: 1px solid bg4
+        color: v98
       }
-      :link {
-        color: v07
-        &:hover {
-          color: v09
+      th {
+        border-right: 1px solid bg4
+        border-bottom: 1px solid bg4
+        font-size: 100%
+        &.blame {
+          &[style*='background-color: rgb(136\, 136, 255)'] {
+            c: 0 0 v78
+          }
+          a { color: v99 }
         }
       }
-      :visited {
-        &:hover {
-          color: v75
-        }
+      td {
+        color: v97
       }
-    }
-    tbody tr {
-      &:hover td {
+      tbody th {
         background: v90
+        color: v96
+        &:hover {
+          background: v91
+        }
+        :link {
+          color: v07
+          &:hover {
+            color: v09
+          }
+        }
+        :visited {
+          &:hover {
+            color: v75
+          }
+        }
+      }
+      tbody tr {
+        &:hover td {
+          background: v90
+        }
+      }
+    }
+    .trac-clause .status .inlinebuttons {
+      input[type="button"] {
+        background: bg4
+        border-color: bg5
+        height: 24px
+        width: @height
+        font-weight: 900
+        &:hover {
+          background: v06
+          border-color: v06
+          b: 0 0 10px 0 v04
+        }
       }
     }
   }
@@ -1963,11 +2138,12 @@ b() { box-shadow: arguments }
   }
   .timeline {
     h2 {
-      background: bg2
-      border: 1px solid bg4
-      padding: .7em
+      background: bg4
+      border: 1px solid bg5
+      padding-bottom: .6em
       box-shadow: none
-      border-radius: .2em
+      text-shadow: 0 1px 0 bg0
+      rad: .28em
     }
     dt {
       .time {
@@ -2041,7 +2217,7 @@ b() { box-shadow: arguments }
     }
     dl.unread {
       border-left: .4rem solid v43
-      r: 2px
+      rad: 2px
     }
   }
 
@@ -2052,7 +2228,7 @@ b() { box-shadow: arguments }
   }
   .wiki-toc {
     background: bg3
-    border-radius: 3px
+    rad: 3px
     border-color: bg4
     box-shadow: none
     font-size: .8rem
@@ -2063,7 +2239,7 @@ b() { box-shadow: arguments }
     }
     .active {
       background: v02
-      border-radius: .2em
+      rad: .28em
       padding: 5px 0 5px 5px
       margin-left: -5px
       margin-right: -5px
@@ -2071,7 +2247,7 @@ b() { box-shadow: arguments }
     }
     &[style] {
       background: bg2 i
-      border-radius: 3px i
+      rad: 3px i
       border-color: bg4 i
       margin-top: -8.5rem
       margin-right: -13.8rem
@@ -2144,7 +2320,7 @@ b() { box-shadow: arguments }
     background: var(--code-pr-bg)
     border: 1px solid bg4
     box-shadow: none
-    border-radius: 0.2em
+    rad: 0.2em
     margin: 2em .75em
     padding: .55rem
   }
@@ -2152,7 +2328,7 @@ b() { box-shadow: arguments }
     background: var(--code-pr-bg)
     border: 1px solid bg4
     box-shadow: none
-    border-radius: .2em
+    rad: .28em
     margin: 1em 1.75em
     padding: .25em
     overflow: auto
@@ -2163,14 +2339,14 @@ b() { box-shadow: arguments }
   code {
     color: v98
     border: 1px solid bg5
-    border-radius: .2em
-    background: bg2
+    background: var(--code-pr-bg)
     padding: 2px 5px 2px 5px
+    rad: .28em
   }
   tt {
     color: v98
     border: 1px solid bg4
-    border-radius: .25em
+    rad: .25em
     padding: 0 0.3em
     background: bg2
   }
@@ -2204,7 +2380,7 @@ b() { box-shadow: arguments }
   table.wiki {
     border: 1px solid bg4
     box-shadow: none
-    r: .2em
+    rad: .2em
     border-collapse: separate
     td {
       border: 1px solid bg4
@@ -2217,24 +2393,27 @@ b() { box-shadow: arguments }
       border: 1px solid bg4
       padding: .6em .25em
       background-color: bg2
-      r: .2em
+      rad: .2em
     }
     tbody {
       tr.even {
         background-color: bg0
-        r: .2em
+        rad: .2em
       }
       tr.odd {
         background-color: bg1
-        r: .2em
+        rad: .2em
       }
     }
   }
   hr { border-color: bg5 }
+  .fullrow   .wikitoolbar {
+    padding-top: .5em
+  }
   .wikitoolbar {
     margin-top: .2em
     border: 1px solid t
-    r: .2em
+    rad: .2em
     :link {
       border: 1px solid t
       border-left-color: t
@@ -2265,27 +2444,21 @@ b() { box-shadow: arguments }
       background-position: 0 -49px
     }
   }
-  div.trac-resizable {
-    display: inline-table
-    width: 100%
-    > div {
-      display: table-cell
-    }
-    textarea {
-      display: block
-      margin-bottom: 0
-    }
-  }
   div.trac-grip {
     background: bg0
-    border: 1px solid v02
-    r: 0
+    border: 1px solid bg4
+    rad: 0
+    transition: transition
     &::after {
       content: ''
       bottom: 1px
       margin: 1px 8px
       display: block
       border-top: 2px dotted v05
+    }
+    &:hover {
+      border-color: v03
+      box-shadow: 0 0 5px 0 v04
     }
   }
   #attachments {
@@ -2324,7 +2497,7 @@ b() { box-shadow: arguments }
   .chglist {
     td {
       color: v96
-      r: 0
+      rad: 0
       &.diff {
         padding: .3em .5em
       }
@@ -2334,15 +2507,15 @@ b() { box-shadow: arguments }
       }
     }
     tr {
-      r: 0
+      rad: 0
     }
   }
   table.listing {
     border-collapse: unset
     border-bottom: 1px solid bg4
     box-shadow: none
-    th:first-of-type { r: .2em 0 0 0 }
-    th:last-of-type { r: 0 .2em 0 0 }
+    th:first-of-type { rad: .2em 0 0 0 }
+    th:last-of-type { rad: 0 .2em 0 0 }
     thead {
       tr {
         background: bg2
@@ -2351,7 +2524,6 @@ b() { box-shadow: arguments }
       th {
         border-color: bg4
         border-bottom-color: bg5
-        font-size: 120%
         padding: .5em .7em
         color: v97
         &:link {
@@ -2448,8 +2620,32 @@ b() { box-shadow: arguments }
     td span.loading {
       filter: invert(.9)
     }
-    td.change, td.author, td.rev, td.age, td.size {
-      color: v95
+    td.change, td.author, td.rev,
+    td.age, td.size {
+      color: v97
+    }
+    td.age {
+      // TODO idiotic colors that are mostly the same
+      /*
+      &[style="border-color: rgb(136\,136,255)"] {
+        c: 0 v78 0
+      }
+      &[style="border-color: rgb(144\,136,246)"] {
+        c: 0 v79 0
+      }
+      &[style="border-color: rgb(245\,136,145)"] {
+        c: 0 v19 0
+      }
+      &[style="border-color: rgb(254\,136,136)"] {
+        c: 0 v18 0
+      }
+      &[style="border-color: rgb(251\,136,139)"] {
+        c: 0 v17 0
+      }
+      &[style="border-color: rgb(250\,136,140);"] {
+        c: 0 v16 0
+      }
+      */
     }
     td.name {
       a.dir {
@@ -2595,19 +2791,19 @@ b() { box-shadow: arguments }
         margin: .5em 0
         padding: 0
       }
-      table.code {
-        td {
-          white-space: pre
-          font-size: 90%
-        }
-        tr.current {
-          td {
-            background: bg1
-          }
-        }
-      }
       table {
         margin: .5em 0 1em
+        &.code {
+          td {
+            white-space: pre
+            font-size: 90%
+          }
+          tr.current {
+            td {
+              background: bg1
+            }
+          }
+        }
       }
       th {
         font-size: 85%
@@ -2638,7 +2834,8 @@ b() { box-shadow: arguments }
   div.system-message {
     color: v98
     padding: .8em
-    margin: 1em auto
+    margin: 1rem auto
+    max-width: 900px
     box-shadow: none
     pre {
       margin-left: 1em
@@ -2646,20 +2843,20 @@ b() { box-shadow: arguments }
       white-space: pre-wrap
     }
     .trac-close-msg {
+      background: v05
+      color: v98
+      border: 1px solid v06
       font-size: 14px
-      border: 1px solid v99
-      border-radius: .2em
-      padding: 0 .8em 0
-      box-shadow: none
       margin: -.1rem -.1em .1em 1em
-      background: none
-      color: v97
+      padding: 0 .8em 0
       height: 1.4em
+      text-shadow: 0 1px 0 bg0
+      rad: .28em
       &:hover {
-        background: v98
-        color: v90
-        text-shadow: none
-        box-shadow: none
+        background: v08
+        color: v99
+        text-shadow: 0 1px 0 bg0
+        box-shadow: 0 0 10px v04
       }
     }
   }
@@ -2668,12 +2865,12 @@ b() { box-shadow: arguments }
     background: v11
     padding: .2em
     margin: 1px
-    border-radius: .25em
+    rad: .25em
   }
   #warning.system-message {
     background: v11
     border: 1px solid v15
-    r: .2em
+    rad: .2em
     li {
       list-style-type: square
     }
@@ -2824,10 +3021,10 @@ b() { box-shadow: arguments }
     border-color: bg4
     box-shadow: none
     color: v90
-    r: .2em
+    rad: .2em
     pre {
       border-color: bg4
-      r: .2em
+      rad: .2em
     }
   }
   #anydiff input {
@@ -2835,12 +3032,11 @@ b() { box-shadow: arguments }
   }
   .image-file {
     background: bg2
-    r: 0 0 .2em .2em
+    rad: 0 0 .2em .2em
     img { background: var(--rgba-bg2-1) }
   }
   // Better checkbox/radio inputs.
   input {
-    r       = unquote
     prefix  = 'data:image/svg+xml;utf8,'
     prefix += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">'
     &[type='radio'],
@@ -2864,30 +3060,30 @@ b() { box-shadow: arguments }
     }
 
     &[type='radio'] {
-      border-radius: 50%
+      rad: 50%
       padding: 7px
       &:checked {
         path = '<circle cx="256" cy="256" r="128" fill="' + to_svg($v99) + '"/>'
-        background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
-        c: 0 v08 v09
+        background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path), i)
+        c: 0 v08 v06
       }
-      &:focus, &:hover { c: 0 v09 bg2 }
+      &:focus, &:hover { c: 0 v06 v04; b: 0 0 10px 0 v04 }
     }
 
     &[type='checkbox'] {
-      border-radius: 2px
+      rad: .2em
       &:checked {
         path ='<path fill="' + to_svg($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
-        background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
-        c: 0 v08 v09
-        rad: 2px
+        background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path), i)
+        c: 0 v08 v06
+        rad: .2em
       }
-      &:focus, &:hover { c: 0 v09 bg2 }
+      &:focus, &:hover { c: 0 v06 v04; b: 0 0 10px 0 v04 }
       &:indeterminate {
         path = '<rect x="128" y="128" width="256" height="256" fill="' + to_svg($v99) + '"/>'
-        background-image: s("url('%s%s</svg>') %s", r(prefix), r(path), i)
+        background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path), i)
         c: 0 v08 v09
-        &:hover { c: 0 v09 bg2 }
+        &:hover { c: 0 v06 v04 }
       }
     }
 
@@ -2895,39 +3091,52 @@ b() { box-shadow: arguments }
       &::file-selector-button {
         background-color: bg5
         border: 2px solid bg5
-        color: v97
-
-        border-radius: .2em
-        padding: .2rem .4rem
+        color: v98
+        box-shadow: 0 1px 0 bg0
+        text-shadow: 0 1px 0 bg0
+        rad: .28em
+        padding: .1rem .4rem
         cursor: pointer
+        transition: transition
         &:hover {
-          background-color: v07
+          background-color: v08
           border: 2px solid v08
-          color: v99
+          color: v98
+          b: 0 0 10px 0 v04
         }
       }
       &::-webkit-file-upload-button {
         background-color: bg5
         border: 2px solid bg5
         color: v98
-
-        border-radius: .2em
-        padding: .2rem .4rem
+        box-shadow: 0 1px 0 bg0
+        text-shadow: 0 1px 0 bg0
+        rad: .28em
+        padding: .1rem .4rem
         cursor: pointer
+        transition: transition
         &:hover {
-          background-color: v07
+          background-color: v08
           border: 2px solid v08
-          color: v99
+          color: v98
+          b: 0 0 10px 0 v04
         }
       }
     }
     &[type='submit'] {
-      background-color: bg5
-      border: 1px solid bg5
+      background: v06
+      border: 1px solid v04
       color: v98
       box-shadow: none
       padding: .25rem .8rem .35rem .8rem
-      border-radius: .2em
+      rad: .28em
+      text-shadow: 0 1px 0 bg0
+      &:hover {
+        background: v08
+        border: 1px solid v08
+        color: v99
+        b: 0 0 10px 0 v04
+      }
       &[value="Login"] {
         margin-top: 1rem
       }
@@ -2936,13 +3145,14 @@ b() { box-shadow: arguments }
         border-color: bg3
         color: v94
         cursor: unset
+        box-shadow: none
       }
       &:hover {
-        background-color: v08
-        border: 1px solid v09
+        background-color: v06
+        border: 1px solid v08
         color: v99
-        box-shadow: none
-        text-shadow: none
+        b: 0 0 10px 0 v04
+        text-shadow: 0 1px 0 bg0
       }
       &#attachfilebutton {
         margin-left: -.8rem
@@ -2954,29 +3164,20 @@ b() { box-shadow: arguments }
       color: v98
       box-shadow: none
       padding: .25rem .8rem .25rem .2rem
-      border-radius: .2em
+      rad: .28em
       transition: transition
       &:focus, &:focus-within, &:focus-visible {
-        c: 0 v09 bg1
+        c: 0 v08 bg1
+        b: 0 0 10px 0 v04
         outline: 0
       }
-    }
-    // audit log export inut fields
-    &[id="start-time"], &[id="end-time" i] {
-      -webkit-appearance: none
-      -moz-appearance: none
-      appearance: none
-      background: bg0
-      border: 1px solid bg5
-      color: v99
-      &:active, &:focus-visible {
-        border-color: v08
-        outline: none
+      &:hover {
+        border: 1px solid v08
       }
     }
   }
 
-    // Better select element styles.
+  // Better select element styles.
   /select {
     & {
       background: bg0
@@ -2986,8 +3187,9 @@ b() { box-shadow: arguments }
       transition: transition
       &:not([disabled]) {
         c: 0 0 bg0
-        &:hover { c: 0 0 bg2 }
-        &:active { c: 0 0 bg0 }
+        padding: .243333rem .2rem
+        &:hover { c: 0 v08 bg3 }
+        &:active { c: 0 0 bg4 }
       }
       option {
         &[selected] {
