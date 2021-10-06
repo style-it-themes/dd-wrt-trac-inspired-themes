@@ -194,7 +194,7 @@ b() { box-shadow: arguments }
     }
   }
 }
-@-moz-document regexp('https?://svn.dd-wrt.com.*(/.*)?') {
+@-moz-document regexp('https?://(svn|ftp).dd-wrt.com.*(/.*)?') {
   // global section triggers and variables
   :root {
     // show style name/version/copyright
@@ -3294,5 +3294,47 @@ b() { box-shadow: arguments }
     &[disabled] {
       background: bg2
     }
+  }
+}
+@-moz-document regexp('https?://ftp.dd-wrt.com.*(/.*)?') {
+  // ftp site
+  html {
+    max-width: 1000px
+    margin: 0 auto
+    c: 0 0 bg1
+  }
+  pre {
+    max-width: 880px
+    margin: 0 auto
+    font-size: 16px
+    color: v97
+    a[href='../'] {
+      &::before {
+        content: '\2BA4'
+        font-size: 20px
+        font-weight: 900
+        color: v97
+      }
+    }
+    a:not([href='../']):not([href*='.b']):not([href*='.c']):not([href*='.d']):not([href*='.e']):not([href*='.f']):not([href*='.im']):not([href*='.l']):not([href*='.t']) {
+      &::before {
+        content: '\1F4C2'
+        font-size: 18px
+        color: v97
+      }
+    }
+    a[href]:not([href='../']) {
+      &::before {
+        content: '\2B21\00A0'
+        margin-left: .2rem
+        font-size: 12px
+        color: v97
+      }
+    }
+  }
+  h1 {
+    font-size: 20px
+    margin: 1.5rem auto 1.5rem auto
+    max-width 880px
   }
 }
