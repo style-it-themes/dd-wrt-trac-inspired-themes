@@ -219,29 +219,30 @@ b() { box-shadow: arguments }
     // remap generated accent colors + keep v09 as 1:1 AC
     shade = (dark(BG)) ? darken : lighten
 
-    --v0-0: mix(shade(BG,  0%), AC, 90%)
-    --v0-1: mix(shade(BG, 40%), AC, 80%)
-    --v0-2: mix(shade(BG, 40%), AC, 70%)
-    --v0-3: mix(shade(BG, 40%), AC, 60%)
-    --v0-4: mix(shade(BG, 65%), AC, 50%)
-    --v0-5: mix(shade(BG, 50%), AC, 40%)
-    --v0-6: mix(shade(BG, 50%), AC, 30%)
-    --v0-7: mix(shade(BG, 50%), AC, 20%)
-    --v0-8: mix(shade(BG, 50%), AC, 10%)
-    --v0-9: mix(shade(BG, 50%), AC, 0%)
+    --v0-0: to_hsla(mix(shade(BG, 90%), AC, 90%))
+    --v0-1: to_hsla(mix(shade(BG, 80%), AC, 80%))
+    --v0-2: to_hsla(mix(shade(BG, 70%), AC, 70%))
+    --v0-3: to_hsla(mix(shade(BG, 60%), AC, 60%))
+    --v0-4: to_hsla(mix(shade(BG, 50%), AC, 50%))
+    --v0-5: to_hsla(mix(shade(BG, 40%), AC, 40%))
+    --v0-6: to_hsla(mix(shade(BG, 30%), AC, 30%))
+    --v0-7: to_hsla(mix(shade(BG, 20%), AC, 20%))
+    --v0-8: to_hsla(mix(shade(BG, 10%), AC, 10%))
+    --v0-9: to_hsla(mix(shade(BG, 0%), AC, 0%))
 
     // rgba BG/AC vars
     --txt-shadow: darken(convert($bg0), 40%)
-    --code-pr-bg: darken(convert($bg0), 30%)
+    --code-pr-bg: #141414
+    --code-pr-tc: #f7f7f7
     --rgba-bg2-1: rgba(convert($bg2), .1)
     --rgba-bg2-5: rgba(convert($bg2), .5)
     --box-shadow: rgba(convert($v09), .9)
 
-    $font_family_1 = Arial, Verdana, 'Bitstream Vera Sans', Helvetica, sans-serif
-    $font_family_2 = inherit
-    $font_family_3 = sans-serif
-    $font_family_4 = monospace
-    $font_family_5 = Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
+    --font_family_1: Verdana, 'Bitstream Vera Sans', Helvetica, Roboto, Segoe UI, sans-serif
+    --font_family_2: inherit
+    --font_family_3: sans-serif
+    --font_family_4: monospace
+    --font_family_5: Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
   }
   ::selection {
     background: v06
@@ -259,16 +260,16 @@ b() { box-shadow: arguments }
     color: v98
     margin: 10px
     padding: 0
-    font: normal 14px Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
+    font: normal 14px var(--font_family_1)
   }
   th {
-    font: normal 14px Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
+    font: normal 14px var(--font_family_1)
   }
   tr {
-    font: normal 14px Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
+    font: normal 14px var(--font_family_1)
   }
   h1 {
-    font-family: $font_family_1
+    font-family: var(--font_family_5)
     margin: .15em 1em 0.5em 0
     :link {
       color: v08
@@ -292,7 +293,7 @@ b() { box-shadow: arguments }
     }
   }
   h2 {
-    font-family: $font_family_1
+    font-family: var(--font_family_1)
     font-weight: bold
     letter-spacing: -0.018em
     page-break-after: avoid
@@ -309,7 +310,7 @@ b() { box-shadow: arguments }
     }
   }
   h3 {
-    font-family: $font_family_1
+    font-family: var(--font_family_1)
     font-weight: bold
     letter-spacing: -0.018em
     page-break-after: avoid
@@ -332,7 +333,7 @@ b() { box-shadow: arguments }
     }
   }
   h4 {
-    font-family: $font_family_1
+    font-family: var(--font_family_1)
     :link {
       color: inherit
     }
@@ -493,7 +494,7 @@ b() { box-shadow: arguments }
   }
   input {
     margin: 2px
-    font-family: $font_family_1
+    font-family: var(--font_family_1)
     font-size: 100%
     vertical-align: middle
     transition: transition
@@ -513,7 +514,7 @@ b() { box-shadow: arguments }
   }
   select {
     margin: 2px
-    font-family: $font_family_1
+    font-family: var(--font_family_1)
     font-size: 100%
     vertical-align: middle
   }
@@ -540,7 +541,7 @@ b() { box-shadow: arguments }
     }
   }
   button {
-    font-family: $font_family_1
+    font-family: var(--font_family_1)
     font-size: 100%
   }
   input[type='button'] {
@@ -588,6 +589,15 @@ b() { box-shadow: arguments }
       left: .1em
     }
   }
+  button.trac-revert {
+      border-bottom: 2px dotted bg5
+      color: v69
+      &:hover {
+        background-color: t
+        border-bottom: 2px dotted v09
+        color: v09
+      }
+    }
   .inlinebuttons {
     a {
       transition: transition
@@ -823,12 +833,14 @@ b() { box-shadow: arguments }
     margin-right: 0
     width: 100%
   }
-  button.trac-fullwidth {
-    -moz-box-sizing: border-box
-    box-sizing: border-box
-    margin-left: 0
-    margin-right: 0
-    width: 100%
+  button {
+    &.trac-fullwidth {
+      -moz-box-sizing: border-box
+      box-sizing: border-box
+      margin-left: 0
+      margin-right: 0
+      width: 100%
+    }
   }
   form.mod {
     margin: 1em 0
@@ -935,7 +947,7 @@ b() { box-shadow: arguments }
       form.trac-logout {
         button {
           background: t
-          font-family: font_family_2
+          font-family: var(--font_family_2)
           font-size: 100%
           color: v19
           border-bottom: .1rem dotted v98
@@ -1295,11 +1307,11 @@ b() { box-shadow: arguments }
         font-size: 14px
         margin-right: -6px
         &#trac-up-attachments {
-          padding-right: 5px
-          border-right: 2px solid v02
+          padding-right: 8px
         }
         &#trac-up-view {
           margin-left: -1px
+          padding-right: 8px
         }
       }
     }
@@ -1486,9 +1498,13 @@ b() { box-shadow: arguments }
       border: 1px solid bg4
       margin: 0 auto
       margin-top: -1rem
-      padding: .6rem .3rem 0 1rem
+      padding: .6rem 1.5rem 0 1rem
       max-width: 10rem
       rad: .28em
+      input.textwidget {
+        width: 99%
+        margin-left: -.1rem
+      }
       h1 { font-size: 17px }
     }
     p, label { color: v98 }
@@ -1702,12 +1718,14 @@ b() { box-shadow: arguments }
   }
   #ticketchange {
     .changes {
-      margin: 2em 0 2.5em 3em
-      color: v18
+      background: bg0
       border-color: bg4
+      color: v18
       rad: .28em
       float: right
       box-shadow: none
+      margin: 2em 0 2.5em 3em
+      padding-top: .3rem
     }
     h3 {
       &.change {
@@ -1927,9 +1945,9 @@ b() { box-shadow: arguments }
       background: var(--code-pr-bg)
       border-color: bg4
       padding-left: .5em
-      color: v98
+      color: var(--code-pr-tc)
       font-size: 14px
-      // unified diffs this goes out of box
+      // unified diffs this goes out of box upstream bug
       // e.g. https://svn.dd-wrt.com/attachment/ticket/5853/initialize.fw.patch
       white-space: pre-wrap
     }
@@ -1955,7 +1973,7 @@ b() { box-shadow: arguments }
       }
       th {
         border-right-color: bg4
-        border-top-color: bg4
+        border-top: 0
         &:hover {
           c: v99 0 bg3
         }
@@ -1967,21 +1985,54 @@ b() { box-shadow: arguments }
       td {
         background: var(--code-pr-bg)
       }
+      tr:hover th {
+        background: bg3
+      }
       tbody.mod tr:hover td,
       tbody.add tr:hover td,
       tbody.rem tr:hover td {
         background: var(--rgba-bg2-5)
+        del {
+          background: v14
+        }
+        ins {
+          background: v43
+        }
+        &.r {
+          background: v41
+        }
+        &.l {
+          background: v12
+        }
       }
-      tbody.skipped td {
-        background: bg2
-        border: 1px solid bg4
+      .unmod {
+        tr:hover td {
+          background: rgba(50, 50, 50, .5)
+          &.r {
+            background: rgba(50, 50, 50, .5)
+          }
+          &.l {
+            background: rgba(50, 50, 50, .9)
+          }
+        }
       }
-
+      tbody.skipped {
+        td {
+          background: bg3
+          border: 1px solid bg4
+        }
+        tr th {
+          background: bg4
+          &:hover {
+             background: bg4 i
+          }
+        }
+      }
     }
     table.inline tbody {
       &.rem td.l, &.mod td.l {
-        background: v10
-        border-color: v12
+        background: v11
+        border-color: v11
       }
       &.mod td del {
         background: v13
@@ -1989,7 +2040,7 @@ b() { box-shadow: arguments }
       }
       &.mod td.r, &.add td.r {
         background: v40
-        border-color: v42
+        border-color: v40
       }
       &.mod td ins {
         background: v42
@@ -2056,11 +2107,24 @@ b() { box-shadow: arguments }
     }
   }
 
-  pre.diff .rem {
-    background: v11
-  }
-  pre.diff .add {
-    background: v41
+  pre.diff {
+    .rem {
+      background: v11
+      border: 1px solid v11
+      &:hover {
+        background: v12
+      }
+    }
+    .add {
+      background: v40
+      border: 1px solid v40
+      &:hover {
+        background: v41
+      }
+    }
+    span:hover {
+      background: rgba(50,50,50, .5)
+    }
   }
   table {
     &.code {
@@ -2072,8 +2136,8 @@ b() { box-shadow: arguments }
         color: v98
       }
       th {
-        border-right: 1px solid bg4
-        border-bottom: 1px solid bg4
+        border-right: 1px solid bg5
+        border-bottom: 0
         font-size: 100%
         &.blame {
           &[style*='background-color: rgb(136\, 136, 255)'] {
@@ -2083,18 +2147,25 @@ b() { box-shadow: arguments }
         }
       }
       td {
-        color: v97
+        background: var(--code-pr-bg)
+        color: var(--code-pr-tc)
       }
       tbody th {
-        background: v90
+        background: bg2
         color: v96
         &:hover {
-          background: v91
+          background: bg3
         }
-        :link {
-          color: v07
+        :link:not([href*="#"]) {
+          color: v09
           &:hover {
-            color: v09
+            color: v07
+          }
+        }
+        :link[href*="#"] {
+          color: v95
+          &:hover {
+            color: v98
           }
         }
         :visited {
@@ -2105,7 +2176,7 @@ b() { box-shadow: arguments }
       }
       tbody tr {
         &:hover td {
-          background: v90
+          background: rgba(50, 50, 50, .9)
         }
       }
     }
@@ -2225,7 +2296,7 @@ b() { box-shadow: arguments }
       margin: 0 0 auto 2.5em
     }
     dl.unread {
-      border-left: .4rem solid v43
+      border-left: .2rem solid v43
       rad: 2px
     }
   }
@@ -2506,6 +2577,9 @@ b() { box-shadow: arguments }
       margin-top: 1em
     }
   }
+  #preview {
+    background: bg1
+  }
   .chglist {
     td {
       color: v96
@@ -2731,7 +2805,7 @@ b() { box-shadow: arguments }
     border: 1px solid bg4
     color: bg1
     ul {
-      font-family: $font_family_3
+      font-family: var(--font_family_3)
       max-height: 20em
       min-height: 3em
       list-style: none
@@ -2776,13 +2850,13 @@ b() { box-shadow: arguments }
       :link {
         border: none
         var {
-          font-family: $font_family_4
+          font-family: font_family_4
         }
       }
       :visited {
         border: none
         var {
-          font-family: $font_family_4
+          font-family: font_family_4
           font-style: normal
           font-weight: bold
         }
@@ -2821,7 +2895,7 @@ b() { box-shadow: arguments }
         font-size: 85%
         padding: 1px
         var {
-          font-family: $font_family_4
+          font-family: var(--font_family_4)
           font-style: normal
         }
       }
@@ -3149,9 +3223,7 @@ b() { box-shadow: arguments }
         color: v99
         b: 0 0 10px 0 v04
       }
-      &[value="Login"] {
-        margin-top: 1rem
-      }
+
       &[disabled], &[disabled]:hover {
         background: bg2
         border-color: bg3
