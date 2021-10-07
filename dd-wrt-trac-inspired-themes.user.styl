@@ -3370,6 +3370,24 @@ b() { box-shadow: arguments }
 }
 @-moz-document regexp('https?://ftp.dd-wrt.com.*(/.*)?') {
   // ftp site
+  fileExt = ( '../' bin chk dat enc fs img image l7 ram rom tftp trx txt tsk zip )
+  excludedExt = ''
+  excludeLnus = "[href*='lzma']"
+  matchExt    = ''
+  parent_dir  = "[href='../']"
+  pageTitle   = 'Firmware Downloads'
+  uq          = unquote
+
+  for $v, $k in fileExt {
+
+      //--list-index-{$k}: $v // debug breaks bg and other styling
+
+      if $k == 0 { excludedExt += s(":not([href*='%s'])", uq($v)) }
+      else { excludedExt += s(":not([href*='.%s'])", $v) }
+
+      if $k == 0 { matchExt += s(":not([href*='%s'])", uq($v)) }
+  }
+
   html {
     max-width: 1000px
     margin: 0 auto
@@ -3380,27 +3398,24 @@ b() { box-shadow: arguments }
     margin: 0 auto
     font-size: 16px
     color: v97
-    a[href='../'] {
+    a{ matchExt } {
+      &::before {
+        content: '\00A0\1F4BE\00A0'
+        font-size: 14px
+      }
+    }
+    a{ uq(parent_dir) } {
       &::before {
         content: '\2BA4'
         font-size: 20px
         font-weight: 900
-        color: v97
+        color: v99
       }
     }
-    a:not([href='../']):not([href*='.b']):not([href*='.c']):not([href*='.d']):not([href*='.e']):not([href*='.f']):not([href*='.im']):not([href*='.l']):not([href*='.t']) {
+    a{ excludedExt }:not({ excludeLnus }) {
       &::before {
-        content: '\1F4C2'
+        content: '\00A0\1F4C2'
         font-size: 18px
-        color: v97
-      }
-    }
-    a[href]:not([href='../']) {
-      &::before {
-        content: '\2B21\00A0'
-        margin-left: .2rem
-        font-size: 12px
-        color: v97
       }
     }
   }
