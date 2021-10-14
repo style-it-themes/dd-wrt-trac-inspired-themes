@@ -14,7 +14,7 @@
 
 @var select   cg_theme     'Preset themes toggle'   {
 
-    'Custom colors   *' :  'custom-style'  ,
+    'Custom colors ⬎  ' :  'custom-style'  ,
     'Dracula          ' :  'dracula'       ,
     'Duo Cocoa        ' :  'duo-cocoa'     ,
     'Material         ' :  'material'      ,
@@ -76,11 +76,14 @@ g(x, y = 0, xi = 1, yi = 1) {
   if y != 0 && y != '_' { stroke: yi is 0 ? y : y i }
 }
 
-// Border radius mixin.
+// border radius mixin.
 rad() { border-radius: arguments }
 
-// Box-shadow mixin.
-b() { box-shadow: arguments }
+// box-shadow mixin.
+bsh() { box-shadow: arguments }
+
+// text-shadow mixin.
+tsh() { text-shadow: arguments }
 
 // Color generator.
 // NOTE: Fix the scope to avoid conflicts.
@@ -284,7 +287,7 @@ b() { box-shadow: arguments }
     }
     &:target {
       background: v02
-      box-shadow: none
+      bsh: none
       rad: 0
     }
     .first:link {
@@ -298,7 +301,7 @@ b() { box-shadow: arguments }
     page-break-after: avoid
     &:target {
       background: v02
-      box-shadow: none
+      bsh: none
       rad: 0
     }
     .trac-count {
@@ -322,7 +325,7 @@ b() { box-shadow: arguments }
     }
     &:target {
       background: v02
-      box-shadow: none
+      bsh: none
       rad: 0
     }
     .trac-count {
@@ -346,8 +349,8 @@ b() { box-shadow: arguments }
     }
     &:target {
       background: v02
-      box-shadow: none
-      rad: .28em
+      bsh: none
+      rad: 4px
     }
   }
   hr {
@@ -369,7 +372,7 @@ b() { box-shadow: arguments }
     &:hover {
       background-color: t
       color: v07
-      box-shadow: none
+      bsh: none
       border-bottom: 0
     }
   }
@@ -391,7 +394,7 @@ b() { box-shadow: arguments }
     }
     :target {
       background: v02
-      box-shadow: none
+      bsh: none
       rad: 0
     }
   }
@@ -404,7 +407,7 @@ b() { box-shadow: arguments }
     }
     &:target {
       background: v02
-      box-shadow: none
+      bsh: none
       rad: 0
     }
   }
@@ -447,8 +450,8 @@ b() { box-shadow: arguments }
     }
     &:target {
       background: v02
-      box-shadow: none
-      rad: .28em
+      bsh: none
+      rad: 4px
     }
   }
   .tracini {
@@ -501,10 +504,10 @@ b() { box-shadow: arguments }
   textarea {
     margin: .2em
     border: 1px solid bg4
-    rad: .2em .2em 0 0
+    rad: 4px 4px 0 0
     &:focus {
       border: 1px solid v08
-      b: 0 0 10px 0 v04
+      bsh: 0 0 10px 0 v04
       outline: 0
     }
     &:hover {
@@ -523,15 +526,15 @@ b() { box-shadow: arguments }
     background: bg4
     color: v98
     border: 1px solid bg4
-    rad: .28em
+    rad: 4px
     padding: .1em 1em .2em
-    text-shadow: none
-    box-shadow: none
+    tsh: none
+    bsh: none
     cursor: pointer
     &:hover {
       background: bg5
-      text-shadow: none
-      box-shadow: none
+      tsh: none
+      bsh: none
     }
     &:active {
       position: relative
@@ -545,14 +548,14 @@ b() { box-shadow: arguments }
   }
   input[type='button'] {
     color: bg1
-    rad: .28em
+    rad: 4px
     padding: .1em .5em .2em
-    text-shadow: none
-    box-shadow: none
+    tsh: none
+    bsh: none
     cursor: pointer
     &:hover {
-      text-shadow: none
-      box-shadow: none
+      tsh: none
+      bsh: none
     }
     &:active {
       position: relative
@@ -561,12 +564,12 @@ b() { box-shadow: arguments }
     }
   }
   input[type='submit'] {
-    rad: .28em
-    text-shadow: none
-    box-shadow: none
+    rad: 4px
+    tsh: none
+    bsh: none
     &:hover {
-      text-shadow: none
-      box-shadow: none
+      tsh: none
+      bsh: none
     }
     &:active {
       position: relative
@@ -575,12 +578,12 @@ b() { box-shadow: arguments }
     }
   }
   input[type=reset] {
-    rad: .28em
-    text-shadow: none
-    box-shadow: none
+    rad: 4px
+    tsh: none
+    bsh: none
     &:hover {
-      text-shadow: none
-      box-shadow: none
+      tsh: none
+      bsh: none
     }
     &:active {
       position: relative
@@ -605,28 +608,28 @@ b() { box-shadow: arguments }
         top: .1em
         left: .1em
       }
-      rad: .28em
+      rad: 4px
       padding: 0 .4em .1em
       font-size: 70%
-      box-shadow: none
+      bsh: none
       margin: 0 .1em .1em
       background: none
       color: v98
       &:hover {
         color: v98
-        text-shadow: none
-        box-shadow: none
+        tsh: none
+        bsh: none
       }
     }
     input {
       border: 1px solid bg4
-      rad: .28em
+      rad: 4px
       height: 1.5rem
       padding: 0 .4em .1em
       font-size: 70%
       margin-top: .4rem
       background: none
-      box-shadow: none
+      bsh: none
       color: v98
     }
     .trac-button {
@@ -635,7 +638,7 @@ b() { box-shadow: arguments }
       height: 1.6em
       padding: 0 .4em .1em
       font-size: 70%
-      box-shadow: none
+      bsh: none
       margin: 0 .1em .1em
       background: none
       color: v98
@@ -643,36 +646,37 @@ b() { box-shadow: arguments }
       &:hover {
         background: v04
         color: v99
-        text-shadow: 0 1px 0 bg0
-        box-shadow: none
+        tsh: 0 1px 0 bg0
+        bsh: none
       }
     }
     input[type='button'] {
-      text-shadow: 0 1px 0 bg0
+      tsh: 0 1px 0 bg0
       &:hover {
         background: v04
         color: v99
-        text-shadow: 0 1px 0 bg0
-        box-shadow: none
+        tsh: 0 1px 0 bg0
+        bsh: none
       }
     }
     input[type='submit'] {
       &[title*="reply" i], &[title*="edit" i] {
         font-size: 14px
-        padding: 0 .6em 0
+        padding: .2em .6em 0
+        margin-bottom: .8rem
       }
       &:hover {
-        background-color: v08
+        background: v08
         border: 1px solid v09
         color: v99
-        text-shadow: 0 1px 0 bg0
-        box-shadow: 0 0 10px 0 v04
+        tsh: 0 1px 0 bg0
+        bsh: 0 0 10px 0 v04
       }
     }
   }
   input.textwidget {
     border: 1px solid bg4
-    rad: .28em
+    rad: 4px
     padding: .25em .5em
     &:focus {
       border: 1px solid v09
@@ -684,22 +688,22 @@ b() { box-shadow: arguments }
   }
   fieldset {
     border: 1px solid bg4
-    rad: .28em
+    rad: 4px
     margin: 1em 0
     background: bg2
-    box-shadow: none
+    bsh: none
     padding: 1em
     color: v98
     > legend.foldable {
       :link {
         color: v98
         font-size: 14px
-        text-shadow: none
+        tsh: none
       }
       &:visited {
         color: v98
         font-size: 110%
-        text-shadow: none
+        tsh: none
       }
     }
     &#columns.collapsed {
@@ -768,7 +772,7 @@ b() { box-shadow: arguments }
       }
     }
     input {
-      margin: 1em .5em .1em 0
+      margin: 1em .362em .1em auto
     }
   }
   .uisymbols {
@@ -820,9 +824,9 @@ b() { box-shadow: arguments }
   #trac-comment-editor textarea {
     background: bg0
     color: v98
-    box-shadow: none
+    bsh: none
     &:focus, &:focus-within {
-      b: 0 0 10px 0 v04
+      bsh: 0 0 10px 0 v04
     }
   }
   input.trac-fullwidth {
@@ -963,7 +967,7 @@ b() { box-shadow: arguments }
           &:hover {
             background-color: t
             color: v96
-            box-shadow: none
+            bsh: none
           }
           &:active {
             position: static
@@ -978,7 +982,7 @@ b() { box-shadow: arguments }
   #mainnav {
     border-color: t
     margin-top: 4rem
-    box-shadow:none
+    bsh:none
     ul {
       text-align: center
       font-size: 12px
@@ -992,37 +996,40 @@ b() { box-shadow: arguments }
         border-width: 1px
       }
     }
-    &.first {
-      border-top-left-radius: .2em i
-      border-bottom-left-radius: .2em i
+    .first {
+      border-top-left-radius: 4px
+      border-bottom-left-radius: 4px
       :link {
-        border-top-left-radius: .2em
-        border-bottom-left-radius: .2em
+        border-top-left-radius: 4px
+        border-bottom-left-radius: 4px
       }
     }
-    &.last {
-      border-top-right-radius: .2em
-      border-bottom-right-radius: .2em
+    .last {
+      border-top-right-radius: 4px
+      border-bottom-right-radius: 4px
       margin-right: 0
       :link {
-        border-top-right-radius: .2em
-        border-bottom-right-radius: .2em
+        border-top-right-radius: 4px
+        border-bottom-right-radius: 4px
         margin-right: 0
       }
     }
     :link, :visited  {
-      border-bottom: none
-      box-shadow: none
+      border: 1px solid bg0
+      border-left: 0
+      border-right: 0
+      bsh: none
       color: v98
-      border-width: 1px
       padding: .9em 20px
-      text-shadow: 0 1px 0 var(--txt-shadow)
+      margin-bottom: 1rem
+      tsh: 0 1px 0 var(--txt-shadow)
       &:hover {
         background: t
-        border-bottom: 4px solid v06
         color: v09
-        box-shadow: none
+        bsh: none
+        border-bottom: 4px solid v06
         padding: .9em 20px
+        animation: wut .5s ease
       }
     }
     .active {
@@ -1034,12 +1041,13 @@ b() { box-shadow: arguments }
         background: none
         border-bottom: 4px solid v06
         color: v09
-        text-shadow: -3px solid v99
+        tsh: -3px solid v99
         padding: .9em 20px
-        text-shadow: 0 1px 0 var(--txt-shadow)
+        tsh: 0 1px 0 var(--txt-shadow)
         &:hover {
           color: v98
-          text-shadow: 0 2px 0 var(--txt-shadow)
+          tsh: 0 2px 0 var(--txt-shadow)
+          animation: none
         }
       }
     }
@@ -1096,6 +1104,9 @@ b() { box-shadow: arguments }
   .trac-workflow-graph canvas {
     filter: invert(.9) hue-rotate(180deg)
     mix-blend-mode: lighten
+  }
+  .trac-ticket-buttons {
+    margin-top: -.8rem
   }
   #altlinks {
     margin-top: 1em
@@ -1197,12 +1208,12 @@ b() { box-shadow: arguments }
         color: v98
         padding: .1rem .3rem
         rad: .15rem
-        text-shadow: 0 1px 0 bg0
+        tsh: 0 1px 0 bg0
         &:hover {
-          background: v08
+          background: fg3
           color: v99
-          border-color: v08
-          text-shadow: 0 1px 0 bg0
+          border-color: fg2
+          tsh: 0 1px 0 bg0
         }
       }
       :visited {
@@ -1210,12 +1221,12 @@ b() { box-shadow: arguments }
         background: t
         color: v98
         padding: .1em .3em
-        text-shadow: 0 1px 0 bg0
+        tsh: 0 1px 0 bg0
         &:hover {
           background: t
           color: v98
           border-color: bg4
-          text-shadow: 0 1px 0 bg0
+          tsh: 0 1px 0 bg0
         }
       }
       .previous {
@@ -1243,24 +1254,26 @@ b() { box-shadow: arguments }
     }
     &.search {
       // re-align this
-      background: bg2
-      border: 1px solid bg4
       text-align: center
-      margin: 0 auto
-      margin-top: -1rem
-      padding: .6rem .3rem 0 1rem
-      max-width 21rem
-      rad: .28em
-      .filters {
-        color: v97
-        margin: 0 0 0 -7.7rem
+      #fullsearch {
+        margin-top: -1rem
+        padding: .2rem .2rem 1rem 2rem
+        rad: 4px
+        .filters {
+          color: v97
+          margin: 0 0 0 -7.7rem
+          text-align: center
+        }
       }
       hr {
+        max-width: 845px
+        margin: 1rem auto
         border-color: bg5
       }
       #results {
         text-align: left
-        max-width 900px
+        max-width 780px
+        width: @max-width
         margin: 0 auto
         dt a {
           color: v07
@@ -1280,32 +1293,58 @@ b() { box-shadow: arguments }
       }
       // lets do away with the obvious
       // really cant be placed before without a lot of hacking
-      h1 label[for="q"] {
-        display: none
+      h1 {
+        label[for="q"] {
+          display: none
+        }
+      }
+      h2 {
+        max-width: 800px
+        margin: .8rem auto
+      }
+      .paging {
+        max-width: 800px
+        margin: 1.3rem auto
+        font-size: 96%
+        line-height: 2em;
       }
     }
     &.changeset {
-      margin: 0 auto
-      max-width: 980px
+      margin: 0 auto 0
+      max-width: 840px
+
       h1 {
-        max-width: 870px
-        margin: 0 auto
+        max-width: 835px
+        margin: 0 auto  1rem
         font-size: 120%
-        margin-bottom: 1rem
       }
       #overview {
-        max-width: 900px
-        margin: 0 auto
-        #file-legend {
-          margin-left: 0
+        max-width: 840px
+        margin: 0 -1rem 0
+        dt {
+          max-width: 835px
+          margin: auto .6rem auto auto
+        }
+        dd {
+          max-width: 835px
+          margin: auto -4rem auto auto
         }
       }
     }
     &.ticket {
-      margin-top: 1rem
+      width: 830px
+      max-width: 830px
+      margin: -1rem auto auto auto
       // fix images oveflowing out of bounds.
-      .comment p a[href*='/attachment/'] img {
+      p a[href*='/attachment/'] img {
         max-width: 99%
+      }
+      /.attachment .image-file img {
+        max-width: 99%
+      }
+      #ticket {
+        max-width: 840px
+        margin: .3rem auto auto auto
       }
       .trac-nav a {
         font-size: 14px
@@ -1321,9 +1360,11 @@ b() { box-shadow: arguments }
     }
     &.timeline {
       margin: 0 auto
-      max-width: 880px
+      max-width: 840px
       h1 {
         font-size: 120%
+        margin-top: -1.2rem
+        margin-bottom: -1rem
       }
       #prefs {
         &[action="#"] {
@@ -1335,7 +1376,7 @@ b() { box-shadow: arguments }
       dt.highlight {
         background-color: bg4
         border: 1px solid bg5
-        rad: .2em
+        rad: 4px
       }
     }
     &.roadmap {
@@ -1345,13 +1386,14 @@ b() { box-shadow: arguments }
       }
     }
     &.browser {
-      width: 900px
-      margin: 1rem 0
+      max-width: 980px
+      margin-left: auto
+      margin-right: auto
       h1 {
         font-size: 120%
         .pathentry:not(.first) {
           background: var(--code-pr-bg)
-          r: .2em
+          rad: 4px
         }
       }
       .pathentry {
@@ -1365,7 +1407,7 @@ b() { box-shadow: arguments }
         font-size: 120%
         .pathentry:not(.first) {
           background: var(--code-pr-bg)
-          r: .2em
+          rad: 4px
         }
       }
     }
@@ -1424,8 +1466,8 @@ b() { box-shadow: arguments }
         padding: .3em .3em .2em .5rem
         &:target {
           background: bg4
-          box-shadow: none
-          rad: .2em
+          bsh: none
+          rad: 4px
           border-color: t
           margin-left: -1.6rem
           padding: .1em 0 .1em .5rem
@@ -1445,23 +1487,23 @@ b() { box-shadow: arguments }
         border-color: v06
         border-bottom: 1px solid t
         padding: .5em 2em .4em
-        rad: .28em .26em 0 0
+        rad: 4px .26em 0 0
         margin-top: .09em
         transition: transition
-        text-shadow: 0 1px 0 bg0
+        tsh: 0 1px 0 bg0
         &.active {
           background: bg2
           border: 1px solid bg5
           border-bottom: 1px solid t
           color: v99
-          rad: .28em .26em 0 0
+          rad: 4px .26em 0 0
           &:hover {
             background: bg2
             border: 1px solid bg5
             border-bottom: 1px solid t
             color: v99
             margin-top: .09em
-            rad: .28em .26em 0 0
+            rad: 4px .26em 0 0
           }
         }
         &:hover {
@@ -1470,7 +1512,7 @@ b() { box-shadow: arguments }
           border-bottom: 1px solid t
           color: v99
           margin-top: 0
-          rad: .28em .26em 0 0
+          rad: 4px .26em 0 0
         }
         :link {
           color: v99
@@ -1490,7 +1532,7 @@ b() { box-shadow: arguments }
         border: 1px solid bg4
         padding: 15px 10px 15px 10px
         margin-bottom: .5rem
-        rad: .28em
+        rad: 4px
       }
     }
     &.wiki {
@@ -1504,7 +1546,7 @@ b() { box-shadow: arguments }
       margin-top: -1rem
       padding: .6rem 1.5rem 0 1rem
       max-width: 10rem
-      rad: .28em
+      rad: 4px
       input.textwidget {
         width: 99%
         margin-left: -.1rem
@@ -1530,7 +1572,7 @@ b() { box-shadow: arguments }
   div.trac-content {
     border: 0
     rad: 0
-    box-shadow: none
+    bsh: none
     p, li {
       color: v97
       line-height: 1.8em
@@ -1579,9 +1621,9 @@ b() { box-shadow: arguments }
   .foldable {
     :link {
       border: 0
-      box-shadow: none
+      bsh: none
       color: bg1
-      text-shadow: none
+      tsh: none
       background: none
       &::before {
         content: '\23F7'
@@ -1593,10 +1635,10 @@ b() { box-shadow: arguments }
     }
     :visited {
       border: none
-      rad: .28em
-      box-shadow: none
+      rad: 4px
+      bsh: none
       color: bg1
-      text-shadow: none
+      tsh: none
       &:hover {
         background-color: t
       }
@@ -1647,10 +1689,10 @@ b() { box-shadow: arguments }
   #prefs {
     background: bg2
     border: 1px solid bg4
-    rad: .28em
-    box-shadow: none
+    rad: 4px
+    bsh: none
     font-size: 85%
-    margin: 0 0 2em
+    margin: auto .78em 1em
     input {
       font-size: 12px
       vertical-align: middle
@@ -1661,7 +1703,7 @@ b() { box-shadow: arguments }
     fieldset {
       background: t
       border: none
-      box-shadow: none
+      bsh: none
       margin: .5em
       padding: 0
       legend {
@@ -1687,7 +1729,7 @@ b() { box-shadow: arguments }
   #ticketbox {
     background: bg2
     border: 1px solid bg4
-    rad: .28em
+    rad: 4px
 
     div.description h2 {
       border-bottom: 1px solid bg4
@@ -1716,8 +1758,8 @@ b() { box-shadow: arguments }
       background: bg3
       border-color: bg4
       max-width: 96%
-      margin: .8rem auto
-      rad: .2em
+      margin: 2rem -.09em 2rem .09em
+      rad: 4px
     }
   }
   #ticketchange {
@@ -1725,9 +1767,9 @@ b() { box-shadow: arguments }
       background: bg0
       border-color: bg4
       color: v18
-      rad: .28em
+      rad: 4px
       float: right
-      box-shadow: none
+      bsh: none
       margin: 2em 0 2.5em 3em
       padding-top: .3rem
     }
@@ -1754,20 +1796,18 @@ b() { box-shadow: arguments }
     .changes {
       background: bg0
       border-color: bg4
-      rad: .28em
-      box-shadow: none
+      rad: 4px
+      bsh: none
       color: v18
       float: right
       font-size: 110%
-      margin: 2em 0 2.5em 3em
+      margin: 0 0 .8em 2em
     }
     .change {
       background-color: bg2
-      border-width: 1px
-      border-style: solid
-      border-color: bg4
+      border: 1px solid bg4
       margin-top: 15px
-      rad: .28em
+      rad: 4px
       padding: 2px
       h3 {
         padding: 5px 0 10px 15px
@@ -1803,10 +1843,10 @@ b() { box-shadow: arguments }
   }
   .foldable :link, .foldable :visited {
     border-color: bg4
-    rad: .28em
-    box-shadow: none
+    rad: 4px
+    bsh: none
     color: v98
-    text-shadow: none
+    tsh: none
     padding: .2em .5em .3em 20px
   }
   .report {
@@ -1817,7 +1857,7 @@ b() { box-shadow: arguments }
       h2 {
         padding: 0.2em .3em .1em 0
         border-bottom: 2px solid bg4
-        box-shadow: none
+        bsh: none
       }
       h3 {
         em {
@@ -1846,7 +1886,7 @@ b() { box-shadow: arguments }
   }
   h2.report-result {
     background: t
-    box-shadow: none
+    bsh: none
     border-bottom: 2px solid bg4
     margin: 0 0 .8em 0
     rad: 0
@@ -1884,11 +1924,11 @@ b() { box-shadow: arguments }
     border-color: bg4
     border-collapse: unset
     color: v98
-    rad: .2em
+    rad: 4px
     th {
       font-size: 100%
       padding: .8em .8em
-      rad: .2em
+      rad: 4px
     }
     td {
       font-size: 85%
@@ -1927,12 +1967,9 @@ b() { box-shadow: arguments }
       content: '\25B3'
     }
   }
-  #overview {
-    color: v98
-    margin-left: 1rem
-  }
   #diff-legend {
-    margin-left: 1rem
+    margin-left: -1rem
+    margin-bottom: .5rem
   }
   #file-legend {
     margin-left: -.8rem
@@ -1942,8 +1979,12 @@ b() { box-shadow: arguments }
     li.entry {
       background: bg2
       border: 1px solid bg4
-      rad: .28em
-      box-shadow: none
+      rad: 4px
+      bsh: none
+      width: 830px
+      max-width: 830px
+      margin-left: -2.09rem
+      margin-right: auto
     }
     pre {
       background: var(--code-pr-bg)
@@ -2071,43 +2112,43 @@ b() { box-shadow: arguments }
   }
   .chglist .edit, #overview .mod {
       background: v35
-      rad: .2em
+      rad: 4px
     }
   .chglist .delete, #overview .rem {
     background: v15
-    rad: .2em
+    rad: 4px
   }
   .chglist .add, #overview .add {
     background: v45
-    rad: .2em
+    rad: 4px
   }
   .diff .legend {
     dt[class*] {
       height: 14px
       width: @height
       border: 1px solid bg5
-      rad: .2em
+      rad: 4px
     }
     dd { margin-top: .1rem }
     dt.unmod {
       background: var(--code-pr-bg)
-      rad: .2em
+      rad: 4px
     }
     dt.mod {
       background: v35
-      rad: .2em
+      rad: 4px
     }
     dt.rem {
       background: v15
-      rad: .2em
+      rad: 4px
     }
     dt.add {
       background: v45
-      rad: .2em
+      rad: 4px
     }
     dt.cp {
       background: v75
-      rad: .2em
+      rad: 4px
     }
   }
 
@@ -2133,7 +2174,7 @@ b() { box-shadow: arguments }
   table {
     &.code {
       border-color: bg4
-      box-shadow: none
+      bsh: none
       thead th {
         background: bg2
         border-top: 1px solid bg4
@@ -2194,7 +2235,7 @@ b() { box-shadow: arguments }
         &:hover {
           background: v06
           border-color: v06
-          b: 0 0 10px 0 v04
+          bsh: 0 0 10px 0 v04
         }
       }
     }
@@ -2225,9 +2266,9 @@ b() { box-shadow: arguments }
       background: bg4
       border: 1px solid bg5
       padding-bottom: .6em
-      box-shadow: none
-      text-shadow: 0 1px 0 bg0
-      rad: .28em
+      bsh: none
+      tsh: 0 1px 0 bg0
+      rad: 4px
     }
     dt {
       .time {
@@ -2236,7 +2277,7 @@ b() { box-shadow: arguments }
           color: v09
         }
       }
-      em { color: v47 }
+      em { color: v09 }
       :link, :visited {
         color: v98
         padding: 0 20px 20px 27px
@@ -2314,7 +2355,7 @@ b() { box-shadow: arguments }
     background: bg3
     rad: 3px
     border-color: bg4
-    box-shadow: none
+    bsh: none
     font-size: .8rem
     ol {
       ol {
@@ -2323,7 +2364,7 @@ b() { box-shadow: arguments }
     }
     .active {
       background: v02
-      rad: .28em
+      rad: 4px
       padding: 5px 0 5px 5px
       margin-left: -5px
       margin-right: -5px
@@ -2403,16 +2444,16 @@ b() { box-shadow: arguments }
   pre.wiki {
     background: var(--code-pr-bg)
     border: 1px solid bg4
-    box-shadow: none
+    bsh: none
     rad: 0.2em
-    margin: 2em .75em
+    margin: 1em 1.8em 1em .8em
     padding: .55rem
   }
   pre.literal-block {
     background: var(--code-pr-bg)
     border: 1px solid bg4
-    box-shadow: none
-    rad: .28em
+    bsh: none
+    rad: 4px
     margin: 1em 1.75em
     padding: .25em
     overflow: auto
@@ -2425,12 +2466,12 @@ b() { box-shadow: arguments }
     border: 1px solid bg5
     background: var(--code-pr-bg)
     padding: 2px 5px 2px 5px
-    rad: .28em
+    rad: 4px
   }
   tt {
     color: v98
     border: 1px solid bg4
-    rad: .25em
+    rad: 4px
     padding: 0 0.3em
     background: bg2
   }
@@ -2463,8 +2504,8 @@ b() { box-shadow: arguments }
   }
   table.wiki {
     border: 1px solid bg4
-    box-shadow: none
-    rad: .2em
+    bsh: none
+    rad: 4px
     border-collapse: separate
     td {
       border: 1px solid bg4
@@ -2477,16 +2518,16 @@ b() { box-shadow: arguments }
       border: 1px solid bg4
       padding: .6em .25em
       background-color: bg2
-      rad: .2em
+      rad: 4px
     }
     tbody {
       tr.even {
         background-color: bg0
-        rad: .2em
+        rad: 4px
       }
       tr.odd {
         background-color: bg1
-        rad: .2em
+        rad: 4px
       }
     }
   }
@@ -2497,7 +2538,7 @@ b() { box-shadow: arguments }
   .wikitoolbar {
     margin-top: .2em
     border: 1px solid t
-    rad: .2em
+    rad: 4px
     :link {
       border: 1px solid t
       border-left-color: t
@@ -2545,7 +2586,7 @@ b() { box-shadow: arguments }
     }
     &:hover {
       border-color: v03
-      box-shadow: 0 0 5px 0 v04
+      bsh: 0 0 5px 0 v04
     }
   }
   #attachments {
@@ -2593,7 +2634,7 @@ b() { box-shadow: arguments }
       }
       &.author { color: v97 }
       &.rev :link {
-        color: v45
+        color: v09
       }
     }
     tr {
@@ -2603,9 +2644,9 @@ b() { box-shadow: arguments }
   table.listing {
     border-collapse: unset
     border-bottom: 1px solid bg4
-    box-shadow: none
-    th:first-of-type { rad: .2em 0 0 0 }
-    th:last-of-type { rad: 0 .2em 0 0 }
+    bsh: none
+    th:first-of-type { rad: 4px 0 0 0 }
+    th:last-of-type { rad: 0 4px 0 0 }
     thead {
       tr {
         background: bg2
@@ -2616,6 +2657,7 @@ b() { box-shadow: arguments }
         border-bottom-color: bg5
         padding: .5em .7em
         color: v97
+        vertical-align: middle
         &:link {
           &:hover {
             background-color: t
@@ -2652,7 +2694,7 @@ b() { box-shadow: arguments }
     }
     tbody {
       td {
-        border: 1px dotted bg5
+        border: 1px solid bg2
         padding: .3em .5em
         vertical-align: top
         transition: transition
@@ -2706,7 +2748,16 @@ b() { box-shadow: arguments }
   }
 
   table.dirlist {
-    border-collapse: unset
+    max-width: 980px
+    margin-left: auto
+    margin-right: auto
+    // stop showing the whole text inside td when string is looooooong
+    // we want the
+    .change {
+      max-width: 350px
+      text-overflow: ellipsis
+      overflow: hidden
+    }
     td span.loading {
       filter: invert(.9)
     }
@@ -2778,6 +2829,10 @@ b() { box-shadow: arguments }
         }
       }
     }
+    th.change {
+      max-width: 10% i
+      width: @max-width
+    }
   }
   #fieldhist {
     td {
@@ -2829,12 +2884,19 @@ b() { box-shadow: arguments }
     }
   }
   #content.error {
+    max-width: 800px
+    margin: 1rem auto
+    h1 {
+      margin-bottom: 1rem
+      font-size: 1rem
+    }
     .message {
       background: v11
-      border: 2px solid v15
+      border: 1px solid v15
       color: v98
-      padding: .5em
+      padding: .8em
       margin: 1em 0
+      rad: 4px
     }
     div.message {
       pre {
@@ -2925,8 +2987,8 @@ b() { box-shadow: arguments }
     color: v98
     padding: .8em
     margin: 1rem auto
-    max-width: 900px
-    box-shadow: none
+    max-width: 770px
+    bsh: none
     pre {
       margin-left: 1em
       overflow: hidden
@@ -2940,13 +3002,13 @@ b() { box-shadow: arguments }
       margin: -.1rem -.1em .1em 1em
       padding: 0 .8em 0
       height: 1.4em
-      text-shadow: 0 1px 0 bg0
-      rad: .28em
+      tsh: 0 1px 0 bg0
+      rad: 4px
       &:hover {
         background: v08
         color: v99
-        text-shadow: 0 1px 0 bg0
-        box-shadow: 0 0 10px v04
+        tsh: 0 1px 0 bg0
+        bsh: 0 0 10px v04
       }
     }
   }
@@ -2955,12 +3017,14 @@ b() { box-shadow: arguments }
     background: v11
     padding: .2em
     margin: 1px
-    rad: .25em
+    rad: 4px
   }
   #warning.system-message {
     background: v11
     border: 1px solid v15
-    rad: .2em
+    rad: 4px
+    margin: 1rem auto;
+    max-width: 940px;
     li {
       list-style-type: square
     }
@@ -2968,10 +3032,13 @@ b() { box-shadow: arguments }
   .warning.system-message {
     background: v31
     border: 1px solid v34
+    margin: 1rem auto;
+    max-width: 940px;
   }
   #notice.system-message {
     background: v41
     border: 1px solid v44
+    rad: 4px
     li {
       list-style-type: square
     }
@@ -3042,7 +3109,7 @@ b() { box-shadow: arguments }
   }
   .trac-autofocus {
     outline: none
-    box-shadow: 0 0 4px 0 var(--box-shadow)
+    bsh: 0 0 4px 0 var(--box-shadow)
   }
   @media screen {
     a.ext-link {
@@ -3093,28 +3160,28 @@ b() { box-shadow: arguments }
       border-bottom: none
     }
     div.trac-content {
-      box-shadow: none
+      bsh: none
     }
     .foldable {
       &:link {
-        text-shadow: none
-        box-shadow: none
+        tsh: none
+        bsh: none
       }
       &:visited {
-        text-shadow: none
-        box-shadow: none
+        tsh: none
+        bsh: none
       }
     }
   }
   div.code {
     background: t
     border-color: bg4
-    box-shadow: none
+    bsh: none
     color: v90
-    rad: .2em
+    rad: 4px
     pre {
       border-color: bg4
-      rad: .2em
+      rad: 4px
     }
   }
   #anydiff input {
@@ -3122,7 +3189,7 @@ b() { box-shadow: arguments }
   }
   .image-file {
     background: bg2
-    rad: 0 0 .2em .2em
+    rad: 0 0 4px 4px
     img { background: var(--rgba-bg2-1) }
   }
   // Better checkbox/radio inputs.
@@ -3157,18 +3224,18 @@ b() { box-shadow: arguments }
         background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path), i)
         c: 0 v08 v06
       }
-      &:focus, &:hover { c: 0 v06 v04; b: 0 0 10px 0 v04 }
+      &:focus, &:hover { c: 0 v06 v04; bsh: 0 0 10px 0 v04 }
     }
 
     &[type='checkbox'] {
-      rad: .2em
+      rad: 4px
       &:checked {
         path ='<path fill="' + to_svg($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
         background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path), i)
         c: 0 v08 v06
-        rad: .2em
+        rad: 4px
       }
-      &:focus, &:hover { c: 0 v06 v04; b: 0 0 10px 0 v04 }
+      &:focus, &:hover { c: 0 v06 v04; bsh: 0 0 10px 0 v04 }
       &:indeterminate {
         path = '<rect x="128" y="128" width="256" height="256" fill="' + to_svg($v99) + '"/>'
         background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path), i)
@@ -3182,9 +3249,9 @@ b() { box-shadow: arguments }
         background-color: bg5
         border: 2px solid bg5
         color: v98
-        box-shadow: 0 1px 0 bg0
-        text-shadow: 0 1px 0 bg0
-        rad: .28em
+        bsh: 0 1px 0 bg0
+        tsh: 0 1px 0 bg0
+        rad: 4px
         padding: .1rem .4rem
         cursor: pointer
         transition: transition
@@ -3192,16 +3259,16 @@ b() { box-shadow: arguments }
           background-color: v08
           border: 2px solid v08
           color: v98
-          b: 0 0 10px 0 v04
+          bsh: 0 0 10px 0 v04
         }
       }
       &::-webkit-file-upload-button {
         background-color: bg5
         border: 2px solid bg5
         color: v98
-        box-shadow: 0 1px 0 bg0
-        text-shadow: 0 1px 0 bg0
-        rad: .28em
+        bsh: 0 1px 0 bg0
+        tsh: 0 1px 0 bg0
+        rad: 4px
         padding: .1rem .4rem
         cursor: pointer
         transition: transition
@@ -3209,7 +3276,7 @@ b() { box-shadow: arguments }
           background-color: v08
           border: 2px solid v08
           color: v98
-          b: 0 0 10px 0 v04
+          bsh: 0 0 10px 0 v04
         }
       }
     }
@@ -3217,15 +3284,15 @@ b() { box-shadow: arguments }
       background: v06
       border: 1px solid v04
       color: v98
-      box-shadow: none
+      bsh: none
       padding: .25rem .8rem .35rem .8rem
-      rad: .28em
-      text-shadow: 0 1px 0 bg0
+      rad: 4px
+      tsh: 0 1px 0 bg0
       &:hover {
         background: v08
         border: 1px solid v08
         color: v99
-        b: 0 0 10px 0 v04
+        bsh: 0 0 10px 0 v04
       }
 
       &[disabled], &[disabled]:hover {
@@ -3233,14 +3300,14 @@ b() { box-shadow: arguments }
         border-color: bg3
         color: v94
         cursor: unset
-        box-shadow: none
+        bsh: none
       }
       &:hover {
         background-color: v06
         border: 1px solid v08
         color: v99
-        b: 0 0 10px 0 v04
-        text-shadow: 0 1px 0 bg0
+        bsh: 0 0 10px 0 v04
+        tsh: 0 1px 0 bg0
       }
       &#attachfilebutton {
         margin-left: -.8rem
@@ -3250,13 +3317,13 @@ b() { box-shadow: arguments }
       background-color: bg0
       border: 1px solid bg4
       color: v98
-      box-shadow: none
+      bsh: none
       padding: .25rem .8rem .25rem .2rem
-      rad: .28em
+      rad: 4px
       transition: transition
       &:focus, &:focus-within, &:focus-visible {
         c: 0 v08 bg1
-        b: 0 0 10px 0 v04
+        bsh: 0 0 10px 0 v04
         outline: 0
       }
       &:hover {
@@ -3286,7 +3353,7 @@ b() { box-shadow: arguments }
         &:hover { background-color: v02 }
         &:checked {
           background-color: v05 i
-          box-shadow: 0 0 10px 100px v06 inset
+          bsh: 0 0 10px 100px v06 inset
         }
       }
     }
@@ -3389,8 +3456,16 @@ b() { box-shadow: arguments }
 
   html {
     background: bg1 i
-    max-width: 800px
+    max-width: 1000px
     margin: 0 auto
+    transition: none
+  }
+  :link {
+    // sorry no transtion here else flashes of default UA link color
+    transition: none
+    &:hover {
+      color: v98
+    }
   }
 
   pre {
