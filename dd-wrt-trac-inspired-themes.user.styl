@@ -31,6 +31,8 @@
 
 @var range    cg_sat       'Saturation of RGB colors' [0, -50, 40, 0.01]
 @var range    cg_lig       'Lightness of gray colors' [0, -30, 30, 0.01]
+@var checkbox align-left   'Left align navigation   ' 1
+@var checkbox logalgnlft   'Left align logo         ' 1
 
 @var text     transition   'Define transition value ' 'all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)'
 
@@ -866,7 +868,16 @@ tsh() { text-shadow: arguments }
     }
   }
   #header {
-    text-align: center
+    if (logalgnlft) {
+      text-align: left
+      margin-left: 3.9rem
+      margin-right: auto
+    }
+    else {
+      text-align: right
+      margin-right: 3.9rem
+      margin-left: auto
+    }
     #logo img {
       &[src*='trac_banner.png'] {
         prefix = 'data:image/png;base64,'
@@ -949,8 +960,18 @@ tsh() { text-shadow: arguments }
     }
     &#metanav {
       ul {
-        text-align: center
+        if (align-left) {
+          text-align: left
+          margin-left: 3.4rem
+        }
+        else {
+          text-align: right
+          margin-right: 3.5rem
+        }
         margin-top: -3.133rem
+      }
+      li {
+        font-size: 14px
       }
       form.trac-logout {
         button {
@@ -984,7 +1005,14 @@ tsh() { text-shadow: arguments }
     margin-top: 4rem
     bsh:none
     ul {
-      text-align: center
+      if (align-left) {
+        text-align: left
+        margin-left: 3.99rem
+      }
+      else {
+        text-align: right
+        margin-right: 3.8rem
+      }
       font-size: 12px
     }
     li {
@@ -1546,6 +1574,14 @@ tsh() { text-shadow: arguments }
       margin-top: -1rem
       padding: .6rem 1.5rem 0 1rem
       max-width: 10rem
+      if (align-left) {
+        float: left
+        margin-left: 3.9rem
+      }
+      else {
+        text-align: right
+        margin-right: 4rem
+      }
       rad: 4px
       input.textwidget {
         width: 99%
