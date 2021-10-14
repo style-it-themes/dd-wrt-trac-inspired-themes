@@ -1232,13 +1232,24 @@ tsh() { text-shadow: arguments }
     .paging {
       font-size: 110%
       .current {
-        border: 1px solid v04
-        background: v06
-        color: v99
-        padding: .1rem .3rem
-        text-shadow: 0 1px 0 bg0
-        b: 0 0 10px 0 v04
-        rad: .2rem
+        if (light(AC)) {
+          border: 1px solid fg2
+          background: fg3
+          color: v99
+          padding: .1rem .3rem
+          tsh: 0 1px 0 bg0
+          bsh: 0 0 10px 0 fg4
+          rad: .2rem
+        }
+        else {
+          border: 1px solid fg5
+          background: fg5
+          color: v99
+          padding: .1rem .3rem
+          tsh: 0 1px 0 bg0
+          bsh: 0 0 10px 0 fg4
+          rad: .2rem
+        }
       }
       :link {
         border: 1px solid bg5
