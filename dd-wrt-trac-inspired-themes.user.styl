@@ -33,6 +33,7 @@
 @var range    cg_lig       'Lightness of gray colors' [0, -30, 30, 0.01]
 @var checkbox align-left   'Left align navigation   ' 1
 @var checkbox logalgnlft   'Left align logo         ' 1
+@var checkbox sticky_prefs 'Sticky timeline prefs   ' 1
 
 @var text     transition   'Define transition value ' 'all 0.2s cubic-bezier( 0.3, 0, 0.5, 1)'
 
@@ -198,7 +199,7 @@ tsh() { text-shadow: arguments }
     }
   }
 }
-@-moz-document regexp('https?://(svn|ftp).dd-wrt.com.*(/.*)?') {
+@-moz-document regexp('https?://(svn|ftp|download1).dd-wrt.com.*(/.*)?') {
   // global section triggers and variables
   :root {
     // show style name/version/copyright
@@ -1232,24 +1233,13 @@ tsh() { text-shadow: arguments }
     .paging {
       font-size: 110%
       .current {
-        if (light(AC)) {
-          border: 1px solid fg2
-          background: fg3
+          background: v04
+          border: 1px solid v05
           color: v99
           padding: .1rem .3rem
           tsh: 0 1px 0 bg0
-          bsh: 0 0 10px 0 fg4
+          bsh: 0 0 10px 0 v04
           rad: .2rem
-        }
-        else {
-          border: 1px solid fg5
-          background: fg5
-          color: v99
-          padding: .1rem .3rem
-          tsh: 0 1px 0 bg0
-          bsh: 0 0 10px 0 fg4
-          rad: .2rem
-        }
       }
       :link {
         border: 1px solid bg5
@@ -1259,9 +1249,9 @@ tsh() { text-shadow: arguments }
         rad: .15rem
         tsh: 0 1px 0 bg0
         &:hover {
-          background: fg3
+          background: v04
           color: v99
-          border-color: fg2
+          border-color: v05
           tsh: 0 1px 0 bg0
         }
       }
@@ -1420,6 +1410,10 @@ tsh() { text-shadow: arguments }
           padding: 1rem 1rem 1rem
           margin-right: 0
           margin-top: 4.5333rem
+          if (sticky_prefs) {
+            top: 2rem
+            position: sticky
+          }
         }
       }
       dt.highlight {
@@ -3491,7 +3485,7 @@ tsh() { text-shadow: arguments }
     .il { color: #8f9d6a } /* Literal.Number.Integer.Long */
   }
 }
-@-moz-document regexp('https?://ftp.dd-wrt.com.*(/.*)?') {
+@-moz-document regexp('https?://(ftp|download1).dd-wrt.com.*(/.*)?') {
   // ftp site
   fileExt = ( '../' bin chk dat enc fs img image l7 ram rom tftp trx txt tsk zip )
   excludedExt = ''
@@ -3556,7 +3550,7 @@ tsh() { text-shadow: arguments }
     margin: 1.5rem auto 1.5rem auto
     max-width 890px
     &::before {
-      content: '' + uq(pageTitle)
+      content: '' + pageTitle
       prefix = 'data:image/png;base64,'
       path   = 'iVBORw0KGgoAAAANSUhEUgAAAkQAAACMCAMAAACqGkaYAAAAY1BMVEX///8kX5T///8kX5T///8kX5T/'
       path  += '//8kX5T///8kX5T///8kX5T///8kX5T///8kX5T///8kX5T///8kX5T///8kX5T///8kX5T///8kX5T/'
@@ -3619,6 +3613,13 @@ tsh() { text-shadow: arguments }
       font-size: 1.5rem
       display: block
       white-space: pre
+    }
+  }
+  blockquote {
+    p, h2 { text-align: center }
+    h2 {
+      font-size: 3rem
+      color: v98
     }
   }
 }
