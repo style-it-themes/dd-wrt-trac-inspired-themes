@@ -9,15 +9,17 @@
   </a>
 </p>
 <p align="center">
-  <a href="https://discord.gg/EpdGSfH">
-    <img src="https://img.shields.io/badge/style--it--themes-discord%20channel-blue.svg?style=for-the-badge" alt="Style-It Themes (sit) Discord Channel">
+  <a href="https://matrix.to/#/#style_it_themes_public:matrix.org">
+    <img src="https://img.shields.io/badge/style--it--themes-matrix%20channel-blue.svg?style=for-the-badge" alt="Style-It Themes (sit) :matrix.org channel">
   </a>
   <a href="https://github.com/style-it-themes/dd-wrt-trac-inspired-themes/releases">
     <img src="https://img.shields.io/github/tag/style-it-themes/dd-wrt-trac-inspired-themes.svg?label=Current%20Version&style=for-the-badge" alt="Current version">
   </a>
+  <!--
   <a href="https://david-dm.org/Style-it-Themes/dd-wrt-trac-inspired-themes?type=dev">
     <img src="https://img.shields.io/david/dev/style-it-themes/dd-wrt-trac-inspired-themes.svg?label=devDependencies&style=for-the-badge" alt="devDependencies">
   </a>
+  -->
 </p>
 
 # TOC
@@ -37,6 +39,8 @@
 ## About
 
 The *DD-WRT Trac Inspired Themes* style is designed the DD-WRT SVN Trac website.
+
+It now targets and styles DD-WRT FTP servers addresses as well. 
 
 The default Style is retina burning and lets just say plain looking.
 
@@ -64,6 +68,10 @@ if you wish to view complete list click below.
  * Twilight
  * The Matrix
  * Ubuntu
+
+ ### Menu/logo alignment
+
+ * Optionally align to left or right both navigation or logo independently from each other.
 
  ### Color Adjustments
 
