@@ -6,7 +6,7 @@
 @homepageURL    https://github.com/style-it-themes/dd-wrt-trac-inspired-themes
 @supportURL     https://github.com/style-it-themes/dd-wrt-trac-inspired-themes/issues/new/choose
 @updateURL      https://github.com/style-it-themes/dd-wrt-trac-inspired-themes/raw/main/dd-wrt-trac-inspired-themes.user.styl
-@version        1.1.0
+@version        1.1.1
 @license        MIT
 @preprocessor stylus
 
@@ -17,9 +17,12 @@
     'Custom colors ⬎  ' :  'custom-style'  ,
     'Dracula          ' :  'dracula'       ,
     'Duo Cocoa        ' :  'duo-cocoa'     ,
+    'Gruvbox Dark     ' :  'gruvbox-dark'  ,
     'Material         ' :  'material'      ,
     'Material Darker  ' :  'material-dkr'  ,
+    'Mystic           ' :  'mystic'        ,
     'Solarized Dark   ' :  'solarized-dark',
+    'Tango Dark       ' :  'tango-dark'    ,
     'Twilight         ' :  'twilight'      ,
     'The Matrix       ' :  'the-matrix'    ,
     'Ubuntu           ' :  'ubuntu'        ,
@@ -40,7 +43,7 @@
 ==/UserStyle== */
 // Helpers.
 rq        = unquote
-stinfo    = 'DD-WRT Trac Inspired Themes v1.1.0'
+stinfo    = 'DD-WRT Trac Inspired Themes v1.1.1'
 copyright = '© 2021 Style-it-themes: the-j0k3r'
 license   = 'MIT'
 homeURL   = 'https://github.com/style-it-themes/dd-wrt-trac-inspired-themes'
@@ -95,10 +98,13 @@ tsh() { text-shadow: arguments }
   ColorSchemes = {
     'custom-style'   : { BG:   cg_bg, FG:   cg_fg, AC:   cg_ac }
     'duo-cocoa'      : { BG: #28231f, FG: #ffdac2, AC: #dfb249 }
+    'gruvbox-dark'   : { BG: #282828, FG: #ebdbb2, AC: #b8bb26 }
     'dracula'        : { BG: #282A36, FG: #f8f8f2, AC: #bd93f9 }
     'material'       : { BG: #263238, FG: #eeffff, AC: #82aaff }
     'material-dkr'   : { BG: #212121, FG: #eeffff, AC: #82aaff }
+    'mystic'         : { BG: #2f1e2e, FG: #f99b15, AC: #5bc4bf }
     'solarized-dark' : { BG: #002b36, FG: #fdf6e3, AC: #268bd2 }
+    'tango-dark'     : { BG: #303436, FG: #729fcf, AC: #babdb6 }
     'twilight'       : { BG: #141414, FG: #f7f7f7, AC: #8f9d6a }
     'the-matrix'     : { BG: #000000, FG: #ffffff, AC: #00ff00 }
     'ubuntu'         : { BG: #2c071a, FG: #f2f1ef, AC: #ef7847 }
