@@ -829,6 +829,9 @@ tsh() { text-shadow: arguments }
       color: v98
     }
   }
+  .trac-shade {
+    background-color: bg2
+  }
   textarea.trac-fullwidth,
   #trac-comment-editor textarea {
     background: bg0
@@ -1372,7 +1375,7 @@ tsh() { text-shadow: arguments }
         }
         dd {
           max-width: 835px
-          margin: auto -4rem auto auto
+          //margin: auto -4rem auto auto
         }
       }
     }
@@ -3253,6 +3256,8 @@ tsh() { text-shadow: arguments }
   input {
     prefix  = 'data:image/svg+xml;utf8,'
     prefix += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">'
+
+    &:autofill { background-image: linear-gradient(rgba(convert($v23), .5), rgba(convert($v23), .5)) }
     &[type='radio'],
     &[type='checkbox'] {
       &, &:focus, &:hover:active {
@@ -3416,6 +3421,7 @@ tsh() { text-shadow: arguments }
     }
     &[disabled] {
       background: bg2
+      padding: .243333rem .2rem
     }
   }
 }
