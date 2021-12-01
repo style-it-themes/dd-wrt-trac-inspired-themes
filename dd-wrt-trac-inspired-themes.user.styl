@@ -102,7 +102,7 @@ tsh() { text-shadow: arguments }
     'dracula'        : { BG: #282A36, FG: #f8f8f2, AC: #bd93f9 }
     'material'       : { BG: #263238, FG: #eeffff, AC: #82aaff }
     'material-dkr'   : { BG: #212121, FG: #eeffff, AC: #82aaff }
-    'mystic'         : { BG: #2f1e2e, FG: #f99b15, AC: #5bc4bf }
+    'mystic'         : { BG: #2f1e2e, FG: #f99b15, AC: #bbbbdd }
     'solarized-dark' : { BG: #002b36, FG: #fdf6e3, AC: #268bd2 }
     'tango-dark'     : { BG: #303436, FG: #729fcf, AC: #babdb6 }
     'twilight'       : { BG: #141414, FG: #f7f7f7, AC: #8f9d6a }
@@ -3291,6 +3291,7 @@ tsh() { text-shadow: arguments }
 
     &[type='checkbox'] {
       rad: 4px
+      padding: 7px
       &:checked {
         path ='<path fill="' + to_svg($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
         background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path), i)
@@ -3347,7 +3348,7 @@ tsh() { text-shadow: arguments }
       border: 1px solid v04
       color: v98
       bsh: none
-      padding: .25rem .8rem .35rem .8rem
+      padding: .25rem .8rem .25rem .8rem
       rad: 4px
       tsh: 0 1px 0 bg0
       &:hover {
