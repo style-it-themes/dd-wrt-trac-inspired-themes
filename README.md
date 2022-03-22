@@ -15,11 +15,6 @@
   <a href="https://github.com/style-it-themes/dd-wrt-trac-inspired-themes/releases">
     <img src="https://img.shields.io/github/tag/style-it-themes/dd-wrt-trac-inspired-themes.svg?label=Current%20Version&style=for-the-badge" alt="Current version">
   </a>
-  <!--
-  <a href="https://david-dm.org/Style-it-Themes/dd-wrt-trac-inspired-themes?type=dev">
-    <img src="https://img.shields.io/david/dev/style-it-themes/dd-wrt-trac-inspired-themes.svg?label=devDependencies&style=for-the-badge" alt="devDependencies">
-  </a>
-  -->
 </p>
 
 # TOC
