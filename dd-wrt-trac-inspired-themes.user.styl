@@ -20,7 +20,7 @@
     'Gruvbox Dark     ' :  'gruvbox-dark'  ,
     'Material         ' :  'material'      ,
     'Material Darker  ' :  'material-dkr'  ,
-    'Mystic           ' :  'mystic'        ,
+    'Seti             ' :  'seti'          ,
     'Solarized Dark   ' :  'solarized-dark',
     'Tango Dark       ' :  'tango-dark'    ,
     'Twilight         ' :  'twilight'      ,
@@ -63,7 +63,7 @@ to_hsla(input) {
 
 // SVG-friendly colors mixin.
 // NOTE: Compiler does not like HSLA format, so we convert back to HEX.
-to_svg(input) {
+to_hex(input) {
   s('\%23%s', rq(substr(s('%s', convert(input)), 1, 6)))
 }
 
@@ -102,7 +102,7 @@ tsh() { text-shadow: arguments }
     'dracula'        : { BG: #282A36, FG: #f8f8f2, AC: #bd93f9 }
     'material'       : { BG: #263238, FG: #eeffff, AC: #82aaff }
     'material-dkr'   : { BG: #212121, FG: #eeffff, AC: #82aaff }
-    'mystic'         : { BG: #2f1e2e, FG: #f99b15, AC: #bbbbdd }
+    'seti'           : { BG: #0D1011, FG: #ffd200, AC: #7292a1 }
     'solarized-dark' : { BG: #002b36, FG: #fdf6e3, AC: #268bd2 }
     'tango-dark'     : { BG: #303436, FG: #729fcf, AC: #babdb6 }
     'twilight'       : { BG: #141414, FG: #f7f7f7, AC: #8f9d6a }
@@ -140,7 +140,6 @@ tsh() { text-shadow: arguments }
   $bg = colors[0]
   $fg = colors[1]
 
-  // Generate background colors.
   for num in 0..5 {
     $color = $bg.color
     if num == 1 {} // Skip base BG color.
@@ -249,7 +248,7 @@ tsh() { text-shadow: arguments }
     --rgba-bg2-5: rgba(convert($bg2), .5)
     --box-shadow: rgba(convert($v09), .9)
 
-    --font_family_1: Verdana, 'Bitstream Vera Sans', Helvetica, Roboto, Segoe UI, sans-serif
+    --font_family_1: Helvetica, Verdana, 'Bitstream Vera Sans', Helvetica, Roboto, Segoe UI, sans-serif
     --font_family_2: inherit
     --font_family_3: sans-serif
     --font_family_4: monospace
@@ -271,7 +270,7 @@ tsh() { text-shadow: arguments }
     color: v98
     margin: 10px
     padding: 0
-    font: normal 14px var(--font_family_1)
+    font: normal 16px var(--font_family_1)
   }
   th {
     font: normal 14px var(--font_family_1)
@@ -2134,6 +2133,12 @@ tsh() { text-shadow: arguments }
         }
       }
     }
+    .l span, .r span {
+      overflow: hidden
+      text-overflow: ellipsis
+      max-width: 100%
+      display: inline-block
+    }
     table.inline tbody {
       &.rem td.l, &.mod td.l {
         background: v11
@@ -2508,6 +2513,8 @@ tsh() { text-shadow: arguments }
     rad: 0.2em
     margin: 1em 1.8em 1em .8em
     padding: .55rem
+    font-family: monospace
+    clear: right
   }
   pre.literal-block {
     background: var(--code-pr-bg)
@@ -3239,6 +3246,7 @@ tsh() { text-shadow: arguments }
     bsh: none
     color: v90
     rad: 4px
+    font-family: monospace
     pre {
       border-color: bg4
       rad: 4px
@@ -3282,7 +3290,7 @@ tsh() { text-shadow: arguments }
       rad: 50%
       padding: 7px
       &:checked {
-        path = '<circle cx="256" cy="256" r="128" fill="' + to_svg($v99) + '"/>'
+        path = '<circle cx="256" cy="256" r="128" fill="' + to_hex($v99) + '"/>'
         background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path), i)
         c: 0 v08 v06
       }
@@ -3293,14 +3301,14 @@ tsh() { text-shadow: arguments }
       rad: 4px
       padding: 7px
       &:checked {
-        path ='<path fill="' + to_svg($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
+        path ='<path fill="' + to_hex($v99) + '" d="M99 213l-1 89 104 102 205-201v-91L203 315 99 213z"/>'
         background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path), i)
         c: 0 v08 v06
         rad: 4px
       }
       &:focus, &:hover { c: 0 v06 v04; bsh: 0 0 10px 0 v04 }
       &:indeterminate {
-        path = '<rect x="128" y="128" width="256" height="256" fill="' + to_svg($v99) + '"/>'
+        path = '<rect x="128" y="128" width="256" height="256" fill="' + to_hex($v99) + '"/>'
         background-image: s("url('%s%s</svg>') %s", rq(prefix), rq(path), i)
         c: 0 v08 v09
         &:hover { c: 0 v06 v04 }
