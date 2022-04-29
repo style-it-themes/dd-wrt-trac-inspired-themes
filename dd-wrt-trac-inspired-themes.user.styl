@@ -782,6 +782,9 @@ tsh() { text-shadow: arguments }
     input {
       margin: 1em .362em .1em auto
     }
+    [name='update'] {
+      padding-bottom: .15rem
+    }
   }
   .uisymbols {
     .inlinebuttons {
@@ -2120,16 +2123,25 @@ tsh() { text-shadow: arguments }
           }
         }
       }
-      tbody.skipped {
-        td {
-          background: bg3
-          border: 1px solid bg4
-        }
-        tr th {
-          background: bg4
-          &:hover {
-            background: bg4 i
+      tbody {
+        &.skipped {
+          td {
+            background: bg3
+            border: 1px solid bg4
           }
+          tr th {
+            background: bg4
+            &:hover {
+              background: bg4 i
+            }
+          }
+        }
+        // https://svn.dd-wrt.com/changeset/48756
+        &.rem .l del, &.add .r ins {
+          overflow: hidden
+          text-overflow: ellipsis
+          max-width: 100%
+          display: inline-block
         }
       }
     }
@@ -2233,7 +2245,7 @@ tsh() { text-shadow: arguments }
       }
     }
     span:hover {
-      background: rgba(50,50,50, .5)
+      background: rgba(50, 50, 50, .5)
     }
   }
   table {
