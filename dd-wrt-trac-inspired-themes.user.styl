@@ -283,7 +283,7 @@ tsh() { text-shadow: arguments }
     margin: .15em 1em 0.5em 0
     :link {
       color: v08
-      border: 0px solid t
+      border: 0 solid t
     }
     :visited {
       color: inherit
@@ -675,8 +675,8 @@ tsh() { text-shadow: arguments }
     input[type='submit'] {
       &[title*="reply" i], &[title*="edit" i] {
         font-size: 14px
-        padding: .2em .6em 0
-        margin-bottom: .8rem
+        padding: .2em .6em 1.6em
+        margin-bottom: .2rem
       }
       &:hover {
         background: v08
@@ -1117,7 +1117,14 @@ tsh() { text-shadow: arguments }
   }
   #ctxtnav {
     ul {
-      text-align: center
+      if (align-left) {
+        text-align: left
+        margin-left: 3.4rem
+      }
+      else {
+        text-align: right
+        margin-right: 3.5rem
+      }
       .next, .prev, .missing {
         font-size: 15px
         vertical-align: middle
@@ -3252,7 +3259,7 @@ tsh() { text-shadow: arguments }
       rad: 4px
     }
   }
-  #anydiff input {
+  #anydiff input:not([name*='_path']) {
     margin: 0 -.5em 0 0
   }
   .image-file {
