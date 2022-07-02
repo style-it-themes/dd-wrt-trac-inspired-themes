@@ -1555,11 +1555,12 @@ tsh() { text-shadow: arguments }
         background: v04
         border-color: v06
         border-bottom: 1px solid t
-        padding: .5em 2em .4em
+        padding: .5em 1.5em .4em
         rad: 4px .26em 0 0
         margin-top: .09em
         transition: transition
         tsh: 0 1px 0 bg0
+        cursor: pointer
         &.active {
           background: bg2
           border: 1px solid bg5
@@ -1585,6 +1586,7 @@ tsh() { text-shadow: arguments }
         }
         :link {
           color: v99
+          text-decoration: none
           &:hover {
             color: v99
           }
@@ -1602,6 +1604,19 @@ tsh() { text-shadow: arguments }
         padding: 15px 10px 15px 10px
         margin-bottom: .5rem
         rad: 4px
+      }
+      #userprefs {
+        padding-left: 1em
+        div.code pre {
+          width: 97% i
+          margin-left: -.1rem
+          margin-top: .1rem
+        }
+        .hint {
+          margin-top: .2rem
+          margin-bottom: 1rem
+          margin-left: -.9rem
+        }
       }
     }
     &.wiki {
