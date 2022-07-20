@@ -248,11 +248,11 @@ tsh() { text-shadow: arguments }
     --rgba-bg2-5: rgba(convert($bg2), .5)
     --box-shadow: rgba(convert($v09), .9)
 
-    --font_family_1: Helvetica, Verdana, 'Bitstream Vera Sans', Helvetica, Roboto, Segoe UI, sans-serif
+    --font_family_1: Helvetica, Verdana, 'Bitstream Vera Sans', Roboto, Segoe UI, sans-serif
     --font_family_2: inherit
     --font_family_3: sans-serif
     --font_family_4: monospace
-    --font_family_5: Verdana, Arial, 'Bitstream Vera Sans', Helvetica, sans-serif
+    --font_family_5: Helvetica, Verdana, Arial, 'Bitstream Vera Sans', Roboto, Segoe UI, sans-serif
   }
   ::selection {
     background: v06
@@ -272,10 +272,7 @@ tsh() { text-shadow: arguments }
     padding: 0
     font: normal 16px var(--font_family_1)
   }
-  th {
-    font: normal 14px var(--font_family_1)
-  }
-  tr {
+  th, tr {
     font: normal 14px var(--font_family_1)
   }
   h1 {
