@@ -270,8 +270,8 @@ tsh() { text-shadow: arguments }
   body {
     background: bg1
     color: v98
-    margin: 10px
-    padding: 0
+    padding: .362em
+    width: 1000px
     font: normal 16px var(--font_family_1)
   }
   th, tr {
@@ -750,8 +750,9 @@ tsh() { text-shadow: arguments }
     margin: 1em .5em .5em
   }
   legend {
-    color: v97
-    padding: 0 .6em
+    color: v09
+    margin-left: -.6em
+    font-size: 100%
   }
   label {
     &.disabled { color: v97 }
@@ -886,12 +887,12 @@ tsh() { text-shadow: arguments }
   #header {
     if (logalgnlft) {
       text-align: left
-      margin-left: 3.9rem
+      margin-left: -.1rem
       margin-right: auto
     }
     else {
       text-align: right
-      margin-right: 3.9rem
+      margin-right: -1.3rem
       margin-left: auto
     }
     #logo img {
@@ -978,11 +979,11 @@ tsh() { text-shadow: arguments }
       ul {
         if (align-left) {
           text-align: left
-          margin-left: 3.4rem
+          margin-left: -.7rem
         }
         else {
           text-align: right
-          margin-right: 3.5rem
+          margin-right: -1.9rem
         }
         margin-top: -3.133rem
       }
@@ -1017,14 +1018,11 @@ tsh() { text-shadow: arguments }
     }
   }
   @keyframes wut {
-    0% {
-      padding-bottom: 2rem
-
-    }
-    50%,
-    100% {
-      padding-bottom: .64rem
-    }
+    0% { padding-bottom: 1.8rem }
+    50%, 100% { padding-bottom: .55rem }
+  }
+  #main {
+    width: 1000px
   }
   #mainnav {
     border-color: t
@@ -1033,21 +1031,24 @@ tsh() { text-shadow: arguments }
     ul {
       if (align-left) {
         text-align: left
-        margin-left: 3.99rem
+        margin-left: .01rem
       }
       else {
         text-align: right
-        margin-right: 3.8rem
+        margin-right: -1.4rem
       }
       font-size: 12px
     }
     li {
       background: bg4
       border: 1px solid bg0
-      font-size: 100%
-      padding: .9em 0
+      font-size: 120%
+      padding: .6em 0
       &:hover {
         border-width: 1px
+      }
+      &:nth-child(3) {
+        display: none
       }
     }
     .first {
@@ -1073,7 +1074,7 @@ tsh() { text-shadow: arguments }
       border-right: 0
       bsh: none
       color: v98
-      padding: .9em 20px
+      padding: .6em 1.5em
       margin-bottom: 1rem
       tsh: 0 1px 0 var(--txt-shadow)
       &:hover {
@@ -1081,7 +1082,7 @@ tsh() { text-shadow: arguments }
         color: v09
         bsh: none
         border-bottom: 4px solid v06
-        padding: .9em 20px
+        padding: .6em 1.5em
         animation: wut .5s ease
       }
     }
@@ -1095,7 +1096,7 @@ tsh() { text-shadow: arguments }
         border-bottom: 4px solid v06
         color: v09
         tsh: -3px solid v99
-        padding: .9em 20px
+        padding: .6em 1.5em
         tsh: 0 1px 0 var(--txt-shadow)
         &:hover {
           color: v98
@@ -1118,11 +1119,11 @@ tsh() { text-shadow: arguments }
     ul {
       if (align-left) {
         text-align: left
-        margin-left: 3.4rem
+        margin-left: -.5rem
       }
       else {
         text-align: right
-        margin-right: 3.5rem
+        margin-right: -1.6rem
       }
       .next, .prev, .missing {
         font-size: 15px
@@ -1130,7 +1131,7 @@ tsh() { text-shadow: arguments }
       }
     }
     li {
-      margin-top: 1rem
+      margin: .5rem 0 .8rem
       color: v98
       ul {
         background: t
@@ -1212,6 +1213,7 @@ tsh() { text-shadow: arguments }
   #footer {
     color: v98
     font-size: 10px
+    width: 1000px
     :link {
       color: v97
       &:hover{ color: v09 }
@@ -1255,16 +1257,17 @@ tsh() { text-shadow: arguments }
     margin: .5rem .2rem
   }
   #content {
+    min-width: 1000px
     .paging {
       font-size: 110%
       .current {
-          background: v04
-          border: 1px solid v05
-          color: v99
-          padding: .1rem .3rem
-          tsh: 0 1px 0 bg0
-          bsh: 0 0 10px 0 v04
-          rad: .2rem
+        background: v04
+        border: 1px solid v05
+        color: v99
+        padding: .1rem .3rem
+        tsh: 0 1px 0 bg0
+        bsh: 0 0 10px 0 v04
+        rad: .2rem
       }
       :link {
         border: 1px solid bg5
@@ -1328,6 +1331,9 @@ tsh() { text-shadow: arguments }
           margin: 0 0 0 -7.7rem
           text-align: center
         }
+        input#q {
+          vertical-align: -.1433rem
+        }
       }
       hr {
         max-width: 845px
@@ -1383,8 +1389,8 @@ tsh() { text-shadow: arguments }
         font-size: 120%
       }
       #overview {
-        max-width: 840px
-        margin: 0 -1rem 0
+        max-width: 980px
+        margin: 0 -2rem 0
         dt {
           max-width: 835px
           margin: auto .6rem auto auto
@@ -1407,7 +1413,7 @@ tsh() { text-shadow: arguments }
         max-width: 99%
       }
       #ticket {
-        max-width: 840px
+        max-width: 1000px
         margin: .3rem auto auto auto
       }
       .trac-nav a {
@@ -1434,7 +1440,7 @@ tsh() { text-shadow: arguments }
         &[action="#"] {
           padding: 1rem 1rem 1rem
           margin-right: 0
-          margin-top: 4.5333rem
+          margin-top: 5rem
           if (sticky_prefs) {
             top: 2rem
             position: sticky
@@ -1494,7 +1500,7 @@ tsh() { text-shadow: arguments }
     }
     &.prefs {
       margin: 0 auto
-      max-width: 910px
+      width: 1000px
       h1 {
         max-width: 900px
         margin: 0 auto
@@ -1616,26 +1622,100 @@ tsh() { text-shadow: arguments }
           margin-bottom: 1rem
           margin-left: -.9rem
         }
+        .field {
+          width: 21rem
+          box-sizing: border-box
+          label {
+            input {
+              float: right
+              margin-top: -.4rem
+            }
+          }
+        }
+      }
+      /#acctmgr_passwd_reset, /#acctmgr_registerform {
+        div {
+          width: 21rem
+          margin-bottom: 1rem
+          label input {
+            float: right
+            margin-top: -.4rem
+          }
+        }
+      }
+      /#acctmgr_registerform {
+        fieldset {
+          width: 93%
+            div {
+             width: 21rem
+            label input {
+              float: right
+              margin-top: -.4rem
+              &[name='spf_homepage'] {
+                width: 50%
+              }
+            }
+          }
+        }
+        p.hint {
+          margin-top: 2em
+          padding: 8px
+          background: v11
+          rad: 4px
+          border: 1px solid v16
+          white-space: nowrap
+          width: 163%
+          margin-bottom: -.8em
+        }
+        .buttons {
+          margin-top: -1em
+          margin-bottom: -.5em
+        }
+      }
+      #acctmgr_delete_account {
+        .field {
+          width: 21rem
+          box-sizing: border-box
+          label {
+            margin-left: 1em
+            input {
+              float: right
+              margin-top: -.4rem
+            }
+          }
+        }
+        /#tabcontent > h2:nth-child(3) {
+          margin-left: .5em
+        }
       }
     }
     &.wiki {
-      max-width: 910px
-      margin: 0 auto
+      width: 940px
+      #wikipage {
+        margin-left: -2rem
+        max-width: 57rem
+      }
+      &.narrow {
+        #wikipage {
+           margin-left: -2rem
+          max-width: 52rem
+        }
+      }
     }
     &.login {
       background: bg2
       border: 1px solid bg4
       margin: 0 auto
-      margin-top: -1rem
+      margin-top: -1.5rem
       padding: .6rem 1.5rem 0 1rem
-      max-width: 10rem
+      min-width: 15rem
       if (align-left) {
         float: left
-        margin-left: 3.9rem
+        margin-left: .1rem
       }
       else {
-        text-align: right
-        margin-right: 4rem
+        float: right
+        margin-right: -1.15rem
       }
       rad: 4px
       input.textwidget {
@@ -1652,8 +1732,19 @@ tsh() { text-shadow: arguments }
     }
     &.wiki {
       h1:not(.section) {
-        margin-left: 2rem
+        margin-left: 3rem
         font-size: 14px
+      }
+    }
+    &.register {
+      padding-left: 1em i
+      h1 {
+        background: bg4
+        font-size: 105%
+        padding: .4em
+        margin-left: -1em
+        rad: 4px
+        margin-top: -1.5em
       }
     }
   }
@@ -1783,7 +1874,7 @@ tsh() { text-shadow: arguments }
     rad: 4px
     bsh: none
     font-size: 85%
-    margin: auto .78em 1em
+    margin: auto -.1em 1em
     input {
       font-size: 12px
       vertical-align: middle
@@ -2063,7 +2154,7 @@ tsh() { text-shadow: arguments }
     margin-bottom: .5rem
   }
   #file-legend {
-    margin-left: -.8rem
+    margin-left: -.9rem
   }
   .diff {
     margin-left: 1rem
@@ -2072,10 +2163,8 @@ tsh() { text-shadow: arguments }
       border: 1px solid bg4
       rad: 4px
       bsh: none
-      width: 830px
-      max-width: 830px
-      margin-left: -2.09rem
-      margin-right: auto
+      min-width: 1000px
+      margin: 1rem -2.09rem
     }
     pre {
       background: var(--code-pr-bg)
@@ -2371,7 +2460,6 @@ tsh() { text-shadow: arguments }
     h2 {
       background: bg4
       border: 1px solid bg5
-      padding-bottom: .6em
       bsh: none
       tsh: 0 1px 0 bg0
       rad: 4px
@@ -2408,7 +2496,7 @@ tsh() { text-shadow: arguments }
             font-size: 18px
             color: v98
             padding-right: 3px
-            padding-top: 7px
+            vertical-align: -.07rem
             font-weight: 900
           }
         }
@@ -2471,7 +2559,7 @@ tsh() { text-shadow: arguments }
     .active {
       background: v02
       rad: 4px
-      padding: 5px 0 5px 5px
+      padding: 2px
       margin-left: -5px
       margin-right: -5px
       a { color: v98 }
@@ -2856,7 +2944,7 @@ tsh() { text-shadow: arguments }
   }
 
   table.dirlist {
-    max-width: 980px
+    max-width: 1000px
     margin-left: auto
     margin-right: auto
     // stop showing the whole text inside td when string is looooooong
@@ -3269,6 +3357,8 @@ tsh() { text-shadow: arguments }
     rad: 4px
     font-family: monospace
     pre {
+      background-color: var(--code-pr-bg)
+      color: v99
       border-color: bg4
       rad: 4px
     }
