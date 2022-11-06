@@ -385,7 +385,6 @@ tsh() { text-shadow: arguments }
     &:focus, &:focus-visible {
       outline: 0
       color: inherit
-      text-decoration: underline
     }
   }
   :visited {
@@ -972,7 +971,7 @@ tsh() { text-shadow: arguments }
       padding: 0
     }
     li {
-      font-size: .7rem
+      font-size: 15px
       border-color: bg5
     }
     &#metanav {
@@ -1068,7 +1067,7 @@ tsh() { text-shadow: arguments }
         border-bottom-right-radius: 4px
       }
     }
-    :link, :visited  {
+    :link {
       border: 1px solid bg0
       border-left: 0
       border-right: 0
@@ -1091,7 +1090,7 @@ tsh() { text-shadow: arguments }
       border-right: 1px solid bg0
       border-top: 0
       border-bottom: 0
-      :link, :visited {
+      :link {
         background: none
         border-bottom: 4px solid v06
         color: v09
@@ -1445,6 +1444,9 @@ tsh() { text-shadow: arguments }
             top: 2rem
             position: sticky
           }
+        }
+        fieldset label:nth-child(3) {
+          display: none
         }
       }
       dt.highlight {
@@ -2060,9 +2062,7 @@ tsh() { text-shadow: arguments }
       a.asc {
         background-image: none
         font-size: 14px
-        &::after {
-          content: ' \2BC5'
-        }
+        &::after { content: ' \2BC5' }
       }
     }
   }
@@ -2097,9 +2097,7 @@ tsh() { text-shadow: arguments }
     border: 0
   }
   h1, h2 {
-    .numrows {
-      color: v97
-    }
+    .numrows { color: v97 }
   }
   #info {
     background: bg2
@@ -2117,12 +2115,13 @@ tsh() { text-shadow: arguments }
       line-height: 1.4em
       padding: 2px .5em
       vertical-align: top
+      &[colspan="2"] {
+        strong { margin-left: .6rem }
+      }
     }
     td.message {
       width: 100%
-      p {
-        padding: .1em .8em
-      }
+      p { padding: .1em .8em }
     }
     .message {
       ul {
@@ -2134,9 +2133,7 @@ tsh() { text-shadow: arguments }
         padding: 0
       }
     }
-    .props {
-      color: v29
-    }
+    .props { color: v29 }
   }
   .trac-help {
     color: v96
@@ -2145,9 +2142,7 @@ tsh() { text-shadow: arguments }
     margin: 1rem 0
   }
   a.trac-diff {
-    &::after {
-      content: '\25B3'
-    }
+    &::after { content: '\25B3' }
   }
   #diff-legend {
     margin-left: -1rem
@@ -2218,16 +2213,16 @@ tsh() { text-shadow: arguments }
       tbody.rem tr:hover td {
         background: var(--rgba-bg2-5)
         del {
-          background: v14
+          background: v16
         }
         ins {
           background: v43
         }
-        &.r {
-          background: v41
+        &.r span {
+          background: v43
         }
-        &.l {
-          background: v12
+        &.l span {
+          background: v16
         }
       }
       .unmod {
@@ -2239,6 +2234,10 @@ tsh() { text-shadow: arguments }
           &.l {
             background: rgba(50, 50, 50, .9)
           }
+        }
+        tr td span {
+          padding: 2px 0
+          margin-bottom: -4px
         }
       }
       tbody {
@@ -2260,7 +2259,12 @@ tsh() { text-shadow: arguments }
           text-overflow: ellipsis
           max-width: 100%
           display: inline-block
+          padding: 2px 0
+          margin-bottom: -4px
         }
+      }
+      &.inline {
+        border: 0
       }
     }
     .l span, .r span {
@@ -2292,6 +2296,10 @@ tsh() { text-shadow: arguments }
       }
       tr:hover td {
         background: bg2
+      }
+      &.mod span {
+        padding: 2px 0
+        margin-bottom: -4px
       }
     }
     table.sidebyside tbody {
@@ -2380,8 +2388,12 @@ tsh() { text-shadow: arguments }
         border-bottom: 0
         font-size: 100%
         &.blame {
+          padding: 6px 0
           &[style*='background-color: rgb(136\, 136, 255)'] {
             c: 0 0 v78
+          }
+          &[style*='background-color: rgb(255\, 136, 136)'] {
+            c: 0 0 #4a100a
           }
           a { color: v99 }
         }
@@ -2389,6 +2401,7 @@ tsh() { text-shadow: arguments }
       td {
         background: var(--code-pr-bg)
         color: var(--code-pr-tc)
+        vertical-align: middle
       }
       tbody th {
         background: bg2
@@ -2418,6 +2431,16 @@ tsh() { text-shadow: arguments }
         &:hover td {
           background: rgba(50, 50, 50, .9)
         }
+      }
+      .gi, .gd {
+        padding: 6px 0
+        vertical-align: -.12rem
+      }
+      tr:hover .gi {
+        background: var(--v4-3)
+      }
+      tr:hover .gd {
+        background: v16
       }
     }
     .trac-clause .status .inlinebuttons {
@@ -2820,6 +2843,15 @@ tsh() { text-shadow: arguments }
   }
   #preview {
     background: bg1
+    &.searchable {
+      margin-top: 1rem
+      .diff li.entry {
+        margin-left: -1.3rem
+      }
+      .code {
+        th { padding: 3px }
+      }
+    }
   }
   .chglist {
     td {
@@ -3424,6 +3456,9 @@ tsh() { text-shadow: arguments }
         c: 0 v08 v09
         &:hover { c: 0 v06 v04 }
       }
+      &[name='wiki'] {
+        display: none
+      }
     }
 
     &[type='file'] {
@@ -3782,10 +3817,9 @@ tsh() { text-shadow: arguments }
       background-repeat: no-repeat
       background-size: 250px
       padding-left: 280px
-      padding-top: 1.5rem
+      padding-top: 2.1rem
       padding-bottom: 1rem
-      height: 30px
-      font-size: 1.5rem
+      font-size: 1.4rem
       display: block
       white-space: pre
     }
